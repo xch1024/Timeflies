@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/checkbox_focused.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/course_cursor_dialog.xml" value="0.2355" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/course_schedule_edit.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/cursor_dialog.xml" value="0.1955" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/dialog_course_focused.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/dialog_edit_focused.xml" value="0.213" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/edit_focused.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/edit_rectangle_focused.xml" value="0.1955" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/edit_underline_focused.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1865" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_add.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_border.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_border_normal.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_border_popwindow.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_borderless.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_del.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_delete.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/ripple_roundborder.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable-v24/toast_edit_focused.xml" value="0.213" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/button_add.xml" value="0.1815" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/checkbox.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/checkbox_normal.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/course_course_edit.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/course_cursor.xml" value="0.213" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/course_edit.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/cursor_color.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/cursor_course.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog_course_normal.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog_course_selector.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog_edit.xml" value="0.213" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog_edit_normal.xml" value="0.213" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog_shape.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_normal.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_rectangle.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_rectangle_normal.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_underline.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_underline_unfocused.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_unfocused.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edittext.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/popup_show.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/popup_style.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/popwindow.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_add.xml" value="0.2235" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_btn.xml" value="0.2355" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_btn_add.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_popwindow.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_shape.xml" value="0.2355" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_shape_mask.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_shape_normal.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_shape_popwindow.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/rv_course.xml" value="0.1815" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_bg.xml" value="0.2585" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_edit.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_edit_normal.xml" value="0.213" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout-v24/activity_add_course.xml" value="0.33" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout-v24/layout_dialog_schedule.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_add_course.xml" value="0.25" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/cursor_color.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/edit.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_button_add.xml" value="0.23292349726775957" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_back.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_course.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_edit1.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_ellipsis.xml" value="0.33" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_grid.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_listview.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_popwindow.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_recyclerview.xml" value="0.1" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_rvcontent.xml" value="0.25" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_rvcourse.xml" value="0.23292349726775957" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_rvschedule.xml" value="0.23292349726775957" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_schedule.xml" value="0.30055579307396324" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_text.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow_style.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/test.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/theme.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2355" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

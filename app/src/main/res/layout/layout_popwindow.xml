@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<!--周数设置-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20"
+        android:background="@drawable/pop_window_shape">
+
+<!--        周数、修改当前周-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/menu_week">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <TextView
+                    android:onClick="update_week"
+                    android:layout_width="@dimen/dp_90"
+                    android:layout_height="@dimen/dp_30"
+                    android:gravity="center"
+                    android:text="@string/menu_weekupdate"
+                    android:textColor="#6A5ACD"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_border" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+<!--        滑动进度条-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:background="@color/purple_500" />
+
+        </LinearLayout>
+
+<!--        切换课表-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/menu_switch">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:gravity="right">
+
+                <TextView
+                    android:onClick="add_table"
+                    android:layout_width="@dimen/dp_70"
+                    android:layout_height="@dimen/dp_30"
+                    android:gravity="center"
+                    android:text="@string/menu_newtable"
+                    android:textColor="@color/text_onclick"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_border">
+                </TextView>
+
+                <TextView
+                    android:onClick="manage"
+                    android:gravity="center"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="@string/menu_manage"
+                    android:textColor="@color/text_onclick"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_borderless">
+                </TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+<!--        课表选择-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:background="@color/purple_200"></View>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大二上学期"
+                android:textSize="8sp"></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+<!--八个按钮-->
+    <LinearLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:orientation="vertical"
+        android:background="@drawable/pop_window_shape">
+
+<!--第一排-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_clock">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_clock"
+                    android:layout_gravity="center">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_clock"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_setting">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_setting"
+                    android:layout_gravity="center">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_setting"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_added">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_added"
+                    android:layout_gravity="center">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_added"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_help">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_help"
+                    android:layout_gravity="center">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_help"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+<!--第二排-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20">
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_about">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_about"
+                    android:layout_gravity="center">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_about"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_connect">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_connect"
+                    android:layout_gravity="center">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_connect"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_global_set">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_globalset"
+                    android:layout_gravity="center">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_globalset"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="menu_alarm">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/menu_alarm"
+                    android:layout_gravity="center">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_alarm"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_gravity="center">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

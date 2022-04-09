@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+<!--    pop_window-->
+    <color name="pop_window_solid">#FFAEC4E1</color>
+    <color name="pop_window_stroke">#FFD3D3D3</color>
+
+<!--    toast颜色-->
+    <!--    填充色-->
+    <color name="toast_solid">#FFcc0000</color>
+
+<!--    添加课程页面-->
+    <!--    背景颜色-->
+    <color name="course_bg">#FF111214</color>
+    <!--    分割线条颜色-->
+    <color name="course_line">#FF808080</color>
+    <!--    添加按钮颜色-->
+    <color name="button_add">#FF1E90FF</color>
+
+<!--    文字颜色-->
+    <!--    点击颜色-->
+    <color name="text_onclick">#FF6A5ACD</color>
+    <!--    默认颜色-->
+    <color name="text_normal">#FF888888</color>
+
+<!--    dialog颜色-->
+    <!--    背景颜色-->
+    <color name="dialog_bg">#464650</color>
+    <!--    按钮颜色-->
+    <color name="dialog_onclick">#FFAAC5F5</color>
+
+
+<!--    输入框颜色-->
+    <!--    默认光标颜色-->
+    <color name="edit_cursor_course">#FFFFC0CB</color>
+    <!--    文字颜色-->
+    <color name="edit_text">#FF03DAC5</color>
+    <!--    对话框光标颜色-->
+    <color name="edit_cursor_dialog">#FFAAC5F5</color>
+    <!--    默认颜色-->
+    <color name="edit_normal">#FFD3D3D3</color>
+    <!--    聚焦边框颜色-->
+    <color name="edit_rectangle_focused">#FFAAC5F5</color>
+
+<!--    checkbox-->
+    <color name="check_stroke">#FFFFB4D2</color>
+
+<!--    水波纹效果-->
+    <color name="ripple_color">#FFF8F8FF</color>
+</resources>

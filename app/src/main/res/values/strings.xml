@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">小鹿课程</string>
+    <string name="course_add">添加课程</string>
+
+<!--    添加课程页面-->
+    <string name="course_name">课程名称</string>
+    <string name="course_color">点击更改颜色</string>
+    <string name="course_credit">学分(可不填)</string>
+    <string name="course_editor">备注(可不填)</string>
+    <string name="course_timespan">时间段</string>
+    <string name="course_timeset">自定义时间</string>
+    <string name="course_teacher">授课老师</string>
+    <string name="course_teacher_hint">授课老师(可不填)</string>
+    <string name="course_location">上课地点</string>
+    <string name="course_location_hint">上课地点(可不填)</string>
+
+<!--    菜单页面-->
+    <string name="menu_week">周数</string>
+    <string name="menu_weekupdate">修改当前周</string>
+    <string name="menu_switch">切换课表</string>
+    <string name="menu_newtable">新建课表</string>
+    <string name="menu_manage">管理</string>
+
+
+    <string name="menu_clock">上课时间</string>
+    <string name="menu_setting">课表设置</string>
+    <string name="menu_added">已添课程</string>
+    <string name="menu_help">常见问题</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_connect">联系我们</string>
+    <string name="menu_globalset">全局设置</string>
+    <string name="menu_alarm">课程时钟</string>
+
+    <string name="mon">周一</string>
+    <string name="tues">周二</string>
+    <string name="wed">周三</string>
+    <string name="thur">周四</string>
+    <string name="fri">周五</string>
+    <string name="sat">周六</string>
+    <string name="sun">周日</string>
+    <string name="date_month">月</string>
+
+<!--    Toast弹窗-->
+    <string name="toast_delete">至少要保留一个时间段！</string>
+    <string name="toast_save">请填写课程名称！</string>
+
+<!--    dialog-->
+    <string name="dialog_back">需要保存当前的编辑吗？</string>
+    <string name="dialog_leave">离开</string>
+    <string name="dialog_stay">留下</string>
+    <string name="dialog_credit">学分</string>
+    <string name="dialog_credit_hint">0.0</string>
+    <string name="dialog_editor">备注</string>
+    <string name="dialog_schedule_hint">从上方选择或者重新输入...</string>
+    <string name="dialog_clear">清除</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_confirm">确定</string>
+
+<!--    字体大小-->
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="dp_0.5">0.5dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_14">14dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_70">70dp</dimen>
+    <dimen name="dp_75">75dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
+    <dimen name="dp_90">90dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+    <dimen name="dp_120">120dp</dimen>
+    <dimen name="dp_140">140dp</dimen>
+    <dimen name="dp_150">150dp</dimen>
+    <dimen name="dp_190">190dp</dimen>
+    <dimen name="dp_240">240dp</dimen>
+
+    <dimen name="sp_10">10sp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_15">15sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="sp_25">25sp</dimen>
+
+</resources>

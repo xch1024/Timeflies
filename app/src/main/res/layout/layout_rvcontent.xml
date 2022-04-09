@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/layout_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_15">
+
+        <!--    时间段-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_timespan"
+                android:layout_gravity="center">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <LinearLayout
+                    android:onClick="schedule_delete"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_borderless">
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:src="@drawable/course_close_white">
+                    </ImageView>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--    第几周-->
+        <LinearLayout
+            android:clickable="true"
+            android:background="?selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:background="@drawable/course_calendar"
+                android:layout_gravity="center_vertical">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="第几周"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/edit_none_shape"
+                android:textCursorDrawable="@drawable/cursor_course">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <!--    周几 第几节-->
+        <LinearLayout
+            android:clickable="true"
+            android:background="?selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:background="@drawable/course_time"
+                android:layout_gravity="center_vertical">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="周一 第几节"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/edit_none_shape"
+                android:textCursorDrawable="@drawable/cursor_course">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center_vertical"
+                android:gravity="right">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:layout_gravity="right"
+                    android:gravity="center_vertical"
+                    android:text="@string/course_timeset"
+                    android:textSize="@dimen/sp_15"
+                    android:textColor="@color/text_normal"
+                    android:buttonTint="@color/check_stroke"
+                    android:background="@drawable/ripple_borderless">
+
+                </CheckBox>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!--    授课老师-->
+        <LinearLayout
+            android:onClick="add_teacher"
+            android:clickable="true"
+            android:background="?selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:background="@drawable/course_teacher"
+                android:layout_gravity="center_vertical">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/course_teacher_hint"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/edit_none_shape"
+                android:textCursorDrawable="@drawable/cursor_course">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <!--    上课地点-->
+        <LinearLayout
+            android:onClick="add_location"
+            android:clickable="true"
+            android:background="?selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:background="@drawable/course_location"
+                android:layout_gravity="center_vertical">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/course_location_hint"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/edit_none_shape"
+                android:textCursorDrawable="@drawable/cursor_course">
+
+            </TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
