@@ -31,13 +31,16 @@ public class MainActivity extends AppCompatActivity {
         setBar_color();
         //获取当前时间
         get_time();
-        //展示作息时间
-        course_show();
         //展示课程
+//        course_show();
+        //展示作息时间
         schedule_show();
     }
 
-//    设置状态栏文字颜色及图标为深色，当状态栏为白色时候，改变其颜色为深色
+    /**
+     * 设置状态栏文字颜色及图标为深色，当状态栏为白色时候，改变其颜色为深色
+     *
+     */
     public void setBar_color(){
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         rv_schedule.setNestedScrollingEnabled(false);
     }
 
-//    课程recycle展示
+//    周一课程展示
     public void course_show(){
         RecyclerView rv_mon = findViewById(R.id.rv_mon);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
