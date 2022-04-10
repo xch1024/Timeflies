@@ -124,7 +124,6 @@
 
 <!--八个按钮-->
     <LinearLayout
-        android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_15"

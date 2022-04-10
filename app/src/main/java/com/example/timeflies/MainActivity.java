@@ -3,7 +3,6 @@ package com.example.timeflies;
 import static java.lang.System.currentTimeMillis;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
-import com.example.timeflies.util.ToastUtil;
+import com.example.timeflies.utils.ToastUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat xq = new SimpleDateFormat("E");
         week.setText(xq.format(date));
 //        设置月份
-        TextView month = findViewById(R.id.num_month);
+        TextView month = findViewById(R.id.week_month);
         SimpleDateFormat mon = new SimpleDateFormat("M");
-        month.setText(mon.format(date));
+        month.setText(mon.format(date)+"\n月");
     }
 
 //    修改当前周按钮

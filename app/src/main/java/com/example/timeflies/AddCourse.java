@@ -5,14 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import com.example.timeflies.adapter.ContentAdapter;
-import com.example.timeflies.util.ToastUtil;
+import com.example.timeflies.utils.ToastUtil;
 import com.example.timeflies.dailog.DialogCustom;
 import java.util.List;
 

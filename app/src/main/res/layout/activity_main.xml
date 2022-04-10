@@ -36,7 +36,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_zs"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_25"
                 android:text="第?周"
@@ -74,7 +73,6 @@
 
             <!--        设置按钮-->
             <ImageView
-                android:id="@+id/bt_setting"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:src="@drawable/ellipsis"
@@ -88,204 +86,95 @@
 <!--    月份星期-->
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_5"
         android:columnCount="8"
         android:paddingLeft="@dimen/dp_2"
-        android:paddingRight="@dimen/dp_2">
+        android:paddingRight="@dimen/dp_2"
+        android:layout_marginBottom="@dimen/dp_3">
 
         //月份
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/week_month"
+            android:layout_width="@dimen/dp_45"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/num_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/text_month"
-                android:layout_width="@dimen/dp_45"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/date_month"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold"
+            android:textColor="@color/black">
+        </TextView>
+
+
         //周一
-        <LinearLayout
+        <TextView
             android:layout_width="@dimen/dp_0"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/mon"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/date_mon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:layout_columnWeight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/black">
+        </TextView>
+
+
         //周二
-        <LinearLayout
+        <TextView
             android:layout_width="@dimen/dp_0"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/tues"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/date_tues"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:layout_columnWeight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/black">
+        </TextView>
+
         //周三
-        <LinearLayout
+        <TextView
             android:layout_width="@dimen/dp_0"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/wed"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/date_wed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:layout_columnWeight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/black">
+        </TextView>
+
         //周四
-        <LinearLayout
+        <TextView
             android:layout_width="@dimen/dp_0"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/thur"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/date_thur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:layout_columnWeight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/black">
+        </TextView>
+
         //周五
-        <LinearLayout
+        <TextView
             android:layout_width="@dimen/dp_0"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/fri"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/date_fri"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:layout_columnWeight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/black">
+        </TextView>
+
         //周六
-        <LinearLayout
+        <TextView
             android:layout_width="@dimen/dp_0"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/sat"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/date_sat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:layout_columnWeight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/black">
+        </TextView>
+
         //周日
-        <LinearLayout
+        <TextView
             android:layout_width="@dimen/dp_0"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/sun"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-            <TextView
-                android:id="@+id/date_sun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/sp_12"
-                android:textColor="@color/black">
-            </TextView>
-        </LinearLayout>
+            android:layout_columnWeight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/black">
+        </TextView>
     </GridLayout>
 
 <!--    上下滚动试图-->
@@ -325,7 +214,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_tues"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -337,7 +225,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_wed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -349,7 +236,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_thur"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -361,7 +247,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_fri"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -373,7 +258,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_sat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -385,7 +269,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_sun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

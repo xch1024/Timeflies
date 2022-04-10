@@ -12,7 +12,6 @@
     <TextView
         android:text="1"
         android:textColor="@color/black"
-        android:id="@+id/schedule_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -22,7 +21,6 @@
         android:text="08:10"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_12"
-        android:id="@+id/schedule_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -32,7 +30,6 @@
         android:text="08:55"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_12"
-        android:id="@+id/schedule_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

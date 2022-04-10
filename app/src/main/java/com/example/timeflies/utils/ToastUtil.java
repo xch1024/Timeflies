@@ -1,4 +1,4 @@
-package com.example.timeflies.util;
+package com.example.timeflies.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;

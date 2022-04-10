@@ -8,7 +8,6 @@
     <TextView
         android:text="数据结构tese@教学主楼杨晶"
         android:textSize="@dimen/sp_12"
-        android:id="@+id/rv_tv_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
 

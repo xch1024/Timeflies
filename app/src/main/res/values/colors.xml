@@ -43,7 +43,6 @@
     <!--    文字颜色-->
     <color name="edit_text">#FF03DAC5</color>
     <!--    对话框光标颜色-->
-    <color name="edit_cursor_dialog">#FFAAC5F5</color>
     <!--    默认颜色-->
     <color name="edit_normal">#FFD3D3D3</color>
     <!--    聚焦边框颜色-->
