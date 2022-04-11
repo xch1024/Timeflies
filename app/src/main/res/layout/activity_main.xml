@@ -86,7 +86,7 @@
 <!--    月份星期-->
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
         android:columnCount="8"
         android:paddingLeft="@dimen/dp_2"
@@ -107,80 +107,87 @@
 
         //周一
         <TextView
+            android:id="@+id/week_mon"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/mon"
             android:textSize="@dimen/sp_12"
-            android:textColor="@color/black">
+            android:textColor="@color/week_normal">
         </TextView>
 
 
         //周二
         <TextView
+            android:id="@+id/week_tues"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/tues"
             android:textSize="@dimen/sp_12"
-            android:textColor="@color/black">
+            android:textColor="@color/week_normal">
         </TextView>
 
         //周三
         <TextView
+            android:id="@+id/week_wed"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/wed"
             android:textSize="@dimen/sp_12"
-            android:textColor="@color/black">
+            android:textColor="@color/week_normal">
         </TextView>
 
         //周四
         <TextView
+            android:id="@+id/week_thur"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/thur"
             android:textSize="@dimen/sp_12"
-            android:textColor="@color/black">
+            android:textColor="@color/week_normal">
         </TextView>
 
         //周五
         <TextView
+            android:id="@+id/week_fri"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/fri"
             android:textSize="@dimen/sp_12"
-            android:textColor="@color/black">
+            android:textColor="@color/week_normal">
         </TextView>
 
         //周六
         <TextView
+            android:id="@+id/week_sat"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/sat"
             android:textSize="@dimen/sp_12"
-            android:textColor="@color/black">
+            android:textColor="@color/week_normal">
         </TextView>
 
         //周日
         <TextView
+            android:id="@+id/week_sun"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/sun"
             android:textSize="@dimen/sp_12"
-            android:textColor="@color/black">
+            android:textColor="@color/week_normal">
         </TextView>
     </GridLayout>
 

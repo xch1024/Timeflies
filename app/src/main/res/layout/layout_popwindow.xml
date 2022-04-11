@@ -146,7 +146,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_clock"
+                    android:src="@drawable/menu_clock"
                     android:layout_gravity="center">
                 </ImageView>
 
@@ -167,7 +167,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_setting"
+                    android:src="@drawable/menu_setting"
                     android:layout_gravity="center">
                 </ImageView>
                 <TextView
@@ -187,7 +187,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_added"
+                    android:src="@drawable/menu_added"
                     android:layout_gravity="center">
                 </ImageView>
                 <TextView
@@ -207,7 +207,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_help"
+                    android:src="@drawable/menu_help"
                     android:layout_gravity="center">
                 </ImageView>
                 <TextView
@@ -234,7 +234,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_about"
+                    android:src="@drawable/menu_about"
                     android:layout_gravity="center">
                 </ImageView>
                 <TextView
@@ -255,7 +255,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_connect"
+                    android:src="@drawable/menu_connect"
                     android:layout_gravity="center">
                 </ImageView>
                 <TextView
@@ -276,7 +276,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_globalset"
+                    android:src="@drawable/menu_globalset"
                     android:layout_gravity="center">
                 </ImageView>
                 <TextView
@@ -297,7 +297,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/menu_alarm"
+                    android:src="@drawable/menu_alarm"
                     android:layout_gravity="center">
                 </ImageView>
                 <TextView

@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
@@ -88,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    popwindow弹窗
+    /**
+     * popwindow弹窗
+     *
+     */
     private void showPopupWindow(){
         View pop_view = getLayoutInflater().inflate(R.layout.layout_popwindow,null);
         PopupWindow popupWindow = new PopupWindow(pop_view,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -100,7 +107,10 @@ public class MainActivity extends AppCompatActivity {
         popupWindow.showAtLocation(MainActivity.this.findViewById(R.id.bt_add), Gravity.BOTTOM|Gravity.CENTER_VERTICAL,0,0);
     }
 
-//    获取当前时间(年月日)
+    /**
+     * 获取当前时间(年月日)
+     *
+     */
     private void get_time(){
 //        设置时间
         TextView time = findViewById(R.id.tv_sj);
@@ -111,10 +121,56 @@ public class MainActivity extends AppCompatActivity {
         TextView week = findViewById(R.id.tv_week);
         SimpleDateFormat xq = new SimpleDateFormat("E");
         week.setText(xq.format(date));
+
+        setWeekBold();
 //        设置月份
         TextView month = findViewById(R.id.week_month);
         SimpleDateFormat mon = new SimpleDateFormat("M");
         month.setText(mon.format(date)+"\n月");
+    }
+
+    /**
+     * 设置当日颜色为粗体
+     *
+     */
+    public void setWeekBold(){
+        TextView mon,tues,wed,thur,fri,sat,sun;
+        mon = findViewById(R.id.week_mon);
+        tues = findViewById(R.id.week_tues);
+        wed = findViewById(R.id.week_wed);
+        thur = findViewById(R.id.week_thur);
+        fri = findViewById(R.id.week_fri);
+        sat = findViewById(R.id.week_sat);
+        sun = findViewById(R.id.week_sun);
+        Date date = new Date(currentTimeMillis());
+        SimpleDateFormat xq = new SimpleDateFormat("E");
+        if(xq.format(date).equals("周一")){
+            mon.setTextColor(Color.parseColor("#FF000000"));
+            mon.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        }else if(xq.format(date).equals("周二")){
+            tues.setTextColor(Color.parseColor("#FF000000"));
+            tues.getPaint().setFakeBoldText(true);
+        }
+        else if(xq.format(date).equals("周三")){
+            wed.setTextColor(Color.parseColor("#FF000000"));
+            wed.getPaint().setFakeBoldText(true);
+        }
+        else if(xq.format(date).equals("周四")){
+            thur.setTextColor(Color.parseColor("#FF000000"));
+            thur.getPaint().setFakeBoldText(true);
+
+        }
+        else if(xq.format(date).equals("周五")){
+            fri.setTextColor(Color.parseColor("#FF000000"));
+            fri.getPaint().setFakeBoldText(true);
+        }
+        else if(xq.format(date).equals("周六")){
+            sat.setTextColor(Color.parseColor("#FF000000"));
+            sat.getPaint().setFakeBoldText(true);
+        }else{
+            sun.setTextColor(Color.parseColor("#FF000000"));
+            sun.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        }
     }
 
 //    修改当前周按钮

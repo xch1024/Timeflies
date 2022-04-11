@@ -29,6 +29,8 @@
     <color name="text_onclick">#FF6A5ACD</color>
     <!--    默认颜色-->
     <color name="text_normal">#FF888888</color>
+    <!--    星期默认-->
+    <color name="week_normal">#BEBEBE</color>
 
 <!--    dialog颜色-->
     <!--    背景颜色-->

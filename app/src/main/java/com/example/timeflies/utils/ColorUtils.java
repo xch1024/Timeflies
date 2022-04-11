@@ -1,6 +1,11 @@
 package com.example.timeflies.utils;
 
+import android.widget.TextView;
+
 public class ColorUtils {
+
+
+
     /**
      * 合成指定颜色、指定不透明度的颜色，
      * 0:完全透明，1：不透明
@@ -13,4 +18,7 @@ public class ColorUtils {
         int rgb = 0x00ffffff & color;
         return a + rgb;
     }
+
+
+
 }
