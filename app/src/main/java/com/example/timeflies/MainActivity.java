@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //获取当前时间
         get_time();
         //展示课程
-//        course_show();
+        course_show();
         //展示作息时间
         schedule_show();
     }
@@ -45,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
-//    作息时间表recycle展示
+    /**
+     * 初始化recycleview,展示作息时间表
+     *
+     *
+     */
     public void schedule_show(){
         RecyclerView rv_schedule = findViewById(R.id.rv_schedule);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -56,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
         rv_schedule.setNestedScrollingEnabled(false);
     }
 
-//    周一课程展示
+    /**
+     * 初始化recycleview,展示周一课程
+     *
+     *
+     */
     public void course_show(){
         RecyclerView rv_mon = findViewById(R.id.rv_mon);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);

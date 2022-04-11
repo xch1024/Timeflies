@@ -15,7 +15,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:onClick="back"
+                android:id="@+id/ivBack"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:src="@drawable/back_gray"
@@ -35,7 +35,7 @@
             </TextView>
 
             <ImageView
-                android:onClick="save"
+                android:id="@+id/ivSave"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="right"
@@ -127,7 +127,7 @@
                     </LinearLayout>
                     <!--学分-->
                     <LinearLayout
-                        android:onClick="course_credit"
+                        android:id="@+id/addCredit"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:orientation="horizontal"
@@ -158,7 +158,7 @@
                     </LinearLayout>
                     <!--备注-->
                     <LinearLayout
-                        android:onClick="course_editor"
+                        android:id="@+id/addRemark"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:orientation="horizontal"
@@ -218,7 +218,7 @@
         android:padding="@dimen/dp_20">
 
         <LinearLayout
-            android:onClick="schedule_add"
+            android:id="@+id/rv_add"
             android:layout_gravity="right"
             android:gravity="center"
             android:layout_width="@dimen/dp_60"
@@ -227,6 +227,7 @@
             android:background="@drawable/ripple_btn_add">
             <!--    添加按钮-->
             <ImageView
+
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:src="@drawable/add_white"/>

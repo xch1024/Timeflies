@@ -32,6 +32,7 @@
                 android:gravity="right">
 
                 <LinearLayout
+                    android:id="@+id/rv_delete"
                     android:onClick="schedule_delete"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -50,6 +51,7 @@
 
         <!--    第几周-->
         <LinearLayout
+            android:id="@+id/rv_week"
             android:clickable="true"
             android:background="?selectableItemBackground"
             android:layout_width="match_parent"
@@ -62,7 +64,6 @@
                 android:layout_height="@dimen/dp_30"
                 android:background="@drawable/course_calendar"
                 android:layout_gravity="center_vertical">
-
             </ImageView>
 
             <TextView
@@ -82,44 +83,53 @@
 
         <!--    周几 第几节-->
         <LinearLayout
+            android:id="@+id/rv_time"
             android:clickable="true"
             android:background="?selectableItemBackground"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
-            android:paddingLeft="@dimen/dp_15"
-            android:paddingRight="@dimen/dp_15"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:background="@drawable/course_time"
-                android:layout_gravity="center_vertical">
+            android:layout_height="@dimen/dp_60">
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/course_time">
 
-            </ImageView>
+                </ImageView>
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:hint="周一 第几节"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:background="@drawable/edit_none_shape"
+                    android:textCursorDrawable="@drawable/cursor_course">
+
+                </TextView>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:hint="周一 第几节"
-                android:textSize="@dimen/sp_15"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/edit_none_shape"
-                android:textCursorDrawable="@drawable/cursor_course">
-
-            </TextView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_30"
-                android:layout_gravity="center_vertical"
-                android:gravity="right">
+                android:gravity="right"
+                android:layout_marginRight="@dimen/dp_15">
 
                 <CheckBox
+                    android:id="@+id/rv_custom"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_30"
-                    android:layout_marginRight="@dimen/dp_15"
                     android:layout_gravity="right"
                     android:gravity="center_vertical"
                     android:text="@string/course_timeset"
@@ -137,6 +147,7 @@
 
         <!--    授课老师-->
         <LinearLayout
+            android:id="@+id/rv_teacher"
             android:onClick="add_teacher"
             android:clickable="true"
             android:background="?selectableItemBackground"
@@ -170,6 +181,7 @@
 
         <!--    上课地点-->
         <LinearLayout
+            android:id="@+id/rv_location"
             android:onClick="add_location"
             android:clickable="true"
             android:background="?selectableItemBackground"

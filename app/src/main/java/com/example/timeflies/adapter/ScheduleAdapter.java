@@ -54,7 +54,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     @NonNull
     @Override
-    public ScheduleAdapter.ScheduleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ScheduleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
         View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvschedule,parent,false);
         ScheduleAdapter.ScheduleHolder holder = new ScheduleAdapter.ScheduleHolder(inflater);
