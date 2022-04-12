@@ -10,17 +10,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
-import com.example.timeflies.utils.ToastUtil;
+import com.example.timeflies.utils.ToastCustom;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -175,67 +173,67 @@ public class MainActivity extends AppCompatActivity {
 
 //    修改当前周按钮
     public void update_week(View view) {
-        ToastUtil.showMsg(MainActivity.this,"修改当前周按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"修改当前周按钮");
 
     }
 
 //    新建课表按钮
     public void add_table(View view) {
-        ToastUtil.showMsg(MainActivity.this,"新建课表按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"新建课表按钮");
 
     }
 
 //    管理按钮
     public void manage(View view) {
-        ToastUtil.showMsg(MainActivity.this,"管理按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"管理按钮");
 
     }
 
 //    上课时间按钮
     public void menu_clock(View view) {
-        ToastUtil.showMsg(MainActivity.this,"上课时间按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"上课时间按钮");
 
     }
 
 //    课表设置按钮
     public void menu_setting(View view) {
-        ToastUtil.showMsg(MainActivity.this,"课表设置按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"课表设置按钮");
 
     }
 
 //    已添课程按钮
     public void menu_added(View view) {
-        ToastUtil.showMsg(MainActivity.this,"已添课程按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"已添课程按钮");
 
     }
 
 //    常见问题按钮
     public void menu_help(View view) {
-        ToastUtil.showMsg(MainActivity.this,"常见问题按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"常见问题按钮");
 
     }
 
 //    关于按钮
     public void menu_about(View view) {
-        ToastUtil.showMsg(MainActivity.this,"关于按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"关于按钮");
 
     }
 
 //    联系我们按钮
     public void menu_connect(View view) {
-        ToastUtil.showMsg(MainActivity.this,"联系我们按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"联系我们按钮");
 
     }
 
 //    全局设置按钮
     public void menu_global_set(View view) {
-        ToastUtil.showMsg(MainActivity.this,"全局设置按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"全局设置按钮");
 
     }
 
 //    课程时钟按钮
     public void menu_alarm(View view) {
-        ToastUtil.showMsg(MainActivity.this,"课程时钟按钮");
+        ToastCustom.showMsgFalse(MainActivity.this,"课程时钟按钮");
 
     }
 

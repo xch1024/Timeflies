@@ -33,7 +33,7 @@
                 android:gravity="right">
 
                 <LinearLayout
-                    android:id="@+id/rv_delete"
+                    android:id="@+id/delItem"
                     android:onClick="schedule_delete"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"

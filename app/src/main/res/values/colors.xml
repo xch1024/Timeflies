@@ -14,7 +14,9 @@
 
 <!--    toast颜色-->
     <!--    填充色-->
-    <color name="toast_solid">#FFcc0000</color>
+    <color name="toast_solid_false">#FFcc0000</color>
+    <color name="toast_solid_true">#FF41964B</color>
+
 
 <!--    添加课程页面-->
     <!--    背景颜色-->

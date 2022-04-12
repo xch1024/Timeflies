@@ -6,16 +6,16 @@
     android:orientation="vertical"
     android:background="@drawable/dialog_shape">
     <TextView
-        android:id="@+id/credit_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:text="@string/dialog_location"
         android:textSize="@dimen/sp_15"
         android:textColor="@color/white">
     </TextView>
 
     <EditText
-        android:id="@+id/course_credit"
+        android:id="@+id/location_edit"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
@@ -29,7 +29,7 @@
 
 
     <TextView
-        android:id="@+id/credit_confirm"
+        android:id="@+id/location_confirm"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
         android:layout_marginTop="@dimen/dp_20"

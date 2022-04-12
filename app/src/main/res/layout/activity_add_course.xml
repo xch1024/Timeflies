@@ -90,6 +90,8 @@
                             android:textColorHint="@color/text_normal"
                             android:textSize="@dimen/sp_15"
                             android:textColor="@color/text_normal"
+                            android:maxLines="1"
+                            android:inputType=""
                             android:layout_marginLeft="@dimen/dp_5"
                             android:background="@drawable/edit_none_shape"
                             android:textCursorDrawable="@drawable/cursor_course">
@@ -222,7 +224,7 @@
         android:padding="@dimen/dp_20">
 
         <LinearLayout
-            android:id="@+id/rv_add"
+            android:id="@+id/addItem"
             android:layout_gravity="right"
             android:gravity="center"
             android:layout_width="@dimen/dp_60"

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,26 +14,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.AddCourse;
 import com.example.timeflies.R;
-import com.example.timeflies.dailog.DialogCustom;
-import com.example.timeflies.listener.CallBackListener;
-import com.example.timeflies.model.contentItem;
-import com.example.timeflies.utils.ToastUtil;
+import com.example.timeflies.utils.DialogCustom;
+import com.example.timeflies.utils.ToastCustom;
 
 import java.util.List;
 
-
+/**
+ *
+ *
+ */
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> {
 
-    private final Context context;
-    private final List<contentItem> contentList;
-    private final CallBackListener CallBackListener;//点击加减时回调
-    private contentItem contentItem;
 
-    public ContentAdapter(Context context, List<contentItem> contentList, com.example.timeflies.listener.CallBackListener callBackListener){
-        this.context = context;
-        this.contentList = contentList;
-        this.CallBackListener = callBackListener;
+    private Context mcontext;
+    private List<String> listSize;
+    private TextView tv_teacherConfirm, tv_locationConfirm;
 
+
+
+    public ContentAdapter(Context mcontext, List<String> listSize) {
+        this.mcontext = mcontext;
+        this.listSize = listSize;
     }
 
     @NonNull
@@ -49,13 +49,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
     //position下标从0开始
     @Override
     public void onBindViewHolder(@NonNull ContentHolder holder,int position) {
-//        contentItem = contentList.get(position);
-//        if(contentItem.isAdded){
-//
-//        }else{
-//
-//        }
-        holder.bindData();
+        holder.bindData(listSize,position);
     }
 
     /**
@@ -65,45 +59,77 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
      */
     @Override
     public int getItemCount() {
-        return 2;
+        return listSize.size();
+    }
+
+    /**
+     * 添加item
+     *
+     * @param position
+     */
+    public void addItem(int position){
+        //      在list中添加数据，并通知条目加入一条
+        listSize.add(position, "添加" + position);
+        //添加动画
+        notifyItemInserted(position);
+    }
+
+    /**
+     * 删除item
+     * @param position
+     */
+    public  void delItem(int position){
+        listSize.remove(position);
+        //删除动画
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
 
-    //内部类，绑定控件
+
     public class ContentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final View rv_delete;
+        private final View delItem;
         private final View rv_week;
         private final View rv_time;
         private final View rv_teacher;
         private final View rv_location;
         private final CheckBox rv_custom;
+
         public ContentHolder(@NonNull View itemView) {
             super(itemView);
 
-            rv_delete = itemView.findViewById(R.id.rv_delete);
+            delItem = itemView.findViewById(R.id.delItem);
             rv_week = itemView.findViewById(R.id.rv_week);
             rv_time = itemView.findViewById(R.id.rv_time);
             rv_teacher = itemView.findViewById(R.id.rv_teacher);
             rv_location = itemView.findViewById(R.id.rv_location);
             rv_custom = itemView.findViewById(R.id.rv_custom);
+//            tv_teacherConfirm = itemView.findViewById(R.id.teacher_confirm);
 
             rv_week.setOnClickListener(this);
             rv_time.setOnClickListener(this);
             rv_teacher.setOnClickListener(this);
             rv_location.setOnClickListener(this);
-            rv_delete.setOnClickListener(this);
+            delItem.setOnClickListener(this);
             rv_custom.setOnClickListener(this);
+//            tv_teacherConfirm.setOnClickListener(this);
         }
 
-        public void bindData() {
-
+        public void bindData(List<String> mlist, int position) {
+            mlist.get(position);
         }
+
 
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.rv_delete:
+                case R.id.delItem:
+                    if(listSize.size()== 1){
+                        ToastCustom.showMsgFalse(mcontext.getApplicationContext(), "至少要保留一个时间段！");
+                    }else{
+                        delItem(getAdapterPosition());
+                    }
                     Log.i("夏成昊", "onClick: 删除");
                     break;
                 case R.id.rv_week:
@@ -116,27 +142,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
                     Log.i("夏成昊", "onClick: 自定义时间");
                     break;
                 case R.id.rv_teacher:
-                    Log.i("夏成昊", "onClick: 授课老师");
-//                    DialogCustom dialogCustom = new DialogCustom(AddCourse.this, R.layout.layout_dialog_schedule,
-//                            new int[]{R.id.credit_confirm},
-//                            getString(R.string.course_teacher),getString(R.string.dialog_schedule_hint));
-//                    dialogCustom.setOnCenterItemClickListener((DialogCustom.OnCenterItemClickListener)this);
-//                    dialogCustom.setTitle(getString(R.string.course_teacher));
-//                    dialogCustom.setHint(getString(R.string.dialog_schedule_hint));
-//                    //显示
-//                    dialogCustom.show();
+//                    DialogCustom dialogTeacher = new DialogCustom(mcontext.getApplicationContext(),R.layout.layout_dialog_teacher,0.6);
+//                    dialogTeacher.show();
                     break;
                 case R.id.rv_location:
-                    Log.i("夏成昊", "onClick: 上课地点");
-//                    DialogCustom dialogCustom1 = new DialogCustom(AddCourse.this, R.layout.layout_dialog_schedule,
-//                            new int[]{R.id.credit_confirm},
-//                            getString(R.string.course_location),getString(R.string.dialog_schedule_hint));
-//                    dialogCustom1.setOnCenterItemClickListener((DialogCustom.OnCenterItemClickListener)this);
 //
-//                    dialogCustom1.setTitle(getString(R.string.course_location));
-//                    dialogCustom1.setHint(getString(R.string.dialog_schedule_hint));
-//                    //显示
-//                    dialogCustom1.show();
                     break;
             }
         }

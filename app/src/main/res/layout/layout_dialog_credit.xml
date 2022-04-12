@@ -6,18 +6,20 @@
     android:orientation="vertical"
     android:background="@drawable/dialog_shape">
     <TextView
-        android:id="@+id/credit_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/dialog_credit"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_20">
     </TextView>
 
     <EditText
-        android:id="@+id/course_credit"
+        android:id="@+id/credit_edit"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:hint="@string/dialog_credit_hint"
+        android:textColor="@color/edit_text"
         android:background="@drawable/edit_rectangle"
         android:textCursorDrawable="@drawable/cursor_dialog">
 

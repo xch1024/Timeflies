@@ -9,9 +9,9 @@
     <string name="course_editor">备注(可不填)</string>
     <string name="course_timespan">时间段</string>
     <string name="course_timeset">自定义时间</string>
-    <string name="course_teacher">授课老师</string>
+
     <string name="course_teacher_hint">授课老师(可不填)</string>
-    <string name="course_location">上课地点</string>
+
     <string name="course_location_hint">上课地点(可不填)</string>
 
 <!--    菜单页面-->
@@ -40,8 +40,7 @@
     <string name="sun">周日</string>
     <string name="date_month">月</string>
 
-<!--    Toast弹窗-->
-    <string name="toast_save">请填写课程名称！</string>
+
 
 <!--    dialog-->
     <string name="dialog_back">需要保存当前的编辑吗？</string>
@@ -49,8 +48,11 @@
     <string name="dialog_stay">留下</string>
     <string name="dialog_credit">学分</string>
     <string name="dialog_credit_hint">0.0</string>
+
     <string name="dialog_editor">备注</string>
-    <string name="dialog_schedule_hint">从上方选择或者重新输入...</string>
+    <string name="dialog_teacher">授课老师</string>
+    <string name="dialog_location">上课地点</string>
+
     <string name="dialog_clear">清除</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_confirm">确定</string>

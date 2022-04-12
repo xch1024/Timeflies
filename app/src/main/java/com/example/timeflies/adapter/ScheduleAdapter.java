@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Recycleview之打造通用的Adapter https://blog.csdn.net/weixin_43607099/article/details/106842200?spm=1001.2014.3001.5501
+ *
+ */
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder> {
 
     private final List<String> timenum,timestart,timeend;
