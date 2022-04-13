@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.timeflies.adapter.ContentAdapter;
 import com.example.timeflies.utils.ToastCustom;
@@ -20,17 +21,23 @@ import com.example.timeflies.utils.DialogCustom;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * https://www.jianshu.com/p/971396467a62   RecyclerView系列之三：处理item的点击事件
+ * https://www.jianshu.com/p/15d2ddc1eba7   如何正确的给RecycleView添加点击事件
+ * https://blog.csdn.net/jk_szl/article/details/120970030   recycleView页面点击跳转
+ *
+ */
 public class AddCourse extends AppCompatActivity implements View.OnClickListener {
 
+    private static LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     private ContentAdapter contentAdapter;
     private List<String> listSize = new ArrayList<>();
-    private ImageView ivback;
-    private ImageView ivsave;
-    private View vAddCredit;
-    private View vAddRemark;
-    private View addItem;
+    private ImageView ivBack,ivSave;
+    private View vAddCredit, vAddRemark, addItem;
     private DialogCustom dialog;
+    private LinearLayout rv_teacher, rv_location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,21 +50,24 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
     /**
      * 初始化recycle，展示时间段的内容
+     * https://blog.csdn.net/weixin_42229694/article/details/103513003?spm=1001.2014.3001.5501 最简单的RecyclerView Item动画全解析
      *
      */
     public void initContent(){
         listSize.add("1");
         recyclerView = findViewById(R.id.rv_content);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(AddCourse.this);
+        layoutManager = new LinearLayoutManager(AddCourse.this);
         recyclerView.setLayoutManager(layoutManager);
         contentAdapter = new ContentAdapter(AddCourse.this,listSize);
         recyclerView.setAdapter(contentAdapter);
         //添加动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.getItemAnimator().setAddDuration(500);
+        recyclerView.getItemAnimator().setRemoveDuration(2000);
         //setHasFixedSize(true)方法使得RecyclerView能够固定自身size不受adapter变化的影响；
         //而setNestedScrollingeEnabled(false)方法则是进一步调用了RecyclerView内部NestedScrollingChildHelper对象的setNestedScrollingeEnabled(false)方法
         //进而，NestedScrollingChildHelper对象通过该方法关闭RecyclerView的嵌套滑动特性
-        recyclerView.setNestedScrollingEnabled(false);
+//        recyclerView.setNestedScrollingEnabled(false);
     }
 
     /**
@@ -65,19 +75,23 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      *
      */
     public void initView(){
-        ivback = findViewById(R.id.ivBack);
-        ivsave = findViewById(R.id.ivSave);
+        ivBack = findViewById(R.id.ivBack);
+        ivSave = findViewById(R.id.ivSave);
         vAddCredit = findViewById(R.id.addCredit);
         vAddRemark = findViewById(R.id.addRemark);
         addItem = findViewById(R.id.addItem);
+
+        View view = LayoutInflater.from(AddCourse.this).inflate(R.layout.layout_rvcontent, null);
+        rv_teacher = view.findViewById(R.id.rv_teacher);
+        rv_location = view.findViewById(R.id.rv_location);
     }
 
     /**
      * 设置控件的监听
      */
     public void setListenet(){
-        ivback.setOnClickListener(this);
-        ivsave.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
+        ivSave.setOnClickListener(this);
         vAddCredit.setOnClickListener(this);
         vAddRemark.setOnClickListener(this);
         addItem.setOnClickListener(this);
@@ -111,9 +125,14 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             //添加时间段按钮
             case R.id.addItem:
                 contentAdapter.addItem(listSize.size());
+
+                break;
+            case R.id.rv_teacher:
+                BtnTeacher();
                 break;
         }
     }
+
 
 
     /**
@@ -215,6 +234,22 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             public void onClick(View view) {
                 ToastCustom.showMsgTrue(AddCourse.this, "备注按钮的确定");
                 dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    /**
+     * 添加老师按钮
+     *
+     */
+    private void BtnTeacher(){
+        dialog = new DialogCustom(AddCourse.this,R.layout.layout_dialog_teacher,0.8);
+        dialog.setTeacherTitle("授课老师");
+        dialog.setTeacherConfirmListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastCustom.showMsgFalse(getApplicationContext(), "授课老师的确定按钮");
             }
         });
         dialog.show();

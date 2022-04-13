@@ -1,10 +1,13 @@
 package com.example.timeflies.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import com.example.timeflies.R;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,8 +33,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
     private Context mcontext;
     private List<String> listSize;
     private DialogCustom dialog;
-
-
 
     public ContentAdapter(Context mcontext, List<String> listSize) {
         this.mcontext = mcontext;
@@ -46,10 +48,27 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
         return holder;
     }
 
+    /**
+     * https://blog.csdn.net/plokmju88 RecyclerView 的 Item 酷炫动画
+     * https://blog.csdn.net/fangchao3652/article/details/44016651 给RecycleView item 加动画时注意的问题
+     *
+     * @param holder
+     * @param position
+     */
     //position下标从0开始
     @Override
-    public void onBindViewHolder(@NonNull ContentHolder holder,int position) {
+    public void onBindViewHolder(@NonNull ContentHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.bindData(listSize,position);
+
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.recycle);
+        holder.itemView.startAnimation(animation);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastCustom.showMsgTrue(mcontext.getApplicationContext(), "点击了"+ position);
+            }
+        });
     }
 
     /**
@@ -61,31 +80,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
     public int getItemCount() {
         return listSize.size();
     }
-
-    /**
-     * 添加item
-     *
-     * @param position
-     */
-    public void addItem(int position){
-        //      在list中添加数据，并通知条目加入一条
-        listSize.add(position, "添加" + position);
-        //添加动画
-        notifyItemInserted(position);
-    }
-
-    /**
-     * 删除item
-     * @param position
-     */
-    public  void delItem(int position){
-        listSize.remove(position);
-        //删除动画
-        notifyItemRemoved(position);
-        notifyDataSetChanged();
-    }
-
-
 
     public class ContentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -121,7 +115,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
          * 一些按钮
          *
          */
-        public void BtnDel(){
+        private void BtnDel(){
             if(listSize.size()== 1){
                 ToastCustom.showMsgFalse(mcontext.getApplicationContext(), "至少要保留一个时间段！");
             }else{
@@ -129,17 +123,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             }
         }
 
-        public void BtnTeacher(){
-            dialog = new DialogCustom(mcontext.getApplicationContext(),R.layout.layout_dialog_teacher,0.8);
-//            dialog.setTeacherTitle("授课老师");
-            dialog.setTeacherConfirmListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ToastCustom.showMsgFalse(mcontext.getApplicationContext(), "授课老师的确定按钮");
-                }
-            });
-            dialog.show();
-        }
+
 
 
         @Override
@@ -157,15 +141,32 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
                 case R.id.rv_custom:
 
                     break;
-                case R.id.rv_teacher:
-                    BtnTeacher();
-                    break;
-                case R.id.rv_location:
-//
-                    break;
             }
         }
     }
 
+    /**
+     * 添加item
+     *
+     * @param position
+     */
+    public void addItem(int position){
+        //      在list中添加数据，并通知条目加入一条
+        if(listSize == null) {
+            listSize = new ArrayList<>();
+        }
+        listSize.add(position, "添加" + position);
+        notifyItemInserted(position);
+    }
+
+    /**
+     * 删除item
+     * @param position
+     */
+    public  void delItem(int position){
+        listSize.remove(position);
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
+    }
 
 }

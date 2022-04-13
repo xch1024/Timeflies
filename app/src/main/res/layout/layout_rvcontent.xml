@@ -151,7 +151,7 @@
         <!--    授课老师-->
         <LinearLayout
             android:id="@+id/rv_teacher"
-            android:onClick="add_teacher"
+            android:onClick="onClick"
             android:clickable="true"
             android:background="@drawable/ripple_border_rectangle"
             android:layout_width="match_parent"

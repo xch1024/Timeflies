@@ -31,6 +31,7 @@
 
         <TextView
             android:id="@+id/credit_clear"
+            android:onClick="onClick"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_40"
             android:text="@string/dialog_clear"
@@ -46,6 +47,7 @@
 
             <TextView
                 android:id="@+id/credit_cancel"
+                android:onClick="onClick"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_40"
                 android:text="@string/dialog_cancel"
@@ -56,6 +58,7 @@
 
             <TextView
                 android:id="@+id/credit_confirm"
+                android:onClick="onClick"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_40"
                 android:text="@string/dialog_confirm"

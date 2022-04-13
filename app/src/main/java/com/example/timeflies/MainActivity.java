@@ -171,6 +171,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    /**
+     *
+     * @param textView
+     */
     public void initStyle(TextView textView){
         textView.setTextColor(Color.parseColor("#FF000000"));
         textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
