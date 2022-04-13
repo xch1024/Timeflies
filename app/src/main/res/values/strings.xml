@@ -2,7 +2,7 @@
     <string name="app_name">小鹿课程</string>
     <string name="course_add">添加课程</string>
 
-<!--    添加课程页面-->
+    <!--    添加课程页面-->
     <string name="course_name">课程名称</string>
     <string name="course_color">点击更改颜色</string>
     <string name="course_credit">学分(可不填)</string>
@@ -14,7 +14,7 @@
 
     <string name="course_location_hint">上课地点(可不填)</string>
 
-<!--    菜单页面-->
+    <!--    菜单页面-->
     <string name="menu_week">周数</string>
     <string name="menu_weekupdate">修改当前周</string>
     <string name="menu_switch">切换课表</string>
@@ -41,8 +41,7 @@
     <string name="date_month">月</string>
 
 
-
-<!--    dialog-->
+    <!--    dialog-->
     <string name="dialog_back">需要保存当前的编辑吗？</string>
     <string name="dialog_leave">离开</string>
     <string name="dialog_stay">留下</string>
@@ -57,7 +56,7 @@
     <string name="dialog_cancel">取消</string>
     <string name="dialog_confirm">确定</string>
 
-<!--    字体大小-->
+    <!--    字体大小-->
     <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_0.5">0.5dp</dimen>
     <dimen name="dp_1">1dp</dimen>

@@ -6,15 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
@@ -23,27 +30,92 @@ import com.example.timeflies.utils.ToastCustom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
+    private LinearLayout menu_clock, menu_setting, menu_added, menu_help,
+                         menu_about, menu_connect, menu_global_set, menu_alarm;
+    private TextView update_week, add_table, manage;
+
+    private ImageView add, ellipsis;
+    private TextView mon,tues,wed,thur,fri,sat,sun;
+
+    private LayoutInflater inflater;
+    private View view;
+
+
+    private RecyclerView rv_schedule, rv_mon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initView();
+
         //设置状态栏字体颜色
         setBar_color();
         //获取当前时间
         get_time();
+
         //展示课程
         course_show();
         //展示作息时间
         schedule_show();
     }
 
+
+    /**
+     * 初始化控件
+     * https://blog.csdn.net/qq_28484355/article/details/50804711
+     * https://www.cnblogs.com/homg/p/3345012.html
+     *
+     */
+    private void initView(){
+        mon = findViewById(R.id.week_mon);
+        tues = findViewById(R.id.week_tues);
+        wed = findViewById(R.id.week_wed);
+        thur = findViewById(R.id.week_thur);
+        fri = findViewById(R.id.week_fri);
+        sat = findViewById(R.id.week_sat);
+        sun = findViewById(R.id.week_sun);
+        add = findViewById(R.id.bt_add);
+        ellipsis = findViewById(R.id.bt_ellipsis);
+
+        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_popwindow, null);
+        menu_clock = view.findViewById(R.id.menu_clock);
+        menu_setting = view.findViewById(R.id.menu_setting);
+        menu_added = view.findViewById(R.id.menu_added);
+        menu_help = view.findViewById(R.id.menu_help);
+        menu_about = view.findViewById(R.id.menu_about);
+        menu_connect = view.findViewById(R.id.menu_connect);
+        menu_global_set = view.findViewById(R.id.menu_global_set);
+        menu_alarm = view.findViewById(R.id.menu_alarm);
+        update_week = view.findViewById(R.id.update_week);
+        add_table = view.findViewById(R.id.add_table);
+        manage = view.findViewById(R.id.manage);
+    }
+
+    /**
+     * popWindow弹窗
+     * https://www.jianshu.com/p/e331ffd2452f
+     *
+     */
+    private void showPopWindow(){
+        View contentView = getLayoutInflater().inflate(R.layout.layout_popwindow, null);
+        PopupWindow popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.dismiss();
+        popupWindow.isShowing();
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setAnimationStyle(R.style.pop_style);
+        popupWindow.showAtLocation(MainActivity.this.findViewById(R.id.bt_ellipsis), Gravity.BOTTOM|Gravity.CENTER_VERTICAL,0,0);
+    }
+
+
     /**
      * 设置状态栏文字颜色及图标为深色，当状态栏为白色时候，改变其颜色为深色
      *
      */
-    public void setBar_color(){
+    private void setBar_color(){
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
@@ -52,13 +124,12 @@ public class MainActivity extends AppCompatActivity {
      *
      *
      */
-    public void schedule_show(){
-        RecyclerView rv_schedule = findViewById(R.id.rv_schedule);
+    private void schedule_show(){
+        rv_schedule = findViewById(R.id.rv_schedule);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         rv_schedule.setLayoutManager(layoutManager);
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter();
         rv_schedule.setAdapter(scheduleAdapter);
-
         rv_schedule.setNestedScrollingEnabled(false);
     }
 
@@ -67,43 +138,15 @@ public class MainActivity extends AppCompatActivity {
      *
      *
      */
-    public void course_show(){
-        RecyclerView rv_mon = findViewById(R.id.rv_mon);
+    private void course_show(){
+        rv_mon = findViewById(R.id.rv_mon);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         rv_mon.setLayoutManager(linearLayoutManager);
-
         CourseAdapter courseAdapter = new CourseAdapter();
         rv_mon.setAdapter(courseAdapter);
-
         rv_mon.setNestedScrollingEnabled(false);
     }
 
-//    添加按钮
-    public void add(View view) {
-        Intent intent = new Intent(this,AddCourse.class);
-        startActivity(intent);
-    }
-
-//    设置按钮
-    public void ellipsis(View view) {
-        showPopupWindow();
-
-    }
-
-    /**
-     * popwindow弹窗
-     *
-     */
-    private void showPopupWindow(){
-        View pop_view = getLayoutInflater().inflate(R.layout.layout_popwindow,null);
-        PopupWindow popupWindow = new PopupWindow(pop_view,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.dismiss();
-        popupWindow.isShowing();
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setFocusable(true);
-        popupWindow.setAnimationStyle(R.style.pop_style);
-        popupWindow.showAtLocation(MainActivity.this.findViewById(R.id.bt_add), Gravity.BOTTOM|Gravity.CENTER_VERTICAL,0,0);
-    }
 
     /**
      * 获取当前时间(年月日)
@@ -127,114 +170,106 @@ public class MainActivity extends AppCompatActivity {
         month.setText(mon.format(date)+"\n月");
     }
 
+
+    public void initStyle(TextView textView){
+        textView.setTextColor(Color.parseColor("#FF000000"));
+        textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+    }
+
     /**
      * 设置当日颜色为粗体
      *
      */
-    public void setWeekBold(){
-        TextView mon,tues,wed,thur,fri,sat,sun;
-        mon = findViewById(R.id.week_mon);
-        tues = findViewById(R.id.week_tues);
-        wed = findViewById(R.id.week_wed);
-        thur = findViewById(R.id.week_thur);
-        fri = findViewById(R.id.week_fri);
-        sat = findViewById(R.id.week_sat);
-        sun = findViewById(R.id.week_sun);
+    private void setWeekBold(){
         Date date = new Date(currentTimeMillis());
         SimpleDateFormat xq = new SimpleDateFormat("E");
         if(xq.format(date).equals("周一")){
             mon.setTextColor(Color.parseColor("#FF000000"));
             mon.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+//            initStyle(mon);
         }else if(xq.format(date).equals("周二")){
-            tues.setTextColor(Color.parseColor("#FF000000"));
-            tues.getPaint().setFakeBoldText(true);
+//            initStyle(tues);
         }
         else if(xq.format(date).equals("周三")){
             wed.setTextColor(Color.parseColor("#FF000000"));
-            wed.getPaint().setFakeBoldText(true);
+            wed.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+//            initStyle(wed);
         }
         else if(xq.format(date).equals("周四")){
-            thur.setTextColor(Color.parseColor("#FF000000"));
-            thur.getPaint().setFakeBoldText(true);
+//            initStyle(thur);
 
         }
         else if(xq.format(date).equals("周五")){
-            fri.setTextColor(Color.parseColor("#FF000000"));
-            fri.getPaint().setFakeBoldText(true);
+//            initStyle(fri);
         }
         else if(xq.format(date).equals("周六")){
-            sat.setTextColor(Color.parseColor("#FF000000"));
-            sat.getPaint().setFakeBoldText(true);
+//            initStyle(sat);
         }else{
-            sun.setTextColor(Color.parseColor("#FF000000"));
-            sun.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+//            initStyle(sun);
         }
     }
 
-//    修改当前周按钮
-    public void update_week(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"修改当前周按钮");
+    /**
+     * 页面跳转
+     *
+     * @param activity
+     */
+    private void intentActivity(Class activity){
+        Intent intent = new Intent(MainActivity.this, activity);
+        startActivity(intent);
+    }
+
+    /**布局文件onclick
+     * https://www.cnblogs.com/princenwj/p/5967336.html
+     *
+     * @param view
+     */
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.bt_add:
+                intentActivity(AddCourse.class);
+                break;
+            case R.id.bt_ellipsis:
+                showPopWindow();
+                break;
+            case R.id.menu_clock:
+                ToastCustom.showMsgTrue(this,"上课时间按钮");
+                break;
+            case R.id.menu_setting:
+                ToastCustom.showMsgTrue(this,"课表设置按钮");
+                break;
+            case R.id.menu_added:
+                ToastCustom.showMsgTrue(this,"已添课程按钮");
+                break;
+            case R.id.menu_help:
+                ToastCustom.showMsgTrue(this,"常见问题按钮");
+                break;
+            case R.id.menu_about:
+//                intentActivity(MenuAbout.class);
+                ToastCustom.showMsgTrue(this,"关于按钮");
+                break;
+            case R.id.menu_connect:
+                ToastCustom.showMsgTrue(this,"联系我们按钮");
+                break;
+            case R.id.menu_global_set:
+                ToastCustom.showMsgTrue(this,"全局设置按钮");
+                break;
+            case R.id.menu_alarm:
+                ToastCustom.showMsgTrue(this,"课程时钟按钮");
+                break;
+            case R.id.update_week:
+                ToastCustom.showMsgTrue(this,"修改当前周按钮");
+                break;
+            case R.id.add_table:
+                ToastCustom.showMsgTrue(this,"新建课表按钮");
+                break;
+            case R.id.manage:
+                ToastCustom.showMsgTrue(this,"管理按钮");
+                break;
+        }
 
     }
 
-//    新建课表按钮
-    public void add_table(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"新建课表按钮");
 
-    }
-
-//    管理按钮
-    public void manage(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"管理按钮");
-
-    }
-
-//    上课时间按钮
-    public void menu_clock(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"上课时间按钮");
-
-    }
-
-//    课表设置按钮
-    public void menu_setting(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"课表设置按钮");
-
-    }
-
-//    已添课程按钮
-    public void menu_added(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"已添课程按钮");
-
-    }
-
-//    常见问题按钮
-    public void menu_help(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"常见问题按钮");
-
-    }
-
-//    关于按钮
-    public void menu_about(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"关于按钮");
-
-    }
-
-//    联系我们按钮
-    public void menu_connect(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"联系我们按钮");
-
-    }
-
-//    全局设置按钮
-    public void menu_global_set(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"全局设置按钮");
-
-    }
-
-//    课程时钟按钮
-    public void menu_alarm(View view) {
-        ToastCustom.showMsgFalse(MainActivity.this,"课程时钟按钮");
-
-    }
 
 }

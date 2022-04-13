@@ -28,7 +28,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
 
     private Context mcontext;
     private List<String> listSize;
-    private TextView tv_teacherConfirm, tv_locationConfirm;
+    private DialogCustom dialog;
 
 
 
@@ -98,14 +98,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
 
         public ContentHolder(@NonNull View itemView) {
             super(itemView);
-
             delItem = itemView.findViewById(R.id.delItem);
             rv_week = itemView.findViewById(R.id.rv_week);
             rv_time = itemView.findViewById(R.id.rv_time);
             rv_teacher = itemView.findViewById(R.id.rv_teacher);
             rv_location = itemView.findViewById(R.id.rv_location);
             rv_custom = itemView.findViewById(R.id.rv_custom);
-//            tv_teacherConfirm = itemView.findViewById(R.id.teacher_confirm);
 
             rv_week.setOnClickListener(this);
             rv_time.setOnClickListener(this);
@@ -113,11 +111,34 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             rv_location.setOnClickListener(this);
             delItem.setOnClickListener(this);
             rv_custom.setOnClickListener(this);
-//            tv_teacherConfirm.setOnClickListener(this);
         }
 
         public void bindData(List<String> mlist, int position) {
             mlist.get(position);
+        }
+
+        /**
+         * 一些按钮
+         *
+         */
+        public void BtnDel(){
+            if(listSize.size()== 1){
+                ToastCustom.showMsgFalse(mcontext.getApplicationContext(), "至少要保留一个时间段！");
+            }else{
+                delItem(getAdapterPosition());
+            }
+        }
+
+        public void BtnTeacher(){
+            dialog = new DialogCustom(mcontext.getApplicationContext(),R.layout.layout_dialog_teacher,0.8);
+//            dialog.setTeacherTitle("授课老师");
+            dialog.setTeacherConfirmListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ToastCustom.showMsgFalse(mcontext.getApplicationContext(), "授课老师的确定按钮");
+                }
+            });
+            dialog.show();
         }
 
 
@@ -125,25 +146,19 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.delItem:
-                    if(listSize.size()== 1){
-                        ToastCustom.showMsgFalse(mcontext.getApplicationContext(), "至少要保留一个时间段！");
-                    }else{
-                        delItem(getAdapterPosition());
-                    }
-                    Log.i("夏成昊", "onClick: 删除");
+                    BtnDel();
                     break;
                 case R.id.rv_week:
-                    Log.i("夏成昊", "onClick: 第几周");
+
                     break;
                 case R.id.rv_time:
-                    Log.i("夏成昊", "onClick: 第几节");
+
                     break;
                 case R.id.rv_custom:
-                    Log.i("夏成昊", "onClick: 自定义时间");
+
                     break;
                 case R.id.rv_teacher:
-//                    DialogCustom dialogTeacher = new DialogCustom(mcontext.getApplicationContext(),R.layout.layout_dialog_teacher,0.6);
-//                    dialogTeacher.show();
+                    BtnTeacher();
                     break;
                 case R.id.rv_location:
 //
@@ -151,5 +166,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             }
         }
     }
+
 
 }

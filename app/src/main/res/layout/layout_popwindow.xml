@@ -30,7 +30,8 @@
                 android:gravity="right">
 
                 <TextView
-                    android:onClick="update_week"
+                    android:id="@+id/update_week"
+                    android:onClick="onClick"
                     android:layout_width="@dimen/dp_90"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center"
@@ -76,7 +77,8 @@
                 android:gravity="right">
 
                 <TextView
-                    android:onClick="add_table"
+                    android:id="@+id/add_table"
+                    android:onClick="onClick"
                     android:layout_width="@dimen/dp_70"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center"
@@ -87,7 +89,8 @@
                 </TextView>
 
                 <TextView
-                    android:onClick="manage"
+                    android:id="@+id/manage"
+                    android:onClick="onClick"
                     android:gravity="center"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -137,12 +140,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_clock"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_clock">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -158,12 +163,14 @@
                     android:layout_gravity="center" />
             </LinearLayout>
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_setting"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_setting">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -178,12 +185,14 @@
                     android:layout_gravity="center"></TextView>
             </LinearLayout>
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_added"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_added">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -198,12 +207,14 @@
                     android:layout_gravity="center"></TextView>
             </LinearLayout>
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_help"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_help">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -225,12 +236,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20">
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_about"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_about">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -246,12 +259,14 @@
                 </TextView>
             </LinearLayout>
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_connect"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_connect">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -267,12 +282,14 @@
                 </TextView>
             </LinearLayout>
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_global_set"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_global_set">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -288,12 +305,14 @@
                 </TextView>
             </LinearLayout>
             <LinearLayout
+                android:onClick="onClick"
+                android:id="@+id/menu_alarm"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="menu_alarm">
+                android:clickable="true"
+                android:background="@drawable/ripple_borderless">
                 <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"

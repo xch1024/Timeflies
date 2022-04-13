@@ -9,6 +9,13 @@
         android:roundIcon="@drawable/app"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeFlies">
+        <activity
+            android:name=".MenuAbout"
+            android:exported="false" />
+        <activity
+            android:name=".View.MenuAbout"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/popup_show" />
