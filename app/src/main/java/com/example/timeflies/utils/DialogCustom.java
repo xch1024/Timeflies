@@ -26,8 +26,6 @@ import com.example.timeflies.R;
  */
 public class DialogCustom extends Dialog{
 
-    private Context context;      // 上下文
-    private int layoutResID;      // 布局文件id
     private TextView mLeave, mStay, mClear, mCancel, mConfirm;
     private TextView mTitle,tTitle, tConfirm;
     private EditText mEdit;

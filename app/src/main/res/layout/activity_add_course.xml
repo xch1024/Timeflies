@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/course_bg">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!--    toolbar标题栏-->
@@ -50,13 +51,14 @@
 <!--        让RecyclerView上面的部件跟随其一起滑动,因此添加了一个NestedScrollView,嵌套-->
         <!--    上下滚动试图-->
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 <!--        scrollview内只能有一个布局，因此添加一个linearlayout-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <!--课程信息四排内容-->
@@ -76,7 +78,7 @@
                         <ImageView
                             android:layout_width="@dimen/dp_30"
                             android:layout_height="@dimen/dp_30"
-                            android:background="@drawable/course_name"
+                            android:src="@drawable/course_name"
                             android:layout_gravity="center_vertical">
 
                         </ImageView>
@@ -101,6 +103,8 @@
                     </LinearLayout>
                     <!--更改颜色-->
                     <LinearLayout
+                        android:id="@+id/color"
+                        android:onClick="onClick"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:orientation="horizontal"
@@ -110,13 +114,15 @@
                         android:background="@drawable/ripple_border_rectangle">
 
                         <ImageView
+                            android:id="@+id/colorMap"
                             android:layout_width="@dimen/dp_30"
                             android:layout_height="@dimen/dp_30"
-                            android:background="@drawable/course_color"
+                            android:src="@drawable/course_color"
                             android:layout_gravity="center_vertical">
 
                         </ImageView>
                         <TextView
+                            android:id="@+id/colorText"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_30"
                             android:text="@string/course_color"
@@ -143,7 +149,7 @@
                         <ImageView
                             android:layout_width="@dimen/dp_30"
                             android:layout_height="@dimen/dp_30"
-                            android:background="@drawable/course_brand"
+                            android:src="@drawable/course_brand"
                             android:layout_gravity="center_vertical">
 
                         </ImageView>
@@ -175,7 +181,7 @@
                         <ImageView
                             android:layout_width="@dimen/dp_30"
                             android:layout_height="@dimen/dp_30"
-                            android:background="@drawable/course_editor"
+                            android:src="@drawable/course_editor"
                             android:layout_gravity="center_vertical">
 
                         </ImageView>

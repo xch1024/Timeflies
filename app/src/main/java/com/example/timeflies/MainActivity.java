@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity{
     private LayoutInflater inflater;
     private View view;
 
+    private RecyclerView rvSchedule, rvMon, rvTues, rvWed, rvThur, rvFri, rvSat, rvSun;
 
-    private RecyclerView rv_schedule, rv_mon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity{
         get_time();
 
         //展示课程
-        course_show();
+        initCourse();
         //展示作息时间
-        schedule_show();
+        initSchedule();
     }
 
 
@@ -79,6 +79,15 @@ public class MainActivity extends AppCompatActivity{
         sun = findViewById(R.id.week_sun);
         add = findViewById(R.id.bt_add);
         ellipsis = findViewById(R.id.bt_ellipsis);
+
+        rvSchedule = findViewById(R.id.rv_schedule);
+        rvMon = findViewById(R.id.rv_mon);
+        rvTues = findViewById(R.id.rv_tues);
+        rvWed = findViewById(R.id.rv_wed);
+        rvThur = findViewById(R.id.rv_thur);
+        rvFri = findViewById(R.id.rv_fri);
+        rvSat = findViewById(R.id.rv_sat);
+        rvSun = findViewById(R.id.rv_sun);
 
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_popwindow, null);
         menu_clock = view.findViewById(R.id.menu_clock);
@@ -124,28 +133,41 @@ public class MainActivity extends AppCompatActivity{
      *
      *
      */
-    private void schedule_show(){
-        rv_schedule = findViewById(R.id.rv_schedule);
+    private void initSchedule(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        rv_schedule.setLayoutManager(layoutManager);
+        rvSchedule.setLayoutManager(layoutManager);
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter();
-        rv_schedule.setAdapter(scheduleAdapter);
-        rv_schedule.setNestedScrollingEnabled(false);
+        rvSchedule.setAdapter(scheduleAdapter);
+        rvSchedule.setNestedScrollingEnabled(false);
     }
 
     /**
-     * 初始化recycleview,展示周一课程
+     * 初始化每一列课程recycleView
      *
+     * @param recyclerView
+     */
+    private void initRecycle(RecyclerView recyclerView){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        CourseAdapter courseAdapter = new CourseAdapter();
+        recyclerView.setAdapter((courseAdapter));
+        recyclerView.setNestedScrollingEnabled(false);
+    }
+
+    /**
+     * 初始化所有课程
      *
      */
-    private void course_show(){
-        rv_mon = findViewById(R.id.rv_mon);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
-        rv_mon.setLayoutManager(linearLayoutManager);
-        CourseAdapter courseAdapter = new CourseAdapter();
-        rv_mon.setAdapter(courseAdapter);
-        rv_mon.setNestedScrollingEnabled(false);
+    private void initCourse(){
+        initRecycle(rvMon);
+        initRecycle(rvTues);
+        initRecycle(rvWed);
+        initRecycle(rvThur);
+        initRecycle(rvFri);
+        initRecycle(rvSat);
+        initRecycle(rvSun);
     }
+
 
 
     /**

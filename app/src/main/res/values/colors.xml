@@ -30,9 +30,9 @@
     <!--    点击颜色-->
     <color name="text_onclick">#FF6A5ACD</color>
     <!--    默认颜色-->
-    <color name="text_normal">#FF888888</color>
+    <color name="text_normal">#A1A1A1</color>
     <!--    星期默认-->
-    <color name="week_normal">#BEBEBE</color>
+    <color name="week_normal">#CFCECE</color>
 
 <!--    dialog颜色-->
     <!--    背景颜色-->

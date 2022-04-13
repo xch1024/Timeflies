@@ -2,20 +2,17 @@ package com.example.timeflies.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.timeflies.AddCourse;
 import com.example.timeflies.R;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
@@ -28,6 +25,7 @@ import java.util.List;
  *
  */
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> {
+
 
 
     private Context mcontext;
@@ -83,12 +81,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
 
     public class ContentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final View delItem;
-        private final View rv_week;
-        private final View rv_time;
-        private final View rv_teacher;
-        private final View rv_location;
-        private final CheckBox rv_custom;
+        private final LinearLayout delItem, rv_week, rv_time, rv_teacher, rv_location;
+        private final CheckBox rv_checkbox;
 
         public ContentHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,14 +91,14 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             rv_time = itemView.findViewById(R.id.rv_time);
             rv_teacher = itemView.findViewById(R.id.rv_teacher);
             rv_location = itemView.findViewById(R.id.rv_location);
-            rv_custom = itemView.findViewById(R.id.rv_custom);
+            rv_checkbox = itemView.findViewById(R.id.rv_checkbox);
 
             rv_week.setOnClickListener(this);
             rv_time.setOnClickListener(this);
             rv_teacher.setOnClickListener(this);
             rv_location.setOnClickListener(this);
             delItem.setOnClickListener(this);
-            rv_custom.setOnClickListener(this);
+            rv_checkbox.setOnClickListener(this);
         }
 
         public void bindData(List<String> mlist, int position) {
@@ -124,8 +118,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
         }
 
 
-
-
         @Override
         public void onClick(View view) {
             switch (view.getId()){
@@ -138,7 +130,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
                 case R.id.rv_time:
 
                     break;
-                case R.id.rv_custom:
+                case R.id.rv_checkbox:
 
                     break;
             }

@@ -130,7 +130,7 @@
                 android:layout_marginRight="@dimen/dp_15">
 
                 <CheckBox
-                    android:id="@+id/rv_custom"
+                    android:id="@+id/rv_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_30"
                     android:layout_gravity="right"

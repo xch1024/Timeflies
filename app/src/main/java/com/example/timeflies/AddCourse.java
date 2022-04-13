@@ -1,23 +1,24 @@
 package com.example.timeflies;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.timeflies.adapter.ContentAdapter;
 import com.example.timeflies.utils.ToastCustom;
 import com.example.timeflies.utils.DialogCustom;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,14 @@ import java.util.List;
  */
 public class AddCourse extends AppCompatActivity implements View.OnClickListener {
 
+    private NestedScrollView nestedScrollView;
     private static LinearLayoutManager layoutManager;
-    private RecyclerView recyclerView;
+    private static RecyclerView recyclerView;
     private ContentAdapter contentAdapter;
     private List<String> listSize = new ArrayList<>();
-    private ImageView ivBack,ivSave;
-    private View vAddCredit, vAddRemark, addItem;
+    private ImageView ivBack,ivSave, ivColor;
+    private TextView tvColor;
+    private LinearLayout vColor, vAddCredit, vAddRemark, addItem;
     private DialogCustom dialog;
     private LinearLayout rv_teacher, rv_location;
 
@@ -44,43 +47,45 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_add_course);
 
         initView();
-        setListenet();
+        setListener();
         initContent();
     }
 
     /**
      * 初始化recycle，展示时间段的内容
      * https://blog.csdn.net/weixin_42229694/article/details/103513003?spm=1001.2014.3001.5501 最简单的RecyclerView Item动画全解析
+     * https://www.jianshu.com/p/3acc395ae933 RecycleView4种定位滚动方式演示
      *
      */
     public void initContent(){
         listSize.add("1");
         recyclerView = findViewById(R.id.rv_content);
         layoutManager = new LinearLayoutManager(AddCourse.this);
+        layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         contentAdapter = new ContentAdapter(AddCourse.this,listSize);
         recyclerView.setAdapter(contentAdapter);
-        //添加动画
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.getItemAnimator().setAddDuration(500);
-        recyclerView.getItemAnimator().setRemoveDuration(2000);
         //setHasFixedSize(true)方法使得RecyclerView能够固定自身size不受adapter变化的影响；
         //而setNestedScrollingeEnabled(false)方法则是进一步调用了RecyclerView内部NestedScrollingChildHelper对象的setNestedScrollingeEnabled(false)方法
         //进而，NestedScrollingChildHelper对象通过该方法关闭RecyclerView的嵌套滑动特性
-//        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setNestedScrollingEnabled(false);
     }
+
+
 
     /**
      * 实例化控件
      *
      */
     public void initView(){
+        vColor = findViewById(R.id.color);
+        ivColor = findViewById(R.id.colorMap);
         ivBack = findViewById(R.id.ivBack);
         ivSave = findViewById(R.id.ivSave);
         vAddCredit = findViewById(R.id.addCredit);
         vAddRemark = findViewById(R.id.addRemark);
         addItem = findViewById(R.id.addItem);
-
+        tvColor = findViewById(R.id.colorText);
         View view = LayoutInflater.from(AddCourse.this).inflate(R.layout.layout_rvcontent, null);
         rv_teacher = view.findViewById(R.id.rv_teacher);
         rv_location = view.findViewById(R.id.rv_location);
@@ -89,7 +94,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     /**
      * 设置控件的监听
      */
-    public void setListenet(){
+    public void setListener(){
         ivBack.setOnClickListener(this);
         ivSave.setOnClickListener(this);
         vAddCredit.setOnClickListener(this);
@@ -111,7 +116,11 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             case R.id.ivSave:
                 BtnSave();
                 break;
-
+            case R.id.color:
+                ivColor.setColorFilter(Color.parseColor("#FFcc0000"));
+                tvColor.setTextColor(Color.parseColor("#FFcc0000"));
+                ToastCustom.showMsgTrue(this, "更改颜色");
+                break;
             //添加学分
             case R.id.addCredit:
                 BtnCredit();
@@ -125,12 +134,28 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             //添加时间段按钮
             case R.id.addItem:
                 contentAdapter.addItem(listSize.size());
-
+                ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPositionWithOffset(contentAdapter.getItemCount() - 1, 0);
+                scrollToEnd();
                 break;
             case R.id.rv_teacher:
                 BtnTeacher();
                 break;
         }
+    }
+
+    /**
+     * scrollTo滚动到指定位置
+     * https://blog.csdn.net/neabea2016/article/details/101209787 NestScrollView滚动到指定位置
+     *
+     */
+    private void scrollToEnd(){
+        nestedScrollView = findViewById(R.id.nsv);
+        nestedScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                nestedScrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
     }
 
 
@@ -187,7 +212,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 ToastCustom.showMsgTrue(AddCourse.this, "学分按钮的清除");
-                dialog.setEdit("");
+                dialog.setEdit("0.0");
                 dialog.dismiss();
             }
         });

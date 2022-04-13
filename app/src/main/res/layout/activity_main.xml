@@ -230,6 +230,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tues"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -241,6 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_wed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -252,6 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_thur"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -263,6 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_fri"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -274,6 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -285,6 +290,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

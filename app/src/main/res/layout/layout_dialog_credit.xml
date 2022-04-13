@@ -18,11 +18,11 @@
         android:layout_marginTop="@dimen/dp_30"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/edit_text"
+        android:textColor="@color/text_normal"
         android:background="@drawable/edit_rectangle"
         android:textCursorDrawable="@drawable/cursor_dialog">
-
     </EditText>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
