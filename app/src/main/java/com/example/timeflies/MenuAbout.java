@@ -24,6 +24,10 @@ public class MenuAbout extends AppCompatActivity implements View.OnClickListener
         setListener();
     }
 
+    /**
+     * https://blog.csdn.net/qq_20451879/article/details/54745068 Include（复用layout）的使用方式
+     *
+     */
     private void initView(){
         tvTitle = findViewById(R.id.tvTitle);
         ivDonate = findViewById(R.id.ivSave);
