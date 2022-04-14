@@ -256,7 +256,6 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.menu_about:
                 intentActivity(MenuAbout.class);
-                ToastCustom.showMsgTrue(this,"关于按钮");
                 break;
             case R.id.menu_connect:
                 ToastCustom.showMsgTrue(this,"联系我们按钮");
