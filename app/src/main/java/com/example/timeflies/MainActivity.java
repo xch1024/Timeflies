@@ -242,6 +242,15 @@ public class MainActivity extends AppCompatActivity{
             case R.id.bt_ellipsis:
                 showPopWindow();
                 break;
+            case R.id.update_week:
+                ToastCustom.showMsgTrue(this,"修改当前周按钮");
+                break;
+            case R.id.add_table:
+                ToastCustom.showMsgTrue(this,"新建课表按钮");
+                break;
+            case R.id.manage:
+                ToastCustom.showMsgTrue(this,"管理按钮");
+                break;
             case R.id.menu_clock:
                 ToastCustom.showMsgTrue(this,"上课时间按钮");
                 break;
@@ -264,16 +273,7 @@ public class MainActivity extends AppCompatActivity{
                 ToastCustom.showMsgTrue(this,"全局设置按钮");
                 break;
             case R.id.menu_alarm:
-                ToastCustom.showMsgTrue(this,"课程时钟按钮");
-                break;
-            case R.id.update_week:
-                ToastCustom.showMsgTrue(this,"修改当前周按钮");
-                break;
-            case R.id.add_table:
-                ToastCustom.showMsgTrue(this,"新建课表按钮");
-                break;
-            case R.id.manage:
-                ToastCustom.showMsgTrue(this,"管理按钮");
+                intentActivity(MenuAlarm.class);
                 break;
         }
 

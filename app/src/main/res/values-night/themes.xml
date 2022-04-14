@@ -17,5 +17,10 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="ThemeOverlay.TimeFlies.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
+        <item name="fullscreenTextColor">@color/light_blue_A400</item>
+    </style>
+
 
 </resources>

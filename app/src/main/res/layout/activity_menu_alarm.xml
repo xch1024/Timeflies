@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- https://blog.csdn.net/u013467495/article/details/109305378   Android Toolbar和状态栏的重叠解决-->
+<!-- https://blog.csdn.net/qiushisoftware/article/details/11934285  Android中设置无标题栏、全屏、横竖屏-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    tools:context=".MenuAlarm">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_180"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21:02"
+            android:textColor="@color/content_text_color"
+            android:textSize="@dimen/sp_110"
+            android:textStyle="bold"></TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4月13日"
+                android:textColor="@color/content_text_color"
+                android:textSize="@dimen/sp_25"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="周三"
+                android:textColor="@color/content_text_color"
+                android:textSize="@dimen/sp_25"></TextView>
+            <ImageView
+                android:id="@+id/set"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_gravity="center"
+                android:src="@drawable/menu_globalset"></ImageView>
+        </LinearLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_90"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:padding="@dimen/dp_1"
+                android:text="时间段20:00 - 21:00"
+                android:textColor="@color/content_text_color"
+                android:textSize="@dimen/sp_20"></TextView>
+
+            <TextView
+                android:id="@+id/courseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_1"
+                android:text="课程名称"
+                android:textColor="@color/content_text_color"
+                android:textSize="@dimen/sp_20"></TextView>
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_1"
+                android:text="教学主楼"
+                android:textColor="@color/content_text_color"
+                android:textSize="@dimen/sp_18"></TextView>
+
+            <TextView
+                android:id="@+id/teacherName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_1"
+                android:text="课程老师"
+                android:textColor="@color/content_text_color"
+                android:textSize="@dimen/sp_18"></TextView>
+
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_1"
+                android:text="课程备注"
+                android:textColor="@color/content_text_color"
+                android:textSize="@dimen/sp_18"></TextView>
+        </LinearLayout>
+</LinearLayout>

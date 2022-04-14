@@ -79,13 +79,19 @@
     <dimen name="dp_90">90dp</dimen>
     <dimen name="dp_100">100dp</dimen>
     <dimen name="dp_120">120dp</dimen>
+    <dimen name="dp_180">180dp</dimen>
 
     <dimen name="sp_12">12sp</dimen>
     <dimen name="sp_13">13sp</dimen>
     <dimen name="sp_14">14sp</dimen>
     <dimen name="sp_15">15sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="sp_22">22sp</dimen>
     <dimen name="sp_25">25sp</dimen>
+    <dimen name="sp_110">110sp</dimen>
+    <string name="title_activity_menu_alarm">MenuAlarm</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

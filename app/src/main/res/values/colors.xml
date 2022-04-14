@@ -8,17 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-<!--    pop_window-->
+    <!--    pop_window-->
     <color name="pop_window_solid">#FFAEC4E1</color>
     <color name="pop_window_stroke">#FFD3D3D3</color>
 
-<!--    toast颜色-->
+    <!--    toast颜色-->
     <!--    填充色-->
     <color name="toast_solid_false">#FFcc0000</color>
     <color name="toast_solid_true">#FF41964B</color>
 
 
-<!--    添加课程页面-->
+    <!--    添加课程页面-->
     <!--    背景颜色-->
     <color name="course_bg">#FF111214</color>
     <!--    分割线条颜色-->
@@ -26,7 +26,7 @@
     <!--    添加按钮颜色-->
     <color name="button_add">#FF1E90FF</color>
 
-<!--    文字颜色-->
+    <!--    文字颜色-->
     <!--    点击颜色-->
     <color name="text_onclick">#FF6A5ACD</color>
     <!--    默认颜色-->
@@ -34,14 +34,14 @@
     <!--    星期默认-->
     <color name="week_normal">#CFCECE</color>
 
-<!--    dialog颜色-->
+    <!--    dialog颜色-->
     <!--    背景颜色-->
     <color name="dialog_bg">#464650</color>
     <!--    按钮颜色-->
     <color name="dialog_onclick">#FFAAC5F5</color>
 
 
-<!--    输入框颜色-->
+    <!--    输入框颜色-->
     <!--    默认光标颜色-->
     <color name="edit_cursor_course">#FFFFC0CB</color>
     <!--    文字颜色-->
@@ -52,14 +52,19 @@
     <!--    聚焦边框颜色-->
     <color name="edit_rectangle_focused">#FFAAC5F5</color>
 
-<!--    checkbox-->
+    <!--    checkbox-->
     <color name="check_stroke">#FFFFB4D2</color>
 
-<!--    水波纹效果-->
+    <!--    水波纹效果-->
     <color name="ripple_color">#FFF8F8FF</color>
 
-<!--    课程表名字-->
+    <!--    课程表名字-->
     <color name="app_name">#D6ACD5</color>
     <color name="content_shape">#2A2B29</color>
     <color name="content_text_color">#CCCBCB</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

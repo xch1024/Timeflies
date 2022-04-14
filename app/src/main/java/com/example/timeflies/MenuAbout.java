@@ -45,7 +45,6 @@ public class MenuAbout extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ivBack:
-                ToastCustom.showMsgTrue(this, "离开");
                 intentActivity(MainActivity.class);
                 break;
             case R.id.ivSave:
