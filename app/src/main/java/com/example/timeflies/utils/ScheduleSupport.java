@@ -1,4 +1,4 @@
-package com.example.timeflies.model;
+package com.example.timeflies.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

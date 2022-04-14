@@ -6,23 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
 import com.example.timeflies.utils.ToastCustom;
@@ -32,16 +26,11 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
 
-    private LinearLayout menu_clock, menu_setting, menu_added, menu_help,
-                         menu_about, menu_connect, menu_global_set, menu_alarm;
+    private View view, menu_clock, menu_setting, menu_added, menu_help,
+            menu_about, menu_connect, menu_global_set, menu_alarm;
     private TextView update_week, add_table, manage;
-
     private ImageView add, ellipsis;
     private TextView mon,tues,wed,thur,fri,sat,sun;
-
-    private LayoutInflater inflater;
-    private View view;
-
     private RecyclerView rvSchedule, rvMon, rvTues, rvWed, rvThur, rvFri, rvSat, rvSun;
 
     @Override
@@ -89,7 +78,7 @@ public class MainActivity extends AppCompatActivity{
         rvSat = findViewById(R.id.rv_sat);
         rvSun = findViewById(R.id.rv_sun);
 
-        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_popwindow, null);
+        view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_popwindow, null);
         menu_clock = view.findViewById(R.id.menu_clock);
         menu_setting = view.findViewById(R.id.menu_setting);
         menu_added = view.findViewById(R.id.menu_added);
@@ -122,6 +111,7 @@ public class MainActivity extends AppCompatActivity{
 
     /**
      * 设置状态栏文字颜色及图标为深色，当状态栏为白色时候，改变其颜色为深色
+     * https://blog.csdn.net/brian512/article/details/52096445  Android实现沉浸式状态栏的那些坑
      *
      */
     private void setBar_color(){
@@ -168,8 +158,6 @@ public class MainActivity extends AppCompatActivity{
         initRecycle(rvSun);
     }
 
-
-
     /**
      * 获取当前时间(年月日)
      *
@@ -210,38 +198,33 @@ public class MainActivity extends AppCompatActivity{
         Date date = new Date(currentTimeMillis());
         SimpleDateFormat xq = new SimpleDateFormat("E");
         if(xq.format(date).equals("周一")){
-            mon.setTextColor(Color.parseColor("#FF000000"));
-            mon.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-//            initStyle(mon);
+            initStyle(mon);
         }else if(xq.format(date).equals("周二")){
-//            initStyle(tues);
+            initStyle(tues);
         }
         else if(xq.format(date).equals("周三")){
-            wed.setTextColor(Color.parseColor("#FF000000"));
-            wed.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-//            initStyle(wed);
+            initStyle(wed);
         }
         else if(xq.format(date).equals("周四")){
-//            initStyle(thur);
-
+            initStyle(thur);
         }
         else if(xq.format(date).equals("周五")){
-//            initStyle(fri);
+            initStyle(fri);
         }
         else if(xq.format(date).equals("周六")){
-//            initStyle(sat);
+            initStyle(sat);
         }else{
-//            initStyle(sun);
+            initStyle(sun);
         }
     }
 
     /**
      * 页面跳转
      *
-     * @param activity
+     *
      */
-    private void intentActivity(Class activity){
-        Intent intent = new Intent(MainActivity.this, activity);
+    private void intentActivity(Class<?> cls){
+        Intent intent = new Intent(MainActivity.this, cls);
         startActivity(intent);
     }
 
@@ -271,7 +254,7 @@ public class MainActivity extends AppCompatActivity{
                 ToastCustom.showMsgTrue(this,"常见问题按钮");
                 break;
             case R.id.menu_about:
-//                intentActivity(MenuAbout.class);
+                intentActivity(MenuAbout.class);
                 ToastCustom.showMsgTrue(this,"关于按钮");
                 break;
             case R.id.menu_connect:

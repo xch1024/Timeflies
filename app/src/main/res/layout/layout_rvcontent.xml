@@ -7,8 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/dp_15"
-        android:paddingBottom="@dimen/dp_15">
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10">
 
         <!--    时间段-->
         <LinearLayout
@@ -34,7 +34,6 @@
 
                 <LinearLayout
                     android:id="@+id/delItem"
-                    android:onClick="schedule_delete"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center"
@@ -68,11 +67,11 @@
             </ImageView>
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:hint="第几周"
                 android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
                 android:layout_marginLeft="@dimen/dp_5"
@@ -91,6 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_60">
             <LinearLayout
+
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -107,11 +107,11 @@
                 </ImageView>
 
                 <TextView
+                    android:id="@+id/week"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:hint="周一 第几节"
                     android:textColorHint="@color/text_normal"
                     android:textSize="@dimen/sp_15"
                     android:layout_marginLeft="@dimen/dp_5"
@@ -124,17 +124,15 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_30"
-                android:layout_gravity="center_vertical"
-                android:gravity="right"
-                android:layout_marginRight="@dimen/dp_15">
-
+                android:layout_height="match_parent"
+                android:gravity="right">
                 <CheckBox
                     android:id="@+id/rv_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_30"
-                    android:layout_gravity="right"
-                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:paddingRight="@dimen/dp_15"
+                    android:gravity="center"
                     android:text="@string/course_timeset"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/sp_15"
@@ -168,11 +166,11 @@
             </ImageView>
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:hint="@string/course_teacher_hint"
                 android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
                 android:layout_marginLeft="@dimen/dp_5"
@@ -203,11 +201,11 @@
             </ImageView>
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:hint="@string/course_location_hint"
                 android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
                 android:layout_marginLeft="@dimen/dp_5"

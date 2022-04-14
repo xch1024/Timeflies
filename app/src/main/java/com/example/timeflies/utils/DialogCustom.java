@@ -3,7 +3,6 @@ package com.example.timeflies.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
-import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -56,7 +55,6 @@ public class DialogCustom extends Dialog{
     private DialogCustom(@NonNull Context context, int themeResId, int layoutId, Double width) {
         super(context, themeResId);
         setContentView(layoutId);
-
         initDialog(context, layoutId, width);
     }
 

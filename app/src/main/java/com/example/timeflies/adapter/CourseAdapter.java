@@ -20,8 +20,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
     public CourseAdapter.CourseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
         View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvcourse,parent,false);
-        CourseAdapter.CourseHolder holder = new CourseAdapter.CourseHolder(inflater);
-        return holder;
+        return new CourseHolder(inflater);
     }
 
     @Override
@@ -34,7 +33,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
         return 9;
     }
 
-    public class CourseHolder extends RecyclerView.ViewHolder {
+    public static class CourseHolder extends RecyclerView.ViewHolder {
         public CourseHolder(@NonNull View itemView) {
             super(itemView);
         }

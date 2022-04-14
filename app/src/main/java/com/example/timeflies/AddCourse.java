@@ -4,19 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.timeflies.adapter.ContentAdapter;
+import com.example.timeflies.model.ContentData;
 import com.example.timeflies.utils.ToastCustom;
 import com.example.timeflies.utils.DialogCustom;
 import java.util.ArrayList;
@@ -31,15 +27,13 @@ import java.util.List;
 public class AddCourse extends AppCompatActivity implements View.OnClickListener {
 
     private NestedScrollView nestedScrollView;
-    private static LinearLayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private ContentAdapter contentAdapter;
-    private List<String> listSize = new ArrayList<>();
+    private List<ContentData> list;
     private ImageView ivBack,ivSave, ivColor;
     private TextView tvColor;
-    private LinearLayout vColor, vAddCredit, vAddRemark, addItem;
+    private View vColor, vAddCredit, vAddRemark, addItem;
     private DialogCustom dialog;
-    private LinearLayout rv_teacher, rv_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +41,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_add_course);
 
         initView();
+        initData();
         setListener();
         initContent();
     }
@@ -57,88 +52,138 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      * https://www.jianshu.com/p/3acc395ae933 RecycleView4种定位滚动方式演示
      *
      */
-    public void initContent(){
-        listSize.add("1");
-        recyclerView = findViewById(R.id.rv_content);
-        layoutManager = new LinearLayoutManager(AddCourse.this);
-        layoutManager.setStackFromEnd(true);
+    private void initContent(){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(AddCourse.this);
         recyclerView.setLayoutManager(layoutManager);
-        contentAdapter = new ContentAdapter(AddCourse.this,listSize);
+        contentAdapter = new ContentAdapter(AddCourse.this, list);
         recyclerView.setAdapter(contentAdapter);
         //setHasFixedSize(true)方法使得RecyclerView能够固定自身size不受adapter变化的影响；
         //而setNestedScrollingeEnabled(false)方法则是进一步调用了RecyclerView内部NestedScrollingChildHelper对象的setNestedScrollingeEnabled(false)方法
         //进而，NestedScrollingChildHelper对象通过该方法关闭RecyclerView的嵌套滑动特性
         recyclerView.setNestedScrollingEnabled(false);
+        layoutManager.setStackFromEnd(true);
+        contentAdapter.setOnItemClickListener(MyItemClickListener);
     }
-
-
 
     /**
      * 实例化控件
      *
      */
-    public void initView(){
-        vColor = findViewById(R.id.color);
-        ivColor = findViewById(R.id.colorMap);
+    private void initView(){
+        recyclerView = findViewById(R.id.rv_content);
         ivBack = findViewById(R.id.ivBack);
         ivSave = findViewById(R.id.ivSave);
         vAddCredit = findViewById(R.id.addCredit);
         vAddRemark = findViewById(R.id.addRemark);
         addItem = findViewById(R.id.addItem);
+        vColor = findViewById(R.id.color);
+        ivColor = findViewById(R.id.colorMap);
         tvColor = findViewById(R.id.colorText);
-        View view = LayoutInflater.from(AddCourse.this).inflate(R.layout.layout_rvcontent, null);
-        rv_teacher = view.findViewById(R.id.rv_teacher);
-        rv_location = view.findViewById(R.id.rv_location);
     }
+
+    /**
+     *
+     *
+     */
+    private void initData(){
+        list = new ArrayList<>();
+        list.add(new ContentData("第几周", "周一 第几节", "授课老师(可不填)","上课地点(可不填)"));
+    }
+
 
     /**
      * 设置控件的监听
      */
-    public void setListener(){
+    private void setListener(){
         ivBack.setOnClickListener(this);
         ivSave.setOnClickListener(this);
         vAddCredit.setOnClickListener(this);
         vAddRemark.setOnClickListener(this);
         addItem.setOnClickListener(this);
+        vColor.setOnClickListener(this);
     }
 
+    /**
+     * item＋item里的控件点击监听事件
+     *
+     */
+    private ContentAdapter.OnItemClickListener MyItemClickListener = new ContentAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View v, ContentAdapter.ViewName viewName, int position) {
+            switch (v.getId()){
+                case R.id.delItem:
+                    if(list.size()== 1){
+                        ToastCustom.showMsgFalse(AddCourse.this, "至少要保留一个时间段！");
+                    }else{
+                        contentAdapter.delItem(position);
+                        ToastCustom.showMsgTrue(AddCourse.this, "你点击了删除"+(position+1));
+                    }
+                    break;
+                case R.id.rv_week:
+                    ToastCustom.showMsgTrue(AddCourse.this, "周次按钮"+(position+1));
+                    break;
+                case R.id.rv_time:
+                    ToastCustom.showMsgTrue(AddCourse.this, "时间按钮"+(position+1));
+                    break;
+                case R.id.rv_checkbox:
+                    ToastCustom.showMsgTrue(AddCourse.this, "自定义时间按钮"+(position+1));
+                    break;
+                case R.id.rv_teacher:
+                    ToastCustom.showMsgTrue(AddCourse.this, "授课老师"+(position+1));
+//                    BtnTeacher();
+                    break;
+                case R.id.rv_location:
+                    ToastCustom.showMsgTrue(AddCourse.this, "上课地点"+(position+1));
+//                    BtnLocation();
+                    break;
+                default:
+                    ToastCustom.showMsgTrue(AddCourse.this, "你点击了item按钮"+(position+1));
+                    break;
+            }
+        }
 
+        @Override
+        public void onItemLongClick(View v) {
 
+        }
+    };
+
+    //===================================addCourse界面上的按钮===================================
+    /**
+     * addCourse界面上的按钮监听
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            //返回按钮
+            //返回
             case R.id.ivBack:
                 BtnBack();
                 break;
-
-            // 保存按钮
+            // 保存
             case R.id.ivSave:
                 BtnSave();
                 break;
+            //更改颜色
             case R.id.color:
-                ivColor.setColorFilter(Color.parseColor("#FFcc0000"));
-                tvColor.setTextColor(Color.parseColor("#FFcc0000"));
-                ToastCustom.showMsgTrue(this, "更改颜色");
+                ivColor.setColorFilter(Color.parseColor("#cc0000"));
+                tvColor.setTextColor(Color.parseColor("#cc0000"));
+                ToastCustom.showMsgTrue(this, "更改颜色成功");
                 break;
             //添加学分
             case R.id.addCredit:
                 BtnCredit();
                 break;
-
             //添加备注
             case R.id.addRemark:
                 BtnRemark();
                 break;
-
-            //添加时间段按钮
+            //添加时间段
             case R.id.addItem:
-                contentAdapter.addItem(listSize.size());
-                ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPositionWithOffset(contentAdapter.getItemCount() - 1, 0);
+                contentAdapter.addItem(list.size());
+                recyclerView.scrollToPosition(contentAdapter.getItemCount() - 1);
                 scrollToEnd();
-                break;
-            case R.id.rv_teacher:
-                BtnTeacher();
                 break;
         }
     }
@@ -150,35 +195,20 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      */
     private void scrollToEnd(){
         nestedScrollView = findViewById(R.id.nsv);
-        nestedScrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                nestedScrollView.fullScroll(View.FOCUS_DOWN);
-            }
-        });
+        nestedScrollView.post(() -> nestedScrollView.fullScroll(View.FOCUS_DOWN));
     }
-
-
 
     /**
      * 返回按钮
      *
      */
-    public void BtnBack(){
+    private void BtnBack(){
         DialogCustom dialog = new DialogCustom(AddCourse.this, R.layout.layout_dialog_back, 0.8);
-        dialog.setCancelListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddCourse.this,MainActivity.class);
-                startActivity(intent);
-            }
+        dialog.setCancelListener(view -> {
+            Intent intent = new Intent(AddCourse.this,MainActivity.class);
+            startActivity(intent);
         });
-        dialog.setConfirmListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setConfirmListener(view -> dialog.dismiss());
         dialog.show();
     }
 
@@ -187,7 +217,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      * 保存按钮
      *
      */
-    public void BtnSave(){
+    private void BtnSave(){
         //获取课程名称
         EditText et1 = findViewById(R.id.course_name);
         String course_name = et1.getText().toString();
@@ -205,30 +235,21 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      * 学分按钮
      *
      */
-    public void BtnCredit(){
+    private void BtnCredit(){
         dialog = new DialogCustom(AddCourse.this, R.layout.layout_dialog_credit, 0.8);
         dialog.setTitle("学分").setEdit("0.0");
-        dialog.setClearListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastCustom.showMsgTrue(AddCourse.this, "学分按钮的清除");
-                dialog.setEdit("0.0");
-                dialog.dismiss();
-            }
+        dialog.setClearListener(view -> {
+            ToastCustom.showMsgTrue(AddCourse.this, "学分按钮的清除");
+            dialog.setEdit("0.0");
+            dialog.dismiss();
         });
-        dialog.setCreditCancelListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                ToastCustom.showMsgTrue(AddCourse.this, "学分按钮的取消");
-            }
+        dialog.setCreditCancelListener(view -> {
+            dialog.dismiss();
+            ToastCustom.showMsgTrue(AddCourse.this, "学分按钮的取消");
         });
-        dialog.setCreditConfirmListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                ToastCustom.showMsgTrue(AddCourse.this, "学分按钮的确定");
-            }
+        dialog.setCreditConfirmListener(view -> {
+            dialog.dismiss();
+            ToastCustom.showMsgTrue(AddCourse.this, "学分按钮的确定");
         });
         dialog.show();
     }
@@ -237,33 +258,26 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      * 备注按钮
      *
      */
-    public void BtnRemark(){
+    private void BtnRemark(){
         dialog = new DialogCustom(AddCourse.this, R.layout.layout_dialog_credit, 0.8);
         dialog.setTitle("备注");
-        dialog.setClearListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                ToastCustom.showMsgTrue(AddCourse.this, "备注按钮的清除");
-            }
+        dialog.setClearListener(view -> {
+            dialog.dismiss();
+            ToastCustom.showMsgTrue(AddCourse.this, "备注按钮的清除");
         });
-        dialog.setCreditCancelListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastCustom.showMsgTrue(AddCourse.this, "备注按钮的取消");
-                dialog.dismiss();
-            }
+        dialog.setCreditCancelListener(view -> {
+            ToastCustom.showMsgTrue(AddCourse.this, "备注按钮的取消");
+            dialog.dismiss();
         });
-        dialog.setCreditConfirmListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastCustom.showMsgTrue(AddCourse.this, "备注按钮的确定");
-                dialog.dismiss();
-            }
+        dialog.setCreditConfirmListener(view -> {
+            ToastCustom.showMsgTrue(AddCourse.this, "备注按钮的确定");
+            dialog.dismiss();
         });
         dialog.show();
     }
 
+
+    //===================================recycleView界面上的按钮===================================
     /**
      * 添加老师按钮
      *
@@ -271,12 +285,19 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     private void BtnTeacher(){
         dialog = new DialogCustom(AddCourse.this,R.layout.layout_dialog_teacher,0.8);
         dialog.setTeacherTitle("授课老师");
-        dialog.setTeacherConfirmListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastCustom.showMsgFalse(getApplicationContext(), "授课老师的确定按钮");
-            }
-        });
+        dialog.setTeacherConfirmListener(view -> ToastCustom.showMsgFalse(getApplicationContext(), "授课老师的确定按钮"));
         dialog.show();
     }
+
+    /**
+     * 添加地点按钮
+     *
+     */
+    private void BtnLocation(){
+        dialog = new DialogCustom(AddCourse.this,R.layout.layout_dialog_teacher,0.8);
+        dialog.setTeacherTitle("上课地点");
+        dialog.setTeacherConfirmListener(view -> ToastCustom.showMsgFalse(getApplicationContext(), "上课地点的确定按钮"));
+        dialog.show();
+    }
+
 }

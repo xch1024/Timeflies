@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -93,7 +92,7 @@
                             android:textSize="@dimen/sp_15"
                             android:textColor="@color/text_normal"
                             android:maxLines="1"
-                            android:inputType=""
+                            android:inputType="text"
                             android:layout_marginLeft="@dimen/dp_5"
                             android:background="@drawable/edit_none_shape"
                             android:textCursorDrawable="@drawable/cursor_course">
@@ -104,7 +103,6 @@
                     <!--更改颜色-->
                     <LinearLayout
                         android:id="@+id/color"
-                        android:onClick="onClick"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:orientation="horizontal"
@@ -211,8 +209,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
 
