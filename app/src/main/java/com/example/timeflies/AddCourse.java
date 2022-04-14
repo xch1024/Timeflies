@@ -1,6 +1,7 @@
 package com.example.timeflies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +32,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     private ContentAdapter contentAdapter;
     private List<ContentData> list;
     private ImageView ivBack,ivSave, ivColor;
-    private TextView tvColor;
+    private TextView tvColor, tvTitle;
     private View vColor, vAddCredit, vAddRemark, addItem;
     private DialogCustom dialog;
 
@@ -66,7 +67,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     }
 
     /**
-     * 实例化控件
+     * 初始化控件
      *
      */
     private void initView(){
@@ -79,6 +80,10 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         vColor = findViewById(R.id.color);
         ivColor = findViewById(R.id.colorMap);
         tvColor = findViewById(R.id.colorText);
+        tvTitle = findViewById(R.id.include_add_head).findViewById(R.id.tvTitle);
+
+        ivColor.setColorFilter(tvColor.getCurrentTextColor());//设置图片颜色与文字同步
+        tvTitle.setText(R.string.course_title);//设置添加课程页面的标题文字
     }
 
     /**

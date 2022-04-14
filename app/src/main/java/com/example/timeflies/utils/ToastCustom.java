@@ -66,7 +66,7 @@ public class ToastCustom extends Toast {
             toast = new ToastCustom(context);
             toast.setView(view1);
             textView.setText(msg);
-            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
         }catch (Exception e){
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class ToastCustom extends Toast {
             toast = new ToastCustom(context);
             toast.setView(view1);
             textView.setText(msg);
-            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
         }catch (Exception e){
             e.printStackTrace();

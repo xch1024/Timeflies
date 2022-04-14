@@ -57,4 +57,9 @@
 
 <!--    水波纹效果-->
     <color name="ripple_color">#FFF8F8FF</color>
+
+<!--    课程表名字-->
+    <color name="app_name">#D6ACD5</color>
+    <color name="content_shape">#2A2B29</color>
+    <color name="content_text_color">#CCCBCB</color>
 </resources>
