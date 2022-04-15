@@ -24,7 +24,7 @@
     <!--    分割线条颜色-->
     <color name="course_line">#FF808080</color>
     <!--    添加按钮颜色-->
-    <color name="button_add">#FF1E90FF</color>
+    <color name="button_add">#165EA3</color>
 
     <!--    文字颜色-->
     <!--    点击颜色-->
@@ -36,7 +36,7 @@
 
     <!--    dialog颜色-->
     <!--    背景颜色-->
-    <color name="dialog_bg">#464650</color>
+    <color name="dialog_bg">#2C2C31</color>
     <!--    按钮颜色-->
     <color name="dialog_onclick">#FFAAC5F5</color>
 

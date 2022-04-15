@@ -20,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
+import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
     private ImageView add, ellipsis;
     private TextView mon,tues,wed,thur,fri,sat,sun;
     private RecyclerView rvSchedule, rvMon, rvTues, rvWed, rvThur, rvFri, rvSat, rvSun;
+    private DialogCustom dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,10 +257,10 @@ public class MainActivity extends AppCompatActivity{
                 ToastCustom.showMsgTrue(this,"上课时间按钮");
                 break;
             case R.id.menu_setting:
-                ToastCustom.showMsgTrue(this,"课表设置按钮");
+                intentActivity(MenuSetting.class);
                 break;
             case R.id.menu_added:
-                ToastCustom.showMsgTrue(this,"已添课程按钮");
+                intentActivity(MenuAdded.class);
                 break;
             case R.id.menu_help:
                 ToastCustom.showMsgTrue(this,"常见问题按钮");
@@ -267,7 +269,7 @@ public class MainActivity extends AppCompatActivity{
                 intentActivity(MenuAbout.class);
                 break;
             case R.id.menu_connect:
-                ToastCustom.showMsgTrue(this,"联系我们按钮");
+                BtnContact();
                 break;
             case R.id.menu_global_set:
                 intentActivity(MenuGlobalSet.class);
@@ -280,5 +282,17 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    private void BtnContact(){
+        dialog = new DialogCustom(MainActivity.this, R.layout.layout_dialog_menu, 0.8);
+        dialog.setMenuConfirmListener(view -> {
+            dialog.dismiss();
+            ToastCustom.showMsgTrue(getApplicationContext(), "联系按钮的确定反馈");
+        });
+        dialog.setMenuCancelListener(view -> {
+            ToastCustom.showMsgTrue(getApplicationContext(), "备注按钮的取消反馈");
+            dialog.dismiss();
+        });
+        dialog.show();
+    }
 
 }

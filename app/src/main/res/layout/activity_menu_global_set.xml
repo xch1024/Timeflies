@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    android:background="@color/black"
+    android:background="@color/course_bg"
     tools:context=".MenuGlobalSet">
 
     <include
@@ -19,6 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="150dp"
             android:orientation="vertical">
 
             <TextView

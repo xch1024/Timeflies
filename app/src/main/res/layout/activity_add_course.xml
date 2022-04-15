@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -186,29 +186,7 @@
     </LinearLayout>
 
 <!--    为了让按钮始终显示在页面上方,因此最外层使用了FrameLayout-->
-    <LinearLayout
-        android:layout_gravity="bottom"
-        android:gravity="right"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_20">
-
-        <LinearLayout
-            android:id="@+id/addItem"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_60"
-            android:clickable="true"
-            android:background="@drawable/ripple_btn_add">
-            <!--    添加按钮-->
-            <ImageView
-
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:src="@drawable/add_white"/>
-
-        </LinearLayout>
-    </LinearLayout>
+    <include
+        layout="@layout/include_btn_add"></include>
 
 </FrameLayout>

@@ -26,6 +26,7 @@ import com.example.timeflies.R;
 public class DialogCustom extends Dialog{
 
     private TextView mLeave, mStay, mClear, mCancel, mConfirm;
+    private TextView mNo, mSure;
     private TextView mTitle,tTitle, tConfirm;
     private EditText mEdit;
     private String title, edit, teacherTitle;
@@ -43,22 +44,23 @@ public class DialogCustom extends Dialog{
         return this;
     }
 
-    public void setTeacherTitle(String teacherTitle) {
+    public DialogCustom setTeacherTitle(String teacherTitle) {
         this.teacherTitle = teacherTitle;
         tTitle.setText(teacherTitle);
+        return this;
     }
 
     public DialogCustom(@NonNull Context context, int layoutId, Double width) {
-        this(context, R.style.dialog, layoutId,width);
+        this(context, R.style.dialog, layoutId, width);
     }
 
     private DialogCustom(@NonNull Context context, int themeResId, int layoutId, Double width) {
         super(context, themeResId);
         setContentView(layoutId);
-        initDialog(context, layoutId, width);
+        initDialog(width);
     }
 
-    private void initDialog(Context context, int layoutId, Double width) {
+    private void initDialog(Double width) {
         initView();
         initSize(width);
     }
@@ -76,7 +78,10 @@ public class DialogCustom extends Dialog{
         mTitle = findViewById(R.id.title);
         mEdit = findViewById(R.id.edit);
         tTitle = findViewById(R.id.teacher_title);
-        tConfirm =findViewById(R.id.teacher_confirm);       
+        tConfirm =findViewById(R.id.teacher_confirm);
+
+        mNo = findViewById(R.id.no);
+        mSure = findViewById(R.id.sure);
     }
 
     /**
@@ -146,10 +151,26 @@ public class DialogCustom extends Dialog{
         });
     }
 
-
-    
     public void setTeacherConfirmListener(View.OnClickListener listener){
         tConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+
+    public void setMenuConfirmListener(View.OnClickListener listener){
+        mNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+
+    public void setMenuCancelListener(View.OnClickListener listener){
+        mSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onClick(view);

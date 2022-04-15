@@ -83,27 +83,9 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
 
         public ContentHolder(@NonNull View itemView) {
             super(itemView);
-            delItem = itemView.findViewById(R.id.delItem);
-            rv_week = itemView.findViewById(R.id.rv_week);
-            rv_time = itemView.findViewById(R.id.rv_time);
-            rv_teacher = itemView.findViewById(R.id.rv_teacher);
-            rv_location = itemView.findViewById(R.id.rv_location);
-            rv_checkbox = itemView.findViewById(R.id.rv_checkbox);
 
-            tvTime = itemView.findViewById(R.id.time);
-            tvWeek = itemView.findViewById(R.id.week);
-            tvUsername = itemView.findViewById(R.id.username);
-            tvLocation = itemView.findViewById(R.id.location);
-
-            itemView.setOnClickListener(ContentAdapter.this);
-            delItem.setOnClickListener(ContentAdapter.this);
-            rv_week.setOnClickListener(ContentAdapter.this);
-            rv_time.setOnClickListener(ContentAdapter.this);
-            rv_teacher.setOnClickListener(ContentAdapter.this);
-            rv_location.setOnClickListener(ContentAdapter.this);
-            rv_checkbox.setOnClickListener(ContentAdapter.this);
-//            initView();
-//            setListener();
+            initView();
+            setListener();
         }
 
         public void bindData(List<ContentData> list, int position) {
@@ -118,13 +100,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             delItem = itemView.findViewById(R.id.delItem);
             rv_week = itemView.findViewById(R.id.rv_week);
             rv_time = itemView.findViewById(R.id.rv_time);
-            rv_checkbox = itemView.findViewById(R.id.rv_checkbox);
             rv_teacher = itemView.findViewById(R.id.rv_teacher);
             rv_location = itemView.findViewById(R.id.rv_location);
+            rv_checkbox = itemView.findViewById(R.id.rv_checkbox);
 
-
-            tvWeek = itemView.findViewById(R.id.week);
             tvTime = itemView.findViewById(R.id.time);
+            tvWeek = itemView.findViewById(R.id.week);
             tvUsername = itemView.findViewById(R.id.username);
             tvLocation = itemView.findViewById(R.id.location);
         }

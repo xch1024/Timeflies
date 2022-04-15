@@ -11,55 +11,60 @@
     tools:context=".MenuAlarm">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_180"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="21:02"
-            android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_110"
-            android:textStyle="bold"></TextView>
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4月13日"
+                android:text="21:02"
                 android:textColor="@color/content_text_color"
-                android:textSize="@dimen/sp_25"
+                android:textSize="@dimen/sp_110"
                 android:textStyle="bold"></TextView>
 
-            <TextView
-                android:id="@+id/week"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:text="周三"
-                android:textColor="@color/content_text_color"
-                android:textSize="@dimen/sp_25"></TextView>
-            <ImageView
-                android:id="@+id/set"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_5"
                 android:layout_gravity="center"
-                android:src="@drawable/menu_globalset"></ImageView>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4月13日"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="@dimen/sp_25"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="周三"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="@dimen/sp_25"></TextView>
+                <ImageView
+                    android:id="@+id/set"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_gravity="center"
+                    android:src="@drawable/menu_globalset"></ImageView>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -74,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
                 android:padding="@dimen/dp_1"
-                android:text="时间段20:00 - 21:00"
+                android:text="时间段00:00 - 00:00"
                 android:textColor="@color/content_text_color"
                 android:textSize="@dimen/sp_20"></TextView>
 
@@ -114,4 +119,7 @@
                 android:textColor="@color/content_text_color"
                 android:textSize="@dimen/sp_18"></TextView>
         </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

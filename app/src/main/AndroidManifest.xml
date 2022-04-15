@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeFlies">
         <activity
+            android:name=".MenuSetting"
+            android:exported="false" />
+        <activity
+            android:name=".MenuAdded"
+            android:exported="false" />
+        <activity
             android:name=".MenuGlobalSet"
             android:exported="false" />
         <activity
