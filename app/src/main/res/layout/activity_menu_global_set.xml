@@ -1,71 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--    https://blog.csdn.net/qq_20451879/article/details/54745068 Include（复用layout）的使用方式-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/course_bg">
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:background="@color/black"
+    tools:context=".MenuGlobalSet">
 
     <include
         layout="@layout/include_head"></include>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/sv_about"
+        android:id="@+id/sv_global_set"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
-                android:layout_marginTop="@dimen/dp_20"
-                android:src="@drawable/app"
-                android:layout_gravity="center"></ImageView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                android:layout_marginBottom="@dimen/dp_15"
-                android:layout_gravity="center"
-                android:text="@string/app_name"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/app_name"></TextView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:layout_margin="@dimen/dp_15"
-                android:background="@drawable/content_shape"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_15">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="当前版本"
-                    android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_15"></TextView>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="测试版本"
-                    android:textColor="@color/content_text_color"
-                    android:textSize="14sp"></TextView>
-            </LinearLayout>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_30"
-                android:text="联系我们"
+                android:text="高级"
                 android:textColor="@color/content_text_color"
                 android:textSize="@dimen/sp_15"></TextView>
 
@@ -73,171 +33,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_15"
-                android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_15"
+                android:padding="@dimen/dp_15"
                 android:orientation="vertical"
                 android:background="@drawable/content_shape">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="QQ"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="359693482"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="邮箱"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="1207255776@qq.com"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="新浪微博"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="装满水果的小车"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="微信"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Sinking_mice"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_30"
-                android:text="致谢"
-                android:textColor="@color/content_text_color"
-                android:textSize="@dimen/sp_15"></TextView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_15"
-                android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_15"
-                android:orientation="vertical"
-                android:background="@drawable/content_shape">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="绥化学院"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="一段美好时光"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="指导老师"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="包向辉"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_90"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="开发过程的伙伴"
+                        android:text="高级功能"
                         android:textColor="@color/content_text_color"
                         android:textSize="@dimen/sp_15"></TextView>
 
@@ -245,39 +54,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_3"
-                        android:text="排名不分先后：翟伟天、龙江涛、薛荣浩、郭鑫、杨文杰、\n牟宗文、刘胜、康龙、赵龙、吴健、刘芬"
+                        android:text="解锁赞助一下开发者 ƪ(•̃͡ε•̃͡)∫ʃ\n高级功能会持续更新\n采用诚信授权模式"
                         android:textColor="@color/content_text_color"
                         android:textSize="12sp"></TextView>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_110"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="亲爱的管理员"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_3"
-                        android:text="排名不分先后：月光下的风、跳跳虎、想见你、南迦巴瓦、\n莱布尼兹手稿是我的、嘻嘻、热心市民小邓、瑶琴三尺胜雄师、\n机械流水线操作工、阿一白、归去来兮辞"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="12sp"></TextView>
-                </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_30"
-                android:text="其他"
+                android:text="常规"
                 android:textColor="@color/content_text_color"
                 android:textSize="@dimen/sp_15"></TextView>
 
@@ -299,10 +87,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="分享App"
+                        android:text="设置当前课程表"
                         android:textColor="@color/content_text_color"
                         android:textSize="@dimen/sp_15"></TextView>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="点这里"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="14sp"></TextView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -314,10 +109,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="评价一下"
+                        android:text="语言"
                         android:textColor="@color/content_text_color"
                         android:textSize="@dimen/sp_15"></TextView>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="中文"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="14sp"></TextView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -329,10 +131,200 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="开源许可证"
+                        android:text="显示主题"
                         android:textColor="@color/content_text_color"
                         android:textSize="@dimen/sp_15"></TextView>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="跟随系统"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="14sp"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="将课表添加到桌面"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:text="有日视图和周视图可选哦，能否添加成功取决于系统，如果添加不了可以去桌面手动添加的。添加成功后，可以左右滑动桌面看看系统把课表放到哪一页了
+"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="12sp"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自动检查更新"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <CheckBox
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/ripple_borderless"
+                            android:buttonTint="@color/check_stroke"
+                            android:textSize="@dimen/sp_15"></CheckBox>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="4.2"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="课表下方增加留白区域"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="@dimen/sp_15"></TextView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="开启后，课表下方会多出一段空白区域，便于将底部的课程滑动至屏幕中间查看"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="12sp"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <CheckBox
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:textSize="@dimen/sp_15"
+                            android:buttonTint="@color/check_stroke"
+                            android:background="@drawable/ripple_borderless"></CheckBox></LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="4.2"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="显示空试图图片"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="@dimen/sp_15"></TextView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="当没有课程时显示空视图，可以在「高级功能j里自定义为喜欢的图片哦
+"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="12sp"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <CheckBox
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:textSize="@dimen/sp_15"
+                            android:buttonTint="@color/check_stroke"
+                            android:background="@drawable/ripple_borderless"></CheckBox></LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="功能面板显示【绥大生活】"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <CheckBox
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/ripple_borderless"
+                            android:buttonTint="@color/check_stroke"
+                            android:textSize="@dimen/sp_15"></CheckBox>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="提示时间表配置错误"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <CheckBox
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/ripple_borderless"
+                            android:buttonTint="@color/check_stroke"
+                            android:textSize="@dimen/sp_15"></CheckBox>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -349,23 +341,9 @@
                         android:textSize="@dimen/sp_15"></TextView>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="用户协议"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

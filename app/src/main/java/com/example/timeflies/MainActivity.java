@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity{
                 ToastCustom.showMsgTrue(this,"联系我们按钮");
                 break;
             case R.id.menu_global_set:
-                ToastCustom.showMsgTrue(this,"全局设置按钮");
+                intentActivity(MenuGlobalSet.class);
                 break;
             case R.id.menu_alarm:
                 intentActivity(MenuAlarm.class);

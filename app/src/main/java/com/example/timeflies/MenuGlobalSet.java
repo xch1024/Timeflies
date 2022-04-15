@@ -10,29 +10,25 @@ import android.widget.TextView;
 
 import com.example.timeflies.utils.ToastCustom;
 
-public class MenuAbout extends AppCompatActivity implements View.OnClickListener{
+public class MenuGlobalSet extends AppCompatActivity implements View.OnClickListener{
 
     private TextView tvTitle;
-    private ImageView ivDonate, ivBack;
+    private ImageView ivBack, ivDonate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_about);
-
+        setContentView(R.layout.activity_menu_global_set);
         initView();
         setListener();
+
     }
 
-    /**
-     * https://blog.csdn.net/qq_20451879/article/details/54745068 Include（复用layout）的使用方式
-     *
-     */
     private void initView(){
         tvTitle = findViewById(R.id.tvTitle);
-        ivDonate = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
-        tvTitle.setText(R.string.menu_about);
+        ivDonate = findViewById(R.id.ivSave);
+        tvTitle.setText(R.string.menu_globalset);
         ivDonate.setImageResource(R.drawable.donation);
     }
 
@@ -59,7 +55,7 @@ public class MenuAbout extends AppCompatActivity implements View.OnClickListener
      *
      */
     private void intentActivity(Class<?> cls){
-        Intent intent = new Intent(MenuAbout.this, cls);
+        Intent intent = new Intent(MenuGlobalSet.this, cls);
         startActivity(intent);
     }
 }

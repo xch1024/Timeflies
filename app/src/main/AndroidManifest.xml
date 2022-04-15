@@ -10,15 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeFlies">
         <activity
+            android:name=".MenuGlobalSet"
+            android:exported="false" />
+        <activity
             android:name=".MenuAlarm"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".MenuAbout"
             android:exported="false" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/popup_show" />
+
         <activity
             android:name=".AddCourse"
             android:exported="false" />
