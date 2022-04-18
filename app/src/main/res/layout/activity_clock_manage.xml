@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/course_bg"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/include_head"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="200dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:paddingTop="@dimen/dp_10"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="想要多少节就设置多少节呀，多余的节数不用管~\n如果想修改课表显示的节数，请去设置课表数据中的「一天课程节数」"
+                android:textSize="15sp"
+                android:textColor="@color/dialog_onclick"></TextView>
+
+            <LinearLayout
+                android:padding="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/content_text_color"
+                    android:textSize="16sp"
+                    android:text="时间表名称"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></TextView>
+
+                <TextView
+                    android:id="@+id/sName"
+                    android:gravity="right"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="16sp"
+                    android:text="显示时间表名称"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/content_text_color"
+                    android:textSize="16sp"
+                    android:text="每节课时长相同"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></TextView>
+
+                <TextView
+                    android:id="@+id/sLength"
+                    android:gravity="right"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="16sp"
+                    android:text="设置一个按钮"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/content_text_color"
+                    android:textSize="16sp"
+                    android:text="每节课时长"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></TextView>
+
+                <TextView
+                    android:id="@+id/sLong"
+                    android:gravity="right"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="16sp"
+                    android:text="50分钟"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></TextView>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_clockManage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -203,8 +203,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/dp_2"
-            android:paddingRight="@dimen/dp_2">
+            android:paddingBottom="200dp"
+            android:paddingLeft="@dimen/dp_3"
+            android:paddingRight="@dimen/dp_3">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_schedule"

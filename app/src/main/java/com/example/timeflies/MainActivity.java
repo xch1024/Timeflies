@@ -7,9 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +22,21 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import com.example.timeflies.adapter.ClockManageAdapter;
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
+import com.example.timeflies.model.ScheduleData;
+import com.example.timeflies.sqlite.ScheduleSqlite;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -36,22 +48,29 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView rvSchedule, rvMon, rvTues, rvWed, rvThur, rvFri, rvSat, rvSun;
     private DialogCustom dialog;
 
+    private List<ScheduleData> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        SQLiteStudioService.instance().start(this);
+
+
         initView();
 
         //设置状态栏字体颜色
         setBar_color();
+
         //获取当前时间
         get_time();
 
         //展示课程
         initCourse();
         //展示作息时间
-        initSchedule();
+        queryDb();
     }
 
 
@@ -126,10 +145,10 @@ public class MainActivity extends AppCompatActivity{
      *
      *
      */
-    private void initSchedule(){
+    private void initTime(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         rvSchedule.setLayoutManager(layoutManager);
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter();
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(list, this);
         rvSchedule.setAdapter(scheduleAdapter);
         rvSchedule.setNestedScrollingEnabled(false);
     }
@@ -254,7 +273,7 @@ public class MainActivity extends AppCompatActivity{
                 ToastCustom.showMsgTrue(this,"管理按钮");
                 break;
             case R.id.menu_clock:
-                ToastCustom.showMsgTrue(this,"上课时间按钮");
+                intentActivity(MenuClock.class);
                 break;
             case R.id.menu_setting:
                 intentActivity(MenuSetting.class);
@@ -293,6 +312,36 @@ public class MainActivity extends AppCompatActivity{
             dialog.dismiss();
         });
         dialog.show();
+    }
+
+    //查询数据库内容
+    public void queryDb() {
+
+        //清除数据
+        list.clear();
+        Log.i("xch", "queryDb: 查询");
+        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        //规范：确保数据库打开成功，才能放心操作
+        if (db.isOpen()) {
+            //返回游标
+            Cursor cursor = db.rawQuery("select * from schedules", null);
+            while(cursor.moveToNext()){
+                int _id = cursor.getInt(0);
+                String startTime = cursor.getString(1);
+                String endTime = cursor.getString(2);
+                ScheduleData s = new ScheduleData(_id, startTime, endTime);
+                list.add(s);
+                Log.i("xch", "BtnQuery: 主键：" + _id + "\t" + "用户名：" + startTime + "\t" + "内容：" + endTime);
+            }
+            //规范：必须关闭游标，不然影响性能
+            cursor.close();
+            //规范：必须关闭数据库
+            db.close();
+
+            //重新加载recycle
+            initTime();
+        }
     }
 
 }

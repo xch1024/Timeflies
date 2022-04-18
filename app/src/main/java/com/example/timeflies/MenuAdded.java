@@ -37,7 +37,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
         tvTitle = findViewById(R.id.tvTitle);
         ivRemove = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
-        tvTitle.setText(R.string.menu_added);
+        tvTitle.setText(R.string.menu_added_view);
         ivRemove.setImageResource(R.drawable.remove);
     }
 

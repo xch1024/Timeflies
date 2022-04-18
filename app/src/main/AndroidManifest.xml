@@ -2,13 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.timeflies">
 
+    //数据库权限文件
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app"
         android:label="@string/app_name"
         android:roundIcon="@drawable/app"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TimeFlies">
+        android:theme="@style/Theme.TimeFlies.Fullscreen">
+        <activity
+            android:name=".ClockManage"
+            android:exported="false" />
+        <activity
+            android:name=".MenuClock"
+            android:exported="false" />
         <activity
             android:name=".MenuSetting"
             android:exported="false" />

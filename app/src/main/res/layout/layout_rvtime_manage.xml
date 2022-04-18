@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_20"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/content_text_color"
+            android:text="夏秋季"></TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+
+
+            <ImageView
+                android:layout_marginRight="@dimen/dp_20"
+                android:id="@+id/ivDelete"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/remove"
+                android:background="@drawable/ripple_borderless"></ImageView>
+
+
+
+            <ImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/edit"
+                android:background="@drawable/ripple_borderless"></ImageView>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

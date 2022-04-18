@@ -56,13 +56,15 @@
                     android:text="周三"
                     android:textColor="@color/content_text_color"
                     android:textSize="@dimen/sp_25"></TextView>
+
                 <ImageView
                     android:id="@+id/set"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:layout_marginLeft="@dimen/dp_30"
                     android:layout_gravity="center"
-                    android:src="@drawable/menu_globalset"></ImageView>
+                    android:src="@drawable/menu_globalset"
+                    android:background="@drawable/ripple_borderless"
+                    android:layout_marginLeft="@dimen/dp_30"></ImageView>
             </LinearLayout>
         </LinearLayout>
 
