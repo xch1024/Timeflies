@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--设置popWindow的动画-->
+
 <resources>
     <style name="pop_style">
         <item name="android:windowEnterAnimation">@anim/pop_enter</item>

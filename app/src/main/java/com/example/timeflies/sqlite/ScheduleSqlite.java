@@ -1,13 +1,17 @@
 package com.example.timeflies.sqlite;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 
 public class ScheduleSqlite extends SQLiteOpenHelper {
+
+    private static String message;
 
     /**
      * MySqliteHelper 工具类 单例模式(1.构造函数私有化 2.对外提供函数(单例函数))
@@ -63,6 +67,11 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         db.execSQL(sql9);
         db.execSQL(sql10);
 
+        //本地配置表
+        String sqlConfig = "create table configs(_id integer primary key autoincrement not null, className Text, termStart Text, currentWeek text, classTotal text, termTotal text)";
+        db.execSQL(sqlConfig);
+        String sqlNormal = "insert into configs(className, termStart, currentWeek, classTotal, termTotal) values('大二上学期', '2022-02-22', '2', '10', '30')";
+        db.execSQL(sqlNormal);
     }
 
     //数据库升级用
@@ -70,7 +79,5 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-
-
 
 }

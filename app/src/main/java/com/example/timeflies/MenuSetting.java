@@ -15,6 +15,8 @@ public class MenuSetting extends AppCompatActivity implements View.OnClickListen
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;
 
+    private View table_data, about;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +35,16 @@ public class MenuSetting extends AppCompatActivity implements View.OnClickListen
         ivBack = findViewById(R.id.ivBack);
         tvTitle.setText(R.string.menu_setting);
         ivDonate.setImageResource(R.drawable.donation);
+
+        table_data = findViewById(R.id.table_data);
+        about = findViewById(R.id.about);
     }
 
     private void setListener(){
         ivBack.setOnClickListener(this);
         ivDonate.setOnClickListener(this);
+        table_data.setOnClickListener(this);
+        about.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +55,12 @@ public class MenuSetting extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.ivSave:
                 ToastCustom.showMsgTrue(this, "捐赠");
+                break;
+            case R.id.table_data:
+                intentActivity(ScheduleData.class);
+                break;
+            case R.id.about:
+                intentActivity(MenuAbout.class);
                 break;
         }
     }

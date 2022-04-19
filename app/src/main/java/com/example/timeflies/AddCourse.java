@@ -288,7 +288,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      *
      */
     private void BtnTeacher(int position){
-        dialog = new DialogCustom(AddCourse.this,R.layout.layout_dialog_teacher,0.8);
+        dialog = new DialogCustom(AddCourse.this,R.layout.layout_dialog_teacher,0.7);
         dialog.setTeacherTitle("授课老师");
         dialog.setTeacherConfirmListener(view -> {
             ToastCustom.showMsgFalse(getApplicationContext(), "授课老师的确定按钮"+(position+1));
@@ -302,7 +302,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      *
      */
     private void BtnLocation(int position) {
-        dialog = new DialogCustom(AddCourse.this, R.layout.layout_dialog_teacher, 0.8);
+        dialog = new DialogCustom(AddCourse.this, R.layout.layout_dialog_teacher, 0.7);
         dialog.setTeacherTitle("上课地点");
         dialog.setTeacherConfirmListener(view -> {
             ToastCustom.showMsgFalse(getApplicationContext(), "上课地点的确定按钮" + (position + 1));

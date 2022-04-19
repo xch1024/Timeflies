@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.timeflies">
 
-    //数据库权限文件
+    //数据库权限
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -13,6 +12,9 @@
         android:roundIcon="@drawable/app"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeFlies.Fullscreen">
+        <activity
+            android:name=".ScheduleData"
+            android:exported="false" />
         <activity
             android:name=".ClockManage"
             android:exported="false" />
@@ -28,10 +30,11 @@
         <activity
             android:name=".MenuGlobalSet"
             android:exported="false" />
+        //设置横屏
         <activity
             android:name=".MenuAlarm"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".MenuAbout"

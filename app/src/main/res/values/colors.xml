@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--    pop_window-->
-    <color name="pop_window_solid">#FFAEC4E1</color>
+    <color name="pop_window_solid">#e0AEC4E1</color>
     <color name="pop_window_stroke">#FFD3D3D3</color>
 
     <!--    toast颜色-->

@@ -26,6 +26,7 @@
     <string name="clock_manage">设置时间</string>
 
     <string name="menu_setting">课表设置</string>
+    <string name="ScheduleData">课表数据</string>
     <string name="menu_added">已添课程</string>
     <string name="menu_added_view">课程管理</string>
     <string name="menu_help">常见问题</string>
@@ -81,6 +82,7 @@
     <dimen name="dp_80">80dp</dimen>
     <dimen name="dp_90">90dp</dimen>
     <dimen name="dp_100">100dp</dimen>
+    <dimen name="dp_105">105dp</dimen>
     <dimen name="dp_110">110dp</dimen>
     <dimen name="dp_120">120dp</dimen>
     <dimen name="dp_180">180dp</dimen>

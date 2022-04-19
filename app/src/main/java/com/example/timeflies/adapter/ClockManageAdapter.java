@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
-import com.example.timeflies.model.ScheduleData;
+import com.example.timeflies.model.TimeTableData;
 import com.example.timeflies.utils.ToastCustom;
 
 import java.util.List;
@@ -25,10 +25,10 @@ import java.util.List;
 public class ClockManageAdapter extends RecyclerView.Adapter<ClockManageAdapter.ManageHolder>{
 
 
-    private List<ScheduleData> list;//数据源
+    private List<TimeTableData> list;//数据源
     private Context context;//上下文
 
-    public ClockManageAdapter(List<ScheduleData> list, Context context) {
+    public ClockManageAdapter(List<TimeTableData> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -44,7 +44,7 @@ public class ClockManageAdapter extends RecyclerView.Adapter<ClockManageAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ClockManageAdapter.ManageHolder holder,int position) {
-        ScheduleData data = list.get(position);
+        TimeTableData data = list.get(position);
 
         //为每个item设置显示的起始时间
         holder.tvSection.setText("第 "+data.getId()+" 节");

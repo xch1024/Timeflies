@@ -12,13 +12,13 @@ import java.util.Date;
  * @time:17:33
  * @description:
  */
-public class ScheduleData {
+public class TimeTableData {
 
     public int id;
     public String startTime;
     public String endTime;
 
-    public ScheduleData(int id, String startTime, String endTime) {
+    public TimeTableData(int id, String startTime, String endTime) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;

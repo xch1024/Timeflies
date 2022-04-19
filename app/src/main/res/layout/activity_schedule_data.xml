@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/course_bg">
+
+    <include
+        layout="@layout/include_head"/>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="200dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/table_name"
+                android:clickable="true"
+                android:background="@drawable/ripple_border_menu"
+                android:padding="@dimen/dp_15"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:layout_margin="@dimen/dp_15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="课表名称"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="@dimen/sp_15"></TextView>
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="大二上学期"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="14sp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:orientation="vertical"
+                android:background="@drawable/content_shape">
+
+                <LinearLayout
+                    android:id="@+id/class_time"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_border_menu"
+                    android:padding="@dimen/dp_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上课时间"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="点击此处更改"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="14sp"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="@drawable/ripple_border_menu"
+                    android:padding="@dimen/dp_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="学期开始日期"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="2000-00-00"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="14sp"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/current_week"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_border_menu"
+                    android:padding="@dimen/dp_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前周"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="第 "
+                            android:textColor="@color/content_text_color"
+                            android:textSize="14sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/week_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="14sp"></TextView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 周"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="14sp"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/class_total"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_border_menu"
+                    android:padding="@dimen/dp_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="一天课程节数"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/class_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="14sp"></TextView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 节"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="14sp">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/term_total"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_border_menu"
+                    android:padding="@dimen/dp_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="学期周数"
+                        android:textColor="@color/content_text_color"
+                        android:textSize="@dimen/sp_15"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/term_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/content_text_color"
+                            android:text="1"
+                            android:textSize="14sp"></TextView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 周"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="14sp">
+
+                        </TextView>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/added"
+                android:clickable="true"
+                android:background="@drawable/ripple_border_menu"
+                android:padding="@dimen/dp_15"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:layout_margin="@dimen/dp_15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="管理已添加课程"
+                    android:textColor="@color/content_text_color"
+                    android:textSize="@dimen/sp_15"></TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

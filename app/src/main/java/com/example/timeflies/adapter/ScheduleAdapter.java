@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
-import com.example.timeflies.model.ScheduleData;
+import com.example.timeflies.model.TimeTableData;
 import com.example.timeflies.utils.ToastCustom;
 import java.util.List;
 
@@ -21,10 +21,20 @@ import java.util.List;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder> {
 
 
-    private List<ScheduleData> list;//数据源
+    public int ItemTotal;
+
+    public int getItemTotal() {
+        return ItemTotal;
+    }
+
+    public void setItemTotal(int itemTotal) {
+        ItemTotal = itemTotal;
+    }
+
+    private List<TimeTableData> list;//数据源
     private Context context;//上下文
 
-    public ScheduleAdapter(List<ScheduleData> list, Context context) {
+    public ScheduleAdapter(List<TimeTableData> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -33,13 +43,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     @Override
     public ScheduleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvschedule,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvtimetable,parent,false);
         return new ScheduleHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleAdapter.ScheduleHolder holder, int position) {
-        ScheduleData data = list.get(position);
+        TimeTableData data = list.get(position);
 
         holder.tvNum.setText(String.valueOf(data.getId()));
         holder.tvStart.setText(data.getStartTime());
@@ -55,7 +65,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return ItemTotal;
     }
 
     public class ScheduleHolder extends RecyclerView.ViewHolder {

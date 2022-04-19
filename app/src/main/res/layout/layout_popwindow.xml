@@ -31,7 +31,7 @@
 
                 <TextView
                     android:id="@+id/update_week"
-                    android:onClick="onClick"
+                    android:onClick="homePage"
                     android:layout_width="@dimen/dp_90"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center"
@@ -44,16 +44,18 @@
 
         </LinearLayout>
 
-<!--        滑动进度条-->
+<!--        滑动进度条   https://blog.csdn.net/qq_38950819/article/details/81938193 【Android】Seekbar拖动条的使用-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10">
 
-            <View
+            <SeekBar
+                android:splitTrack="false"
+                android:thumb="@drawable/seekbar_thumb"
+                android:progressDrawable="@drawable/seekbar_progress"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_30"
-                android:background="@color/purple_500" />
+                android:layout_height="wrap_content"></SeekBar>
 
         </LinearLayout>
 
@@ -78,7 +80,7 @@
 
                 <TextView
                     android:id="@+id/add_table"
-                    android:onClick="onClick"
+                    android:onClick="homePage"
                     android:layout_width="@dimen/dp_70"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center"
@@ -90,7 +92,7 @@
 
                 <TextView
                     android:id="@+id/manage"
-                    android:onClick="onClick"
+                    android:onClick="homePage"
                     android:gravity="center"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
@@ -111,16 +113,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <View
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
-                android:background="@color/purple_200"></View>
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:text="大二上学期"
-                android:textSize="8sp"></TextView>
+                android:orientation="vertical">
+                <View
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:background="@drawable/content_shape"></View>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="大二上学期的课程"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="9sp"></TextView>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
@@ -140,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_clock"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -163,7 +173,7 @@
                     android:layout_gravity="center" />
             </LinearLayout>
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_setting"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -185,7 +195,7 @@
                     android:layout_gravity="center"></TextView>
             </LinearLayout>
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_added"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -207,7 +217,7 @@
                     android:layout_gravity="center"></TextView>
             </LinearLayout>
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_help"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -236,7 +246,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20">
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_about"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -259,7 +269,7 @@
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_connect"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -282,7 +292,7 @@
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_global_set"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -305,7 +315,7 @@
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:onClick="onClick"
+                android:onClick="homePage"
                 android:id="@+id/menu_alarm"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"

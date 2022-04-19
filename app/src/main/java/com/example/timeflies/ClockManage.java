@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,23 +15,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.timeflies.adapter.ClockManageAdapter;
-import com.example.timeflies.model.ScheduleData;
+import com.example.timeflies.model.TimeTableData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
 import com.example.timeflies.utils.ToastCustom;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ClockManage extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView rvRecyclerView;
     private ClockManageAdapter adapter;
-    private List<ScheduleData> list = new ArrayList<>();
+    private List<TimeTableData> list = new ArrayList<>();
 
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;
@@ -106,7 +100,7 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
                 int _id = cursor.getInt(0);
                 String startTime = cursor.getString(1);
                 String endTime = cursor.getString(2);
-                ScheduleData s = new ScheduleData(_id, startTime, endTime);
+                TimeTableData s = new TimeTableData(_id, startTime, endTime);
                 list.add(s);
             }
             //规范：必须关闭游标，不然影响性能

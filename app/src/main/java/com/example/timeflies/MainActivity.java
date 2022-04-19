@@ -18,16 +18,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.timeflies.adapter.ClockManageAdapter;
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
-import com.example.timeflies.model.ScheduleData;
+import com.example.timeflies.model.TimeTableData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
+import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
@@ -48,29 +47,30 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView rvSchedule, rvMon, rvTues, rvWed, rvThur, rvFri, rvSat, rvSun;
     private DialogCustom dialog;
 
-    private List<ScheduleData> list = new ArrayList<>();
-
+    private List<TimeTableData> list = new ArrayList<>();
+    private SqHelper sqHelper;
+    private static int num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        SQLiteStudioService.instance().start(this);
-
-
-        initView();
-
         //设置状态栏字体颜色
         setBar_color();
+        //数据库配置
+        SQLiteStudioService.instance().start(this);
+
+        //一些控件初始化
+        initView();
 
         //获取当前时间
         get_time();
 
         //展示课程
         initCourse();
-        //展示作息时间
-        queryDb();
+
+        //查询作息时间表，并展示指定条数
+        queryDb(num);
     }
 
 
@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity{
      * https://www.cnblogs.com/homg/p/3345012.html
      *
      */
-    private void initView(){
+    public void initView(){
+        //日期栏的周一到周日
         mon = findViewById(R.id.week_mon);
         tues = findViewById(R.id.week_tues);
         wed = findViewById(R.id.week_wed);
@@ -88,9 +89,12 @@ public class MainActivity extends AppCompatActivity{
         fri = findViewById(R.id.week_fri);
         sat = findViewById(R.id.week_sat);
         sun = findViewById(R.id.week_sun);
+
+        //添加和弹出popWindow按钮
         add = findViewById(R.id.bt_add);
         ellipsis = findViewById(R.id.bt_ellipsis);
 
+        //作息表和课程recycleView初始化
         rvSchedule = findViewById(R.id.rv_schedule);
         rvMon = findViewById(R.id.rv_mon);
         rvTues = findViewById(R.id.rv_tues);
@@ -100,7 +104,11 @@ public class MainActivity extends AppCompatActivity{
         rvSat = findViewById(R.id.rv_sat);
         rvSun = findViewById(R.id.rv_sun);
 
+        //popWindow布局的控件
         view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_popwindow, null);
+        update_week = view.findViewById(R.id.update_week);
+        add_table = view.findViewById(R.id.add_table);
+        manage = view.findViewById(R.id.manage);
         menu_clock = view.findViewById(R.id.menu_clock);
         menu_setting = view.findViewById(R.id.menu_setting);
         menu_added = view.findViewById(R.id.menu_added);
@@ -109,9 +117,10 @@ public class MainActivity extends AppCompatActivity{
         menu_connect = view.findViewById(R.id.menu_connect);
         menu_global_set = view.findViewById(R.id.menu_global_set);
         menu_alarm = view.findViewById(R.id.menu_alarm);
-        update_week = view.findViewById(R.id.update_week);
-        add_table = view.findViewById(R.id.add_table);
-        manage = view.findViewById(R.id.manage);
+
+        sqHelper = new SqHelper(this);
+        num = Integer.parseInt(sqHelper.queryConfig("classTotal"));
+
     }
 
     /**
@@ -141,14 +150,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
     /**
-     * 初始化recycleview,展示作息时间表
-     *
+     * 初始化recycleView,展示作息时间表
+     * @count 一天课程节数
      *
      */
-    private void initTime(){
+    private void initTime(int count){
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         rvSchedule.setLayoutManager(layoutManager);
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter(list, this);
+        //设置item显示的数量
+        scheduleAdapter.setItemTotal(count);
         rvSchedule.setAdapter(scheduleAdapter);
         rvSchedule.setNestedScrollingEnabled(false);
     }
@@ -167,7 +178,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     /**
-     * 初始化所有课程
+     * 初始化周一到周日的所有课程
      *
      */
     private void initCourse(){
@@ -185,18 +196,17 @@ public class MainActivity extends AppCompatActivity{
      *
      */
     private void get_time(){
-//        设置时间
+        //设置时间
         TextView time = findViewById(R.id.tv_sj);
         SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyy/M/d");
         Date date = new Date(currentTimeMillis());
         time.setText(SimpleDateFormat.format(date));
-//        设置当前周数
+        //设置当前周数
         TextView week = findViewById(R.id.tv_week);
         SimpleDateFormat xq = new SimpleDateFormat("E");
         week.setText(xq.format(date));
-
         setWeekBold();
-//        设置月份
+        //设置月份
         TextView month = findViewById(R.id.week_month);
         SimpleDateFormat mon = new SimpleDateFormat("M");
         month.setText(mon.format(date)+"\n月");
@@ -204,7 +214,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     /**
-     * 设置字体颜色
+     * 设置字体颜色 文字加粗，设置颜色为黑色
      * @param textView
      */
     public void initStyle(TextView textView){
@@ -213,7 +223,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     /**
-     * 设置当日颜色为粗体
+     * 设置当日颜色为粗体 周一到周日
      *
      */
     private void setWeekBold(){
@@ -250,12 +260,14 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    /**布局文件onclick
+    /**
+     * 主页面、popWindow上的一些按钮监听
+     * 布局文件onClick属性点击事件
      * https://www.cnblogs.com/princenwj/p/5967336.html
      *
      * @param view
      */
-    public void onClick(View view) {
+    public void homePage(View view) {
         switch (view.getId()){
             case R.id.bt_add:
                 intentActivity(AddCourse.class);
@@ -264,7 +276,7 @@ public class MainActivity extends AppCompatActivity{
                 showPopWindow();
                 break;
             case R.id.update_week:
-                ToastCustom.showMsgTrue(this,"修改当前周按钮");
+                intentActivity(ScheduleData.class);
                 break;
             case R.id.add_table:
                 ToastCustom.showMsgTrue(this,"新建课表按钮");
@@ -301,22 +313,29 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    /**
+     * 联系按钮
+     *
+     */
     private void BtnContact(){
         dialog = new DialogCustom(MainActivity.this, R.layout.layout_dialog_menu, 0.8);
         dialog.setMenuConfirmListener(view -> {
             dialog.dismiss();
-            ToastCustom.showMsgTrue(getApplicationContext(), "联系按钮的确定反馈");
+            ToastCustom.showMsgTrue(getApplicationContext(), "真的要反馈啦");
         });
         dialog.setMenuCancelListener(view -> {
-            ToastCustom.showMsgTrue(getApplicationContext(), "备注按钮的取消反馈");
+            ToastCustom.showMsgTrue(getApplicationContext(), "我再摸索一下");
             dialog.dismiss();
         });
         dialog.show();
     }
 
-    //查询数据库内容
-    public void queryDb() {
-
+    /**
+     * 查询数据库作息时间表的所有内容
+     * @count 展示指定的item个数
+     *
+     */
+    public void queryDb(int count) {
         //清除数据
         list.clear();
         Log.i("xch", "queryDb: 查询");
@@ -330,9 +349,8 @@ public class MainActivity extends AppCompatActivity{
                 int _id = cursor.getInt(0);
                 String startTime = cursor.getString(1);
                 String endTime = cursor.getString(2);
-                ScheduleData s = new ScheduleData(_id, startTime, endTime);
+                TimeTableData s = new TimeTableData(_id, startTime, endTime);
                 list.add(s);
-                Log.i("xch", "BtnQuery: 主键：" + _id + "\t" + "用户名：" + startTime + "\t" + "内容：" + endTime);
             }
             //规范：必须关闭游标，不然影响性能
             cursor.close();
@@ -340,7 +358,7 @@ public class MainActivity extends AppCompatActivity{
             db.close();
 
             //重新加载recycle
-            initTime();
+            initTime(count);
         }
     }
 
