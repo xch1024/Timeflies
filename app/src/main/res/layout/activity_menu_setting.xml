@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/course_bg"
     android:orientation="vertical"
-    tools:context=".MenuSetting">
+    tools:context=".activity.MenuSetting">
 
     <include
         layout="@layout/include_head"></include>
@@ -39,31 +39,6 @@
                 android:orientation="vertical"
                 android:background="@drawable/content_shape">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_105"
-                    android:background="@drawable/ripple_border_menu"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_15">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="将此课表配置用作默认配置"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_3"
-                        android:lineHeight="15sp"
-                        android:text="应用此项后，新建的课表会使用此课表中除了上课时间、课表名称、开学日期以外的配置，包括但不限于课表外观样式、一天节数等。但是后续对此课表配置的修改并不会同步到新的课表中"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="12sp"></TextView>
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/table_data"
@@ -135,31 +110,6 @@
                 android:orientation="vertical"
                 android:background="@drawable/content_shape">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_border_menu"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:minHeight="@dimen/dp_75"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_15">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="桌面小部件"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_3"
-                        android:text="桌面小部件一些常见问题"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="12sp"></TextView>
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

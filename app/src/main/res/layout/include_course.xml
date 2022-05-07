@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/view_Name"
+            android:addStatesFromChildren="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:clickable="true"
+            android:background="@drawable/ripple_border_rectangle">
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/course_name"
+                android:layout_gravity="center_vertical">
+            </ImageView>
+
+            <EditText
+                android:id="@+id/course_name"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:hint="课程名称"
+                android:textColorHint="@color/text_normal"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/sp_15"
+                android:singleLine="true"
+                android:background="@drawable/edit_none_shape"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"></EditText>
+        </LinearLayout>
+
+        <!--更改颜色-->
+        <LinearLayout
+            android:id="@+id/view_Color"
+            android:addStatesFromChildren="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:clickable="true"
+            android:background="@drawable/ripple_border_rectangle">
+
+            <ImageView
+                android:id="@+id/colorMap"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/course_color"
+                android:layout_gravity="center_vertical">
+
+            </ImageView>
+            <TextView
+                android:id="@+id/course_color"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:text="@string/course_color"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <!--学分-->
+        <LinearLayout
+            android:id="@+id/View_Credit"
+            android:addStatesFromChildren="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:clickable="true"
+            android:background="@drawable/ripple_border_rectangle">
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/course_brand"
+                android:layout_gravity="center_vertical">
+            </ImageView>
+
+            <EditText
+                android:id="@+id/course_credit"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:hint="@string/course_credit"
+                android:textColorHint="@color/text_normal"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/sp_15"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/edit_none_shape"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"></EditText>
+
+            <TextView
+                android:id="@+id/credit"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:visibility="gone"
+                android:text=" 学分"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">            </TextView>
+
+        </LinearLayout>
+
+        <!--备注-->
+        <LinearLayout
+            android:id="@+id/View_Remark"
+            android:addStatesFromChildren="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:clickable="true"
+            android:background="@drawable/ripple_border_rectangle">
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/course_editor"
+                android:layout_gravity="center_vertical">
+            </ImageView>
+
+            <EditText
+                android:id="@+id/course_remark"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:hint="@string/course_editor"
+                android:textColorHint="@color/text_normal"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/sp_15"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/edit_none_shape"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"></EditText>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

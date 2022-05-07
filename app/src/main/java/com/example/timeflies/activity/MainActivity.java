@@ -1,4 +1,4 @@
-package com.example.timeflies;
+package com.example.timeflies.activity;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.timeflies.R;
 import com.example.timeflies.adapter.CourseAdapter;
 import com.example.timeflies.adapter.ScheduleAdapter;
 import com.example.timeflies.model.TimeTableData;
@@ -50,6 +51,20 @@ public class MainActivity extends AppCompatActivity{
     private List<TimeTableData> list = new ArrayList<>();
     private SqHelper sqHelper;
     private static int num;
+
+
+    /**
+     * Android 返回上一个界面并刷新数据的方法 https://blog.csdn.net/weixin_44177244/article/details/108861732
+     * Android的任务和回退栈   https://blog.csdn.net/lcj_zhengjiubukaixin/article/details/51705690
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
+        initTime(num);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,11 +220,7 @@ public class MainActivity extends AppCompatActivity{
         TextView week = findViewById(R.id.tv_week);
         SimpleDateFormat xq = new SimpleDateFormat("E");
         week.setText(xq.format(date));
-        setWeekBold();
-        //设置月份
-        TextView month = findViewById(R.id.week_month);
-        SimpleDateFormat mon = new SimpleDateFormat("M");
-        month.setText(mon.format(date)+"\n月");
+//        setWeekBold();
     }
 
 
@@ -270,13 +281,14 @@ public class MainActivity extends AppCompatActivity{
     public void homePage(View view) {
         switch (view.getId()){
             case R.id.bt_add:
-                intentActivity(AddCourse.class);
+                intentActivity(CourseActivity.class);
                 break;
             case R.id.bt_ellipsis:
                 showPopWindow();
                 break;
             case R.id.update_week:
                 intentActivity(ScheduleData.class);
+                ScheduleData scheduleData = new ScheduleData();
                 break;
             case R.id.add_table:
                 ToastCustom.showMsgTrue(this,"新建课表按钮");

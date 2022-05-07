@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.timeflies.R;
 
 /**
+ * 主页课程显示
  * RecycleView实现合并拆分单元格 https://blog.csdn.net/weixin_43607099/article/details/106299021?spm=1001.2014.3001.5501
- *
- *
  */
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
     @NonNull

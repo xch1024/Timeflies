@@ -106,23 +106,18 @@ public class ScheduleSupport {
         return result;
     }
 
-    /**
-     * 根据开学时间计算当前周
-     *
-     * @param startTime 满足"yyyy-MM-dd HH:mm:ss"模式的字符串
-     * @return
-     */
-    public static int timeTransfrom(String startTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            long start = sdf.parse(startTime).getTime();
-            long end = new Date().getTime();
-            long seconds = (end - start) / 1000;
-            long day = seconds / (24 * 3600);
-            int week = (int) (Math.floor(day / 7) + 1);
-            return week;
-        } catch (ParseException e) {
-            return -1;
+    public static int getWeek(Date d1, Date d2){
+        // 获得当前日期与本周日相差的天数
+        Calendar cd = Calendar.getInstance();
+        cd.setTime(d2);
+        // 获得今天是一周的第几天，星期日是第一天，星期二是第二天......
+        int dayOfWeek = cd.get(Calendar.DAY_OF_WEEK)-1 ; // 因为按中国礼拜一作为第一天所以这里减1
+        long daysBetween = (d1.getTime() - d2.getTime() + 1000000) / (60 * 60 * 24 * 1000);
+        int weekNum= (int) (daysBetween / 7+1);
+        if(dayOfWeek+daysBetween % 7>7){
+            weekNum+=1;
         }
+        return weekNum;
     }
+
 }

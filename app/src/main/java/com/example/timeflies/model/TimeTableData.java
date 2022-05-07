@@ -17,11 +17,17 @@ public class TimeTableData {
     public int id;
     public String startTime;
     public String endTime;
+    public String tableName;
 
     public TimeTableData(int id, String startTime, String endTime) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public TimeTableData(int id, String tableName){
+        this.id = id;
+        this.tableName = tableName;
     }
 
     public int getId() {
@@ -46,5 +52,13 @@ public class TimeTableData {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }

@@ -81,6 +81,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/term_time"
                     android:clickable="true"
                     android:background="@drawable/ripple_border_menu"
                     android:padding="@dimen/dp_15"
@@ -97,10 +98,10 @@
                         android:textSize="@dimen/sp_15"></TextView>
 
                     <TextView
+                        android:id="@+id/term_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="2000-00-00"
                         android:textColor="@color/content_text_color"
                         android:textSize="14sp"></TextView>
                 </LinearLayout>
@@ -130,24 +131,10 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="第 "
-                            android:textColor="@color/content_text_color"
-                            android:textSize="14sp"></TextView>
-
-                        <TextView
                             android:id="@+id/week_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
-                            android:textColor="@color/content_text_color"
-                            android:textSize="14sp"></TextView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" 周"
+                            android:text="第1周"
                             android:textColor="@color/content_text_color"
                             android:textSize="14sp"></TextView>
 

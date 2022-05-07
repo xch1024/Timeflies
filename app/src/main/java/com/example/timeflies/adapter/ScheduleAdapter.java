@@ -15,6 +15,7 @@ import com.example.timeflies.utils.ToastCustom;
 import java.util.List;
 
 /**
+ * 主页左侧作息时间表
  * Recycleview之打造通用的Adapter https://blog.csdn.net/weixin_43607099/article/details/106842200?spm=1001.2014.3001.5501
  *
  */
@@ -22,21 +23,21 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
 
     public int ItemTotal;
-
-    public int getItemTotal() {
-        return ItemTotal;
-    }
-
-    public void setItemTotal(int itemTotal) {
-        ItemTotal = itemTotal;
-    }
-
     private List<TimeTableData> list;//数据源
     private Context context;//上下文
 
     public ScheduleAdapter(List<TimeTableData> list, Context context) {
         this.list = list;
         this.context = context;
+    }
+
+    //item的显示个数
+    public int getItemTotal() {
+        return ItemTotal;
+    }
+
+    public void setItemTotal(int itemTotal) {
+        ItemTotal = itemTotal;
     }
 
     @NonNull
@@ -51,17 +52,20 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     public void onBindViewHolder(@NonNull ScheduleAdapter.ScheduleHolder holder, int position) {
         TimeTableData data = list.get(position);
 
-        holder.tvNum.setText(String.valueOf(data.getId()));
+        holder.tvNum.setText(String.valueOf(position+1));
         holder.tvStart.setText(data.getStartTime());
         holder.tvEnd.setText(data.getEndTime());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 ToastCustom.showMsgTrue(context, "跳转到选择时间段");
             }
         });
     }
+
+
 
     @Override
     public int getItemCount() {

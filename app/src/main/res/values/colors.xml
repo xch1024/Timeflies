@@ -16,6 +16,7 @@
     <!--    填充色-->
     <color name="toast_solid_false">#FFcc0000</color>
     <color name="toast_solid_true">#FF41964B</color>
+    <color name="toast_solid_warning">#1A69B5</color>
 
 
     <!--    添加课程页面-->

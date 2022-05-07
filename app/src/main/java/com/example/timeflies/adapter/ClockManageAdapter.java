@@ -1,5 +1,6 @@
 package com.example.timeflies.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,9 @@ import com.example.timeflies.utils.ToastCustom;
 import java.util.List;
 
 /**
- * @author:halo
- * @projectName:com.example.timeflies.adapter
- * @date:2022-04-17
- * @time:09:23
- * @description:
+ * 修改作息时间表
  */
 public class ClockManageAdapter extends RecyclerView.Adapter<ClockManageAdapter.ManageHolder>{
-
 
     private List<TimeTableData> list;//数据源
     private Context context;//上下文
@@ -43,18 +39,18 @@ public class ClockManageAdapter extends RecyclerView.Adapter<ClockManageAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClockManageAdapter.ManageHolder holder,int position) {
+    public void onBindViewHolder(@NonNull ClockManageAdapter.ManageHolder holder, int position) {
         TimeTableData data = list.get(position);
 
         //为每个item设置显示的起始时间
-        holder.tvSection.setText("第 "+data.getId()+" 节");
+        holder.tvSection.setText("第 "+(position+1)+" 节");
         holder.tvStart.setText(data.getStartTime());
         holder.tvEnd.setText(data.getEndTime());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastCustom.showMsgTrue(context, "您正在修改时间段"+ (position+1));
+                ToastCustom.showMsgWarning(context, "现在设置第"+ (position+1)+"节上课时间");
             }
         });
 

@@ -10,23 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
+import com.example.timeflies.model.CourseData;
+import com.example.timeflies.utils.ToastCustom;
 
 import java.util.List;
 import java.util.PrimitiveIterator;
 
 /**
- * @author:halo
- * @projectName:com.example.timeflies.adapter
- * @date:2022-04-15
- * @time:11:09
- * @description:
+ * 课程管理页面、已添加课程显示
  */
-public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.CourseNameHolder> implements View.OnClickListener{
+public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.CourseNameHolder> implements View.OnClickListener, View.OnLongClickListener{
 
     private Context mContext;
-    private List<String> list;
+    private List<CourseData> list;
 
-    public CourseNameAdapter(Context mContext, List<String> list) {
+    public CourseNameAdapter(Context mContext, List<CourseData> list) {
         this.mContext = mContext;
         this.list = list;
     }
@@ -40,8 +38,10 @@ public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.Co
 
     @Override
     public void onBindViewHolder(@NonNull CourseNameAdapter.CourseNameHolder holder, int position) {
-        String data = list.get(position);
+        CourseData data = list.get(position);
+        holder.tvName.setText(data.getCourseName());
 
+        holder.cName.setTag(position);
     }
 
     @Override
@@ -51,14 +51,54 @@ public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.Co
 
     public class CourseNameHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
+        private View cName;
+
         public CourseNameHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.className);
+            cName = itemView.findViewById(R.id.cName);
+
+            cName.setOnClickListener(CourseNameAdapter.this);
+            cName.setOnLongClickListener(CourseNameAdapter.this);
         }
+
+    }
+
+//=============================================================
+    public interface OnItemClickListener{
+        void onItemClick(View v, int position);
+        void onItemLongClick(View v, int position);
+    }
+
+    //声明自定义的接口
+    private CourseNameAdapter.OnItemClickListener mOnItemClickListener;
+    //定义方法并传给外面的使用者
+    public void setOnItemClickListener(CourseNameAdapter.OnItemClickListener listener) {
+        this.mOnItemClickListener  = listener;
     }
 
     @Override
     public void onClick(View view) {
+        int position = (int) view.getTag();      //getTag()获取数据
+        if(mOnItemClickListener != null){
+            switch (view.getId()){
+                case R.id.cName:
+                    mOnItemClickListener.onItemClick(view, position);
+                    break;
+            }
+        }
+    }
 
+    @Override
+    public boolean onLongClick(View view) {
+        int position = (int) view.getTag();      //getTag()获取数据
+        if(mOnItemClickListener != null){
+            switch (view.getId()){
+                case R.id.cName:
+                    mOnItemClickListener.onItemLongClick(view, position);
+                    break;
+            }
+        }
+        return true;
     }
 }

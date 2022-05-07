@@ -8,7 +8,7 @@
     android:background="@color/black"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    tools:context=".MenuAlarm">
+    tools:context=".activity.MenuAlarm">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,6 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="21:02"
                 android:textColor="@color/content_text_color"
                 android:textSize="@dimen/sp_110"
                 android:textStyle="bold"></TextView>
@@ -43,7 +42,6 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4月13日"
                     android:textColor="@color/content_text_color"
                     android:textSize="@dimen/sp_25"
                     android:textStyle="bold"></TextView>
@@ -53,7 +51,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:text="周三"
                     android:textColor="@color/content_text_color"
                     android:textSize="@dimen/sp_25"></TextView>
 

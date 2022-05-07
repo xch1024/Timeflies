@@ -96,12 +96,13 @@
         android:paddingRight="@dimen/dp_2"
         android:layout_marginBottom="@dimen/dp_3">
 
-        //月份
+        //节/周
         <TextView
             android:id="@+id/week_month"
             android:layout_width="@dimen/dp_45"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:text="节/周"
             android:textSize="@dimen/sp_12"
             android:textStyle="bold"
             android:textColor="@color/black">
@@ -116,7 +117,7 @@
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/mon"
-            android:textColor="@color/week_normal"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_12">
         </TextView>
 
@@ -129,7 +130,7 @@
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/tues"
-            android:textColor="@color/week_normal"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_12">
         </TextView>
 
@@ -141,7 +142,7 @@
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/wed"
-            android:textColor="@color/week_normal"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_12">
         </TextView>
 
@@ -153,7 +154,7 @@
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/thur"
-            android:textColor="@color/week_normal"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_12">
         </TextView>
 
@@ -165,7 +166,7 @@
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/fri"
-            android:textColor="@color/week_normal"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_12">
         </TextView>
 
@@ -177,7 +178,7 @@
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/sat"
-            android:textColor="@color/week_normal"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_12">
         </TextView>
 
@@ -189,7 +190,7 @@
             android:layout_columnWeight="1"
             android:gravity="center_horizontal"
             android:text="@string/sun"
-            android:textColor="@color/week_normal"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_12">
         </TextView>
     </GridLayout>

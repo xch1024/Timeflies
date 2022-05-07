@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.timeflies">
 
-    //数据库权限
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,31 +12,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeFlies.Fullscreen">
         <activity
-            android:name=".ScheduleData"
+            android:name=".activity.CourseActivity"
             android:exported="false" />
         <activity
-            android:name=".ClockManage"
+            android:name=".adapter.CourseActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuClock"
+            android:name=".activity.ScheduleData"
             android:exported="false" />
         <activity
-            android:name=".MenuSetting"
+            android:name=".activity.ClockManage"
             android:exported="false" />
         <activity
-            android:name=".MenuAdded"
+            android:name=".activity.MenuClock"
             android:exported="false" />
         <activity
-            android:name=".MenuGlobalSet"
+            android:name=".activity.MenuSetting"
             android:exported="false" />
-        //设置横屏
         <activity
-            android:name=".MenuAlarm"
-            android:exported="false"
+            android:name=".activity.MenuAdded"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MenuGlobalSet"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MenuAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".MenuAbout"
+            android:name=".activity.MenuAbout"
             android:exported="false" />
 
         <meta-data
@@ -45,10 +49,10 @@
             android:resource="@xml/popup_show" />
 
         <activity
-            android:name=".AddCourse"
+            android:name=".activity.AddCourse"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

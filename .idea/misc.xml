@@ -38,6 +38,7 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog_edit_normal.xml" value="0.213" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/dialog_shape.xml" value="0.2235" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit.xml" value="0.1895" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_none_shape.xml" value="0.19" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_normal.xml" value="0.272" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_rectangle.xml" value="0.272" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/edit_rectangle_normal.xml" value="0.272" />
@@ -55,6 +56,7 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_border_rectangle.xml" value="0.2245" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_btn.xml" value="0.2355" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_btn_add.xml" value="0.272" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_course.xml" value="0.2495" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_popwindow.xml" value="0.272" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_shape.xml" value="0.2355" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/ripple_shape_mask.xml" value="0.272" />
@@ -71,13 +73,16 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_edit.xml" value="0.1895" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_edit_normal.xml" value="0.213" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_shape.xml" value="0.228" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_shape_false.xml" value="0.19" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_shape_true.xml" value="0.304" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_shape_warning.xml" value="0.19" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout-v24/activity_add_course.xml" value="0.33" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout-v24/layout_dialog_schedule.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout-v24/layout_dialog_tablename.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/1.xml" value="0.24409722222222222" />
-        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_add_course.xml" value="0.2" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_add_course.xml" value="0.22" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_clock_manage.xml" value="0.23258196721311475" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_course.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_menu_about.xml" value="0.25" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_menu_added.xml" value="0.23258196721311475" />
@@ -89,12 +94,17 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/adad.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/cursor_color.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/edit.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/fragment_add_course.xml" value="0.25" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/fragment_add_lesson.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_btn_add.xml" value="0.23258196721311475" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_course.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_head.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/item_dateview_month.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/item_dateview_week.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_button_add.xml" value="0.23292349726775957" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_add_course.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_add_lesson.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_back.xml" value="0.33" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_course.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_credit.xml" value="0.22" />
@@ -103,7 +113,9 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_menu.xml" value="0.23258196721311475" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_remark.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_schedule.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_step.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_teacher.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_dialog_week.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_ellipsis.xml" value="0.33" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_grid.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_listview.xml" value="0.24409722222222222" />
@@ -115,12 +127,14 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_rvcourse_name.xml" value="0.2" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_rvschedule.xml" value="0.23292349726775957" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_rvtime_manage.xml" value="0.23258196721311475" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_rvtimetable.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_schedule.xml" value="0.30055579307396324" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_text.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_time_manage.xml" value="0.23258196721311475" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast_false.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast_true.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast_warning.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow_style.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/recycle_anim.xml" value="0.24409722222222222" />

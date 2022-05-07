@@ -8,16 +8,20 @@ package com.example.timeflies.model;
  * @description:
  */
 public class ContentData {
-    public String time;
     public String week;
-    public String username;
-    public String location;
+    public String weekType;
+    public String day;
+    public String step;
+    public String teacher;
+    public String classroom;
 
-    public ContentData(String week, String time, String username, String location){
-        this.time = time;
+    public ContentData(String week, String weekType, String day, String step, String teacher, String classroom) {
         this.week = week;
-        this.username = username;
-        this.location = location;
+        this.weekType = weekType;
+        this.day = day;
+        this.step = step;
+        this.teacher = teacher;
+        this.classroom = classroom;
     }
 
     public String getWeek() {
@@ -28,27 +32,43 @@ public class ContentData {
         this.week = week;
     }
 
-    public String getTime() {
-        return time;
+    public String getWeekType() {
+        return weekType;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setWeekType(String weekType) {
+        this.weekType = weekType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getDay() {
+        return day;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setDay(String day) {
+        this.day = day;
     }
 
-    public String getLocation() {
-        return location;
+    public String getStep() {
+        return step;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setStep(String step) {
+        this.step = step;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
+    public String getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
     }
 }

@@ -42,7 +42,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@drawable/course_close_white">
+                        android:src="@drawable/toast_false">
                     </ImageView>
                 </LinearLayout>
 
@@ -67,7 +67,7 @@
             </ImageView>
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/week"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
@@ -81,6 +81,20 @@
 
             </TextView>
 
+            <TextView
+                android:id="@+id/week_type"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textColorHint="@color/text_normal"
+                android:textSize="@dimen/sp_15"
+                android:textColor="@color/text_normal"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@drawable/edit_none_shape"
+                android:textCursorDrawable="@drawable/cursor_course">
+            </TextView>
+
         </LinearLayout>
 
         <!--    周几 第几节-->
@@ -91,7 +105,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_60">
             <LinearLayout
-
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -108,7 +121,7 @@
                 </ImageView>
 
                 <TextView
-                    android:id="@+id/week"
+                    android:id="@+id/week_day"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center_vertical"
@@ -119,7 +132,20 @@
                     android:layout_marginLeft="@dimen/dp_5"
                     android:background="@drawable/edit_none_shape"
                     android:textCursorDrawable="@drawable/cursor_course">
+                </TextView>
 
+                <TextView
+                    android:id="@+id/step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/text_normal"
+                    android:textSize="@dimen/sp_15"
+                    android:textColor="@color/text_normal"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@drawable/edit_none_shape"
+                    android:textCursorDrawable="@drawable/cursor_course">
                 </TextView>
             </LinearLayout>
 
@@ -167,20 +193,20 @@
 
             </ImageView>
 
-            <TextView
-                android:id="@+id/username"
+            <EditText
+                android:id="@+id/teacher"
+                android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
+                android:hint="授课老师(可不填)"
                 android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/text_normal"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/edit_none_shape"
-                android:textCursorDrawable="@drawable/cursor_course">
-
-            </TextView>
+                android:background="@drawable/edit_none_shape">
+            </EditText>\
 
         </LinearLayout>
 
@@ -188,7 +214,6 @@
         <LinearLayout
             android:id="@+id/rv_location"
             android:onClick="add_location"
-            android:clickable="true"
             android:background="@drawable/ripple_border_rectangle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_60"
@@ -203,20 +228,22 @@
 
             </ImageView>
 
-            <TextView
-                android:id="@+id/location"
+            <EditText
+                android:id="@+id/classroom"
+                android:focusable="false"
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
+                android:hint="上课教室(可不填)"
                 android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/text_normal"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/edit_none_shape"
-                android:textCursorDrawable="@drawable/cursor_course">
+                android:background="@drawable/edit_none_shape">
 
-            </TextView>
+            </EditText>
 
         </LinearLayout>
     </LinearLayout>

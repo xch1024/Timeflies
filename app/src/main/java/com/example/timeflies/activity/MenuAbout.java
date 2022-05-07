@@ -1,4 +1,4 @@
-package com.example.timeflies;
+package com.example.timeflies.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,37 +8,38 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.timeflies.R;
 import com.example.timeflies.utils.ToastCustom;
 
-public class MenuClock extends AppCompatActivity implements View.OnClickListener {
+public class MenuAbout extends AppCompatActivity implements View.OnClickListener{
 
     private TextView tvTitle;
-    private ImageView ivNull, ivBack;
-    private ImageView ivDel, ivEdit;
+    private ImageView ivDonate, ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_clock);
+        setContentView(R.layout.activity_menu_about);
+
         initView();
         setListener();
     }
 
+    /**
+     * https://blog.csdn.net/qq_20451879/article/details/54745068 Include（复用layout）的使用方式
+     *
+     */
     private void initView(){
         tvTitle = findViewById(R.id.tvTitle);
-        ivNull = findViewById(R.id.ivSave);
+        ivDonate = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
-        ivDel = findViewById(R.id.ivDelete);
-        ivEdit = findViewById(R.id.ivEdit);
-        tvTitle.setText(R.string.menu_clock_view);
-        ivNull.setVisibility(View.GONE);
-        ivDel.setColorFilter(getResources().getColor(R.color.toast_solid_false));
-        ivEdit.setColorFilter(getResources().getColor(R.color.button_add));
+        tvTitle.setText(R.string.menu_about);
+        ivDonate.setImageResource(R.drawable.donation);
     }
+
     private void setListener(){
         ivBack.setOnClickListener(this);
-        ivDel.setOnClickListener(this);
-        ivEdit.setOnClickListener(this);
+        ivDonate.setOnClickListener(this);
     }
 
     @Override
@@ -47,11 +48,8 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
             case R.id.ivBack:
                 intentActivity(MainActivity.class);
                 break;
-            case R.id.ivDelete:
-                ToastCustom.showMsgFalse(this,"删除按钮");
-                break;
-            case R.id.ivEdit:
-                intentActivity(ClockManage.class);
+            case R.id.ivSave:
+                ToastCustom.showMsgTrue(this, "捐赠");
                 break;
         }
     }
@@ -62,7 +60,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
      *
      */
     private void intentActivity(Class<?> cls){
-        Intent intent = new Intent(MenuClock.this, cls);
+        Intent intent = new Intent(MenuAbout.this, cls);
         startActivity(intent);
     }
 }

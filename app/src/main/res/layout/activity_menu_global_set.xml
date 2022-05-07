@@ -7,7 +7,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:background="@color/course_bg"
-    tools:context=".MenuGlobalSet">
+    tools:context=".activity.MenuGlobalSet">
 
     <include
         layout="@layout/include_head"></include>
@@ -112,116 +112,6 @@
                     android:paddingLeft="@dimen/dp_15"
                     android:paddingRight="@dimen/dp_15"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="语言"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="中文"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:clickable="true"
-                    android:background="@drawable/ripple_border_menu"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="显示主题"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="跟随系统"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="14sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:clickable="true"
-                    android:background="@drawable/ripple_border_menu"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_105"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="将课表添加到桌面"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_3"
-                        android:text="有日视图和周视图可选哦，能否添加成功取决于系统，如果添加不了可以去桌面手动添加的。添加成功后，可以左右滑动桌面看看系统把课表放到哪一页了
-"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="12sp"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:clickable="true"
-                    android:background="@drawable/ripple_border_menu"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="自动检查更新"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right">
-
-                        <CheckBox
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ripple_borderless"
-                            android:buttonTint="@color/check_stroke"
-                            android:textSize="@dimen/sp_15"></CheckBox>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:clickable="true"
-                    android:background="@drawable/ripple_border_menu"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
-                    android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -276,7 +166,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="显示空试图图片"
+                            android:text="显示空视图图片"
                             android:textColor="@color/content_text_color"
                             android:textSize="@dimen/sp_15"></TextView>
                         <TextView
@@ -303,67 +193,7 @@
                             android:background="@drawable/ripple_borderless"></CheckBox></LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:clickable="true"
-                    android:background="@drawable/ripple_border_menu"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="功能面板显示【绥大生活】"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right">
-
-                        <CheckBox
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ripple_borderless"
-                            android:buttonTint="@color/check_stroke"
-                            android:textSize="@dimen/sp_15"></CheckBox>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:clickable="true"
-                    android:background="@drawable/ripple_border_menu"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="提示时间表配置错误"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_15"></TextView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right">
-
-                        <CheckBox
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ripple_borderless"
-                            android:buttonTint="@color/check_stroke"
-                            android:textSize="@dimen/sp_15"></CheckBox>
-                    </LinearLayout>
-                </LinearLayout>
 
                 <LinearLayout
                     android:clickable="true"

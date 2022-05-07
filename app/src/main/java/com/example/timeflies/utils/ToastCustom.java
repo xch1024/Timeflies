@@ -90,4 +90,21 @@ public class ToastCustom extends Toast {
         }
     }
 
+    public static void showMsgWarning(Context context, String msg){
+        try{
+            cancelToast();
+            //引用布局文件
+            View view1 = LayoutInflater.from(context).inflate(R.layout.layout_toast_warning,null);
+            TextView textView = view1.findViewById(R.id.toast_tvTrue);
+
+            toast = new ToastCustom(context);
+            toast.setView(view1);
+            textView.setText(msg);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

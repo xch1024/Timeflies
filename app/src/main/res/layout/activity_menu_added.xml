@@ -6,7 +6,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:background="@color/course_bg"
-    tools:context=".MenuAdded">
+    tools:context=".activity.MenuAdded">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,6 +26,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -46,4 +47,32 @@
     <include
         layout="@layout/include_btn_add"></include>
 
+    <LinearLayout
+        android:id="@+id/bg_none"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@drawable/bg_none"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="还没有添加任何课程哦"
+            android:textColor="@color/content_text_color"></TextView>
+    </LinearLayout>
+
+    //fragment
+    <LinearLayout
+        android:id="@+id/add_course"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></LinearLayout>
 </FrameLayout>

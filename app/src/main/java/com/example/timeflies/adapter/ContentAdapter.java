@@ -1,31 +1,34 @@
 package com.example.timeflies.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.timeflies.R;
 import com.example.timeflies.model.ContentData;
-import com.example.timeflies.utils.ToastCustom;
+import com.example.timeflies.model.CourseData;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 添加课程页面
  *
  */
-public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> implements View.OnClickListener{
+public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> implements View.OnClickListener, View.OnLongClickListener{
 
-    private List<ContentData> list;//数据源
+    private List<CourseData> list;//数据源
     private Context mContext;//上下文
-    public ContentAdapter(Context Context, List<ContentData> list) {
+    public ContentAdapter(Context Context, List<CourseData> list) {
         this.mContext = Context;
         this.list = list;
     }
@@ -46,13 +49,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
      */
     @Override
     public void onBindViewHolder(@NonNull ContentHolder holder, int position) {
-//        holder.bindData(list,position);
 
-        ContentData data = list.get(position);
-        holder.tvTime.setText(data.getTime());
-        holder.tvWeek.setText(data.getWeek());
-        holder.tvUsername.setText(data.getUsername());
-        holder.tvLocation.setText(data.getLocation());
+        setContent(holder, position);
 
         holder.itemView.setTag(position);
         holder.delItem.setTag(position);
@@ -63,8 +61,44 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
         holder.rv_location.setTag(position);
 
         //添加动画效果
-        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.recycle_anim);
-        holder.itemView.startAnimation(animation);
+//        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.recycle_anim);
+//        holder.itemView.startAnimation(animation);
+    }
+
+    private void setContent(ContentHolder holder, int position){
+        CourseData data = list.get(position);
+        holder.tvWeek.setText("第"+data.getStartWeek()+" - "+ data.getEndWeek()+"周");
+        holder.tvWeekType.setText(data.getWeekType());
+        holder.tvDay.setText(tranDay(data));
+        holder.tvStep.setText("第"+ data.getSectionStart() + " - "+ data.getSectionEnd() + "节");
+        if(!data.getTeacherName().equals("null")){
+            holder.tvTeacher.setText(data.getTeacherName());
+        }
+        if(!data.getClassroom().equals("null")){
+            holder.tvClassroom.setText(data.getClassroom());
+        }
+    }
+
+
+    private String tranDay(CourseData data){
+        int day = data.getDay();
+        String weekDay = "";
+        if(day == 1){
+            weekDay= "周一";
+        }else if(day == 2){
+            weekDay = "周二";
+        }else if(day == 3){
+            weekDay = "周三";
+        }else if(day == 4){
+            weekDay = "周四";
+        }else if(day == 5){
+            weekDay = "周五";
+        }else if(day == 6){
+            weekDay = "周六";
+        }else if(day == 7){
+            weekDay = "周日";
+        }
+        return weekDay;
     }
 
     /**
@@ -79,7 +113,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
     public class ContentHolder extends RecyclerView.ViewHolder{
         private View delItem, rv_week, rv_time, rv_teacher, rv_location;
         private CheckBox rv_checkbox;
-        private TextView tvTime, tvWeek, tvUsername, tvLocation;
+        private TextView tvWeek, tvWeekType, tvDay, tvStep;
+        private EditText tvTeacher, tvClassroom;
 
         public ContentHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,9 +123,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             setListener();
         }
 
-        public void bindData(List<ContentData> list, int position) {
-            ContentData data = list.get(position);
-        }
 
         /**
          * 初始化item内部控件
@@ -103,11 +135,14 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             rv_teacher = itemView.findViewById(R.id.rv_teacher);
             rv_location = itemView.findViewById(R.id.rv_location);
             rv_checkbox = itemView.findViewById(R.id.rv_checkbox);
+            rv_checkbox.setVisibility(View.GONE);
 
-            tvTime = itemView.findViewById(R.id.time);
             tvWeek = itemView.findViewById(R.id.week);
-            tvUsername = itemView.findViewById(R.id.username);
-            tvLocation = itemView.findViewById(R.id.location);
+            tvWeekType = itemView.findViewById(R.id.week_type);
+            tvDay = itemView.findViewById(R.id.week_day);
+            tvStep = itemView.findViewById(R.id.step);
+            tvTeacher = itemView.findViewById(R.id.teacher);
+            tvClassroom = itemView.findViewById(R.id.classroom);
         }
 
         /**
@@ -123,18 +158,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
             rv_teacher.setOnClickListener(ContentAdapter.this);
             rv_location.setOnClickListener(ContentAdapter.this);
             rv_checkbox.setOnClickListener(ContentAdapter.this);
-        }
-
-        /**
-         * 一些按钮
-         *
-         */
-        public void BtnDel(){
-            if(list.size()== 1){
-                ToastCustom.showMsgFalse(mContext.getApplicationContext(), "至少要保留一个时间段！");
-            }else{
-                delItem(getAdapterPosition());
-            }
         }
     }
 
@@ -158,44 +181,47 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
      */
     public interface OnItemClickListener{
         void onItemClick(View v, ViewName viewName, int position);
-        void onItemLongClick(View v);
+        void onItemLongClick(View v, ViewName viewName,int position);
     }
 
     //声明自定义的接口
     private OnItemClickListener mOnItemClickListener;
     //定义方法并传给外面的使用者
-    public void setOnItemClickListener(OnItemClickListener  listener) {
+    public void setOnItemClickListener(ContentAdapter.OnItemClickListener  listener) {
         this.mOnItemClickListener  = listener;
     }
 
     @Override
-    public void onClick(View v) {
-        int position = (int) v.getTag();      //getTag()获取数据
+    public void onClick(View view) {
+        int position = (int) view.getTag();      //getTag()获取数据
         if (mOnItemClickListener != null) {
-            switch (v.getId()){
+            switch (view.getId()){
                 case R.id.rv_content:
-                    mOnItemClickListener.onItemClick(v, ViewName.PRACTISE, position);
+                    mOnItemClickListener.onItemClick(view, ViewName.PRACTISE, position);
                     break;
                 default:
-                    mOnItemClickListener.onItemClick(v, ViewName.ITEM, position);
+                    mOnItemClickListener.onItemClick(view, ViewName.ITEM, position);
                     break;
             }
         }
     }
 
-    /**
-     * 添加item方法,供外部使用
-     *
-     * @param position
-     */
-    public void addItem(int position){
-        //在list中添加数据，并通知条目加入一条
-        if(list == null) {
-            list = new ArrayList<>();
+    public boolean onLongClick(View view) {
+        int position = (int) view.getTag();      //getTag()获取数据
+        if(mOnItemClickListener != null){
+            switch (view.getId()){
+                case R.id.rv_content:
+                    mOnItemClickListener.onItemClick(view, ViewName.PRACTISE, position);
+                    break;
+                default:
+                    mOnItemClickListener.onItemClick(view, ViewName.ITEM, position);
+                    break;
+            }
         }
-        list.add(new ContentData("第几周", "周一 第几节", "授课老师(可不填)","上课地点(可不填)"));
-        notifyItemInserted(position);
+        return true;
     }
+
+
 
     /**
      * 删除item方法，供外部使用

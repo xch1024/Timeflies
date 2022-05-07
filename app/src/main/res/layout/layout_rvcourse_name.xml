@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:padding="@dimen/dp_10"
-        android:layout_margin="@dimen/dp_10"
-        android:background="@drawable/rv_classname_shape">
 
-        <TextView
-            android:id="@+id/className"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="课程名称课程名称程名称课程名名称课程名称课程名称课程名称程名称课程名名称课程名称"
-            android:textSize="@dimen/sp_15"
-            android:lineHeight="25sp"></TextView>
+        <FrameLayout
+            android:id="@+id/cName"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/dp_10"
+            android:clickable="true"
+            android:background="@drawable/ripple_course">
+
+            <ImageView
+                android:id="@+id/color"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"></ImageView>
+
+            <TextView
+                android:id="@+id/className"
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="课程名称课程名称程名称课程名名称课程名称课程名称课程名称程名称课程名名称课程名称"
+                android:textSize="@dimen/sp_15"
+                android:lineHeight="25sp"></TextView>
+        </FrameLayout>
+
     </LinearLayout>
-</LinearLayout>
+

@@ -25,6 +25,7 @@
             android:layout_width="@dimen/dp_120"
             android:layout_height="@dimen/dp_50"
             android:layout_gravity="center"
+            android:singleLine="true"
             android:textSize="@dimen/sp_22"
             android:textColor="@color/white"
             android:gravity="center">
