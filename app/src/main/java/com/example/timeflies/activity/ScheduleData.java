@@ -299,7 +299,6 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     class_num.setText(number);
                     //同步数据库
                     sqHelper.updateConfig("classTotal", number);
-                    //todo 设置一天的课程节数后 主页应该相应的刷新
                     dialogCustomClass.dismiss();
                 }
             }
