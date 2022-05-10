@@ -239,7 +239,48 @@ public class DialogCustom extends Dialog{
         return this;
     }
 
+// 《dialog_update_week===============================================================================================================》
+
+    private RadioGroup up_radio_group;
+    private EditText up_weekStart, up_weekEnd;
+    private String upWeekStart, upWeekEnd;
+
+    public int getUpRadio() {
+        radio = up_radio_group.getCheckedRadioButtonId();
+        return radio;
+    }
+
+    public DialogCustom setUpRadio(int radio) {
+        this.radio = radio;
+        up_radio_group.check(radio);
+        return this;
+    }
+
+    public String getUpWeekStart() {
+        upWeekStart = up_weekStart.getText().toString();
+        return upWeekStart;
+    }
+
+    public DialogCustom setUpWeekStart(String upWeekStart) {
+        this.upWeekStart = upWeekStart;
+        up_weekStart.setText(upWeekStart);
+        return this;
+    }
+
+    public String getUpWeekEnd() {
+        upWeekEnd = up_weekEnd.getText().toString();
+        return upWeekEnd;
+    }
+
+    public DialogCustom setUpWeekEnd(String upWeekEnd) {
+        this.upWeekEnd = upWeekEnd;
+        up_weekEnd.setText(upWeekEnd);
+        return this;
+
+    }
+
     // 《===============================================================================================================》
+
     public DialogCustom(Context context, int themeResId) {
         super(context, themeResId);
     }
@@ -304,6 +345,11 @@ public class DialogCustom extends Dialog{
         table_edit = findViewById(R.id.table_edit);
         table_cancel = findViewById(R.id.table_cancel);
         table_confirm = findViewById(R.id.table_confirm);
+
+        //dialog_update_week
+        up_radio_group = findViewById(R.id.up_radio_group);
+        up_weekStart = findViewById(R.id.up_weekStart);
+        up_weekEnd = findViewById(R.id.up_weekEnd);
 
     }
 

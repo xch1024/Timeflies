@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import com.example.timeflies.R;
+import com.example.timeflies.View.ColorPickerView;
+import com.example.timeflies.operater.ColorUtils;
 
 import java.util.Locale;
 
@@ -31,10 +33,10 @@ import java.util.Locale;
  * @author Relish Wang
  * @since 2017/08/02
  */
-public class ColorPickerDialog extends DialogCustom implements com.example.timeflies.utils.ColorPickerView.OnColorChangedListener,
+public class ColorPickerDialog extends DialogCustom implements ColorPickerView.OnColorChangedListener,
         View.OnClickListener, TextView.OnEditorActionListener {
 
-    private com.example.timeflies.utils.ColorPickerView mColorPicker;
+    private ColorPickerView mColorPicker;
 
     private View mOldColor;
     private View mNewColor;
@@ -90,7 +92,7 @@ public class ColorPickerDialog extends DialogCustom implements com.example.timef
         @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.dialog_color_picker, null);
         setContentView(layout);
 
-        mColorPicker = (com.example.timeflies.utils.ColorPickerView) layout.findViewById(R.id.color_picker_view);
+        mColorPicker = (ColorPickerView) layout.findViewById(R.id.color_picker_view);
         mOldColor = layout.findViewById(R.id.old_color_panel);
         mNewColor = layout.findViewById(R.id.new_color_panel);
 
@@ -124,7 +126,7 @@ public class ColorPickerDialog extends DialogCustom implements com.example.timef
             String hexVal = mEtHex.getText().toString();
             if (hexVal.length() >= 0 || hexVal.length() < 7) {
                 try {
-                    int c = com.example.timeflies.utils.Utils.convertToColorInt(hexVal);
+                    int c = ColorUtils.convertToColorInt(hexVal);
                     mColorPicker.setColor(c, true);
                     mEtHex.setTextColor(mHexDefaultTextColor);
                 } catch (IllegalArgumentException e) {
@@ -163,7 +165,7 @@ public class ColorPickerDialog extends DialogCustom implements com.example.timef
     }
 
     private void updateHexValue(int color) {
-        mEtHex.setText(com.example.timeflies.utils.Utils.convertToRGB(color).toUpperCase(Locale.getDefault()));
+        mEtHex.setText(ColorUtils.convertToRGB(color).toUpperCase(Locale.getDefault()));
         mEtHex.setTextColor(mHexDefaultTextColor);
     }
 

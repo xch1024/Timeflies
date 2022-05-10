@@ -12,10 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeFlies.Fullscreen">
         <activity
-            android:name=".activity.CourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".adapter.CourseActivity"
+            android:name=".activity.AddCourse"
             android:exported="false" />
         <activity
             android:name=".activity.ScheduleData"
@@ -49,7 +46,7 @@
             android:resource="@xml/popup_show" />
 
         <activity
-            android:name=".activity.AddCourse"
+            android:name=".activity.ShowCourse"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"

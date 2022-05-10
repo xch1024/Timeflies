@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/include_head"></include>
+            layout="@layout/include_head"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -32,47 +32,21 @@
                     android:layout_gravity="center"
                     android:padding="15dp"
                     android:text="轻触编辑，长按删除"
-                    android:textColor="@color/content_text_color"></TextView>
+                    android:textColor="@color/content_text_color"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_className"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
-
+                    android:layout_height="match_parent"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
     <include
-        layout="@layout/include_btn_add"></include>
+        layout="@layout/include_btn_add"/>
 
-    <LinearLayout
-        android:id="@+id/bg_none"
-        android:layout_marginTop="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:src="@drawable/bg_none"></ImageView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="还没有添加任何课程哦"
-            android:textColor="@color/content_text_color"></TextView>
-    </LinearLayout>
+    <include
+        layout="@layout/include_none_course"/>
 
-    //fragment
-    <LinearLayout
-        android:id="@+id/add_course"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></LinearLayout>
 </FrameLayout>

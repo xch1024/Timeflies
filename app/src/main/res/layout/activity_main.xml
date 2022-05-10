@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/touch"
     android:clickable="true"
     android:clipToPadding="true"
@@ -9,216 +9,224 @@
     android:background="@drawable/bg"
     android:orientation="vertical">
 
-    <!--标题视图-->
+    //本周没有课程视图
+    <include
+        layout="@layout/include_none_course"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:paddingLeft="@dimen/dp_30"
-        android:paddingRight="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_5"
-        android:orientation="horizontal">
-
-        <!--日期周数-->
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--标题视图-->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!--系统时间-->
-            <TextView
-                android:id="@+id/tv_Date"
-                android:layout_width="@dimen/dp_120"
-                android:layout_height="@dimen/dp_25"
-                android:textSize="@dimen/sp_20"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"/>
-
-            <!--当前周数-->
-            <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingLeft="@dimen/dp_30"
+            android:paddingRight="@dimen/dp_10"
             android:orientation="horizontal">
-                 <TextView
-                    android:id="@+id/tv_curWeek"
-                    android:layout_width="@dimen/dp_50"
-                    android:layout_height="@dimen/dp_25"
-                    android:text="第?周"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
 
+            <!--日期周数-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--系统时间-->
                 <TextView
-                    android:id="@+id/tv_curTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/tv_Date"
+                    android:layout_width="@dimen/dp_120"
+                    android:layout_height="@dimen/dp_25"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:gravity="center_vertical"/>
+
+                <!--当前周数-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_curWeek"
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_25"
+                        android:text="第?周"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/tv_curTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
             </LinearLayout>
+
+            <!--两个按钮-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right">
+                <!--添加按钮-->
+                <ImageView
+                    android:id="@+id/bt_add"
+                    android:onClick="homePage"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:src="@drawable/add"/>
+
+                <!--设置按钮-->
+                <ImageView
+                    android:id="@+id/bt_ellipsis"
+                    android:onClick="homePage"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:src="@drawable/ellipsis"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <!--两个按钮-->
-        <LinearLayout
+        <!--月份星期-->
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="right">
-            <!--添加按钮-->
-            <ImageView
-                android:id="@+id/bt_add"
-                android:onClick="homePage"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:layout_marginRight="@dimen/dp_10"
-                android:src="@drawable/add"/>
-
-            <!--设置按钮-->
-            <ImageView
-                android:id="@+id/bt_ellipsis"
-                android:onClick="homePage"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:src="@drawable/ellipsis"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!--月份星期-->
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
-        android:columnCount="8"
-        android:paddingLeft="@dimen/dp_2"
-        android:paddingRight="@dimen/dp_2"
-        android:layout_marginBottom="@dimen/dp_10">
-
-        //节-周
-        <TextView
-            android:id="@+id/week_month"
-            android:layout_width="@dimen/dp_45"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="节/周"
-            android:textSize="@dimen/sp_12"
-            android:textStyle="bold"
-            android:textColor="@color/black">
-        </TextView>
-
-
-        //周一
-        <TextView
-            android:id="@+id/week_mon"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/mon"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_12">
-        </TextView>
-
-
-        //周二
-        <TextView
-            android:id="@+id/week_tues"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/tues"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_12">
-        </TextView>
-
-        //周三
-        <TextView
-            android:id="@+id/week_wed"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/wed"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_12">
-        </TextView>
-
-        //周四
-        <TextView
-            android:id="@+id/week_thur"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/thur"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_12">
-        </TextView>
-
-        //周五
-        <TextView
-            android:id="@+id/week_fri"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/fri"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_12">
-        </TextView>
-
-        //周六
-        <TextView
-            android:id="@+id/week_sat"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/sat"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_12">
-        </TextView>
-
-        //周日
-        <TextView
-            android:id="@+id/week_sun"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/sun"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_12">
-        </TextView>
-    </GridLayout>
-
-    <!--    上下滚动试图-->
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:columnCount="8"
             android:paddingLeft="@dimen/dp_2"
             android:paddingRight="@dimen/dp_2"
-            android:paddingBottom="200dp">
-            <!--时间表-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_schedule"
-                android:layout_width="@dimen/dp_45"
-                android:layout_height="wrap_content"/>
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_10">
 
-            <!--课程数据-->
-            <com.example.timeflies.View.TimeTableView
-                android:id="@+id/timeTable"
+            //节-周
+            <TextView
+                android:id="@+id/week_month"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="节/周"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="bold"
+                android:textColor="@color/black">
+            </TextView>
+
+
+            //周一
+            <TextView
+                android:id="@+id/week_mon"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/mon"
+                android:textColor="@color/week_normal"
+                android:textSize="@dimen/sp_12">
+            </TextView>
+
+
+            //周二
+            <TextView
+                android:id="@+id/week_tues"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/tues"
+                android:textColor="@color/week_normal"
+                android:textSize="@dimen/sp_12">
+            </TextView>
+
+            //周三
+            <TextView
+                android:id="@+id/week_wed"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/wed"
+                android:textColor="@color/week_normal"
+                android:textSize="@dimen/sp_12">
+            </TextView>
+
+            //周四
+            <TextView
+                android:id="@+id/week_thur"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/thur"
+                android:textColor="@color/week_normal"
+                android:textSize="@dimen/sp_12">
+            </TextView>
+
+            //周五
+            <TextView
+                android:id="@+id/week_fri"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/fri"
+                android:textColor="@color/week_normal"
+                android:textSize="@dimen/sp_12">
+            </TextView>
+
+            //周六
+            <TextView
+                android:id="@+id/week_sat"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/sat"
+                android:textColor="@color/week_normal"
+                android:textSize="@dimen/sp_12">
+            </TextView>
+
+            //周日
+            <TextView
+                android:id="@+id/week_sun"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/sun"
+                android:textColor="@color/week_normal"
+                android:textSize="@dimen/sp_12">
+            </TextView>
+        </GridLayout>
+
+        <!--    上下滚动试图-->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clickable="true"
-                android:orientation="vertical"/>
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_2"
+                android:paddingRight="@dimen/dp_2"
+                android:paddingBottom="200dp">
+                <!--时间表-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_schedule"
+                    android:layout_width="@dimen/dp_45"
+                    android:layout_height="match_parent"/>
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <!--课程数据-->
+                <com.example.timeflies.View.TimeTableView
+                    android:id="@+id/timeTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:orientation="vertical"/>
 
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

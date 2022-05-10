@@ -33,7 +33,7 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
     @Override
     public TableHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvtime_manage,parent,false);
+        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvtime_manage,parent,false);
         return new TableChoiceAdapter.TableHolder(inflater);
     }
 

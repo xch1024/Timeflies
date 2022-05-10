@@ -1,4 +1,4 @@
-package com.example.timeflies.utils;
+package com.example.timeflies.operater;
 
 import android.graphics.Color;
 
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
  * @author Relish Wang
  * @since 2017/08/02
  */
-public class Utils {
+public class ColorUtils {
 
     /**
      * 16进制颜色 转 RGB(String)类型颜色(无#号)
@@ -33,7 +33,7 @@ public class Utils {
      * @return 16进制颜色
      * @throws NumberFormatException 当{@param argb}不是一个正确的颜色格式的字符串时
      */
-    static int convertToColorInt(@NonNull String argb) throws IllegalArgumentException {
+    public static int convertToColorInt(@NonNull String argb) throws IllegalArgumentException {
         if (argb.matches("[0-9a-fA-F]{1,6}")) {
             switch (argb.length()) {
                 case 1:

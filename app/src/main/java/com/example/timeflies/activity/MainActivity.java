@@ -5,18 +5,11 @@ import static java.lang.System.currentTimeMillis;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -24,12 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.timeflies.R;
 import com.example.timeflies.View.TimeTableView;
 import com.example.timeflies.adapter.ScheduleAdapter;
-import com.example.timeflies.adapter.ViewPagerAdapter;
 import com.example.timeflies.model.CourseData;
 import com.example.timeflies.model.TimeTableData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
@@ -61,7 +52,12 @@ public class MainActivity extends AppCompatActivity{
     private List<CourseData> courses = new ArrayList<>();
     private ScheduleSqlite sqlite = new ScheduleSqlite(this);
     public TimeTableView timeTable;
+    private View bg_none;
 
+    private TextView mon,tues,wed,thur,fri,sat,sun;
+    private SimpleDateFormat day = new SimpleDateFormat("E");
+
+    private int currentX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +67,9 @@ public class MainActivity extends AppCompatActivity{
         //数据库配置
         SQLiteStudioService.instance().start(this);
 
-
         initView();
         setBar_color();
+
         //查询作息时间表，并展示指定条数
         list = sqHelper.queryDb();
 
@@ -88,14 +84,18 @@ public class MainActivity extends AppCompatActivity{
         super.onStart();
 
         get_time();
+        setWeekBold();
+
         initView();
         initTime(num);
+        timeTable.setMaxSection(num);
         //获取开学时间
         // 第四周 1649779200905
         // 第三周 1650384000522
         date = Long.parseLong("1649779200905");
 
-        timeTable.loadData(acquireData(), new Date(date));
+        int visible = timeTable.loadData(acquireData(), new Date(date));
+        setView(visible);
 
         //获取开学日期-现在第几周
         weekNum = timeTable.calcWeek(new Date(date));
@@ -103,13 +103,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    private int currentX;
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onResume() {
         super.onResume();
-
         timeTable.setOnTouchListener((View view, MotionEvent event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -118,13 +115,15 @@ public class MainActivity extends AppCompatActivity{
                 case MotionEvent.ACTION_UP:
                     int i = (int) event.getX() - currentX;
                     if(i > 30){
-                        timeTable.toggleWeek(-1);
-                        Log.d(TAG, "前往上一周: 第 "+weekNum+" 周");
+                        int key = timeTable.toggleWeek(-1);
+                        Log.d(TAG, "前往上一周: 第 "+timeTable.getCurWeek()+" 周");
                         setTv_curWeek("第"+timeTable.getCurWeek()+"周");
+                        setView(key);
                     }else if(i < -30){
-                        timeTable.toggleWeek(1);
-                        Log.d(TAG, "前往下一周: 第 "+weekNum+" 周");
+                        int key = timeTable.toggleWeek(1);
+                        Log.d(TAG, "前往下一周: 第 "+timeTable.getCurWeek()+" 周");
                         setTv_curWeek("第"+timeTable.getCurWeek()+"周");
+                        setView(key);
                     }
                     break;
             }
@@ -133,18 +132,80 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    /**
+     * 设置字体颜色 文字加粗，设置颜色为黑色
+     * @param textView
+     */
+    public void initStyle(TextView textView, Boolean yes){
+        if(yes){
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        }else{
+            textView.setTextColor(getResources().getColor(R.color.week_normal));
+            textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        }
+    }
 
     /**
-     * 置当前页面是第几周的课
+     * 设置当日颜色为粗体 周一到周日
+     *
      */
-    public void setTv_curWeek(String message){
-        tv_curWeek.setText(message);
-        if(timeTable.getCurWeek() != weekNum ){
-            tv_curTime.setText("非本周");
+    private void setWeekBold(){
+        String week = tv_curTime.getText().toString();
+        if(week.equals("周一")){
+            initStyle(mon, true);
+        }else if(week.equals("周二")){
+            initStyle(tues, true);
+        }else if(week.equals("周三")){
+            initStyle(wed, true);
+        }else if(week.equals("周四")){
+            initStyle(thur, true);
+        }else if(week.equals("周五")){
+            initStyle(fri, true);
+        }else if(week.equals("周六")){
+            initStyle(sat, true);
+        }else if(week.equals("周日")){
+            initStyle(sun, true);
         }else{
-            SimpleDateFormat xq = new SimpleDateFormat("E");
-            tv_curTime.setText(xq.format(date));
+            initStyle(mon, false);
+            initStyle(tues, false);
+            initStyle(wed, false);
+            initStyle(thur, false);
+            initStyle(fri, false);
+            initStyle(sat, false);
+            initStyle(sun, false);
         }
+    }
+
+
+
+
+
+    //本周没有课程视图是否可见
+    private void setView(int key){
+        if(key < 0){
+            bg_none.setVisibility(View.VISIBLE);
+        }
+        else{
+            bg_none.setVisibility(View.GONE);
+        }
+    }
+
+
+
+    /**
+     * 设置当前页面是第几周的课
+     */
+    public void setTv_curWeek(String week){
+        tv_curWeek.setText(week);
+        Date date = new Date(currentTimeMillis());
+        if(timeTable.getCurWeek() == weekNum ){
+            Log.d(TAG, "setTv_curWeek: =="+ day.format(date));
+            tv_curTime.setText(day.format(date));
+        }else{
+            tv_curTime.setText("非本周");
+        }
+        setWeekBold();
     }
 
     private List<CourseData> acquireData(){
@@ -161,8 +222,7 @@ public class MainActivity extends AppCompatActivity{
         Date date = new Date(currentTimeMillis());
         tv_Date.setText(SimpleDateFormat.format(date));
         //设置当天周几
-        SimpleDateFormat xq = new SimpleDateFormat("E");
-        tv_curTime.setText(xq.format(date));
+        tv_curTime.setText(day.format(date));
     }
 
 
@@ -185,6 +245,17 @@ public class MainActivity extends AppCompatActivity{
         //课表数据
         timeTable = findViewById(R.id.timeTable);
 
+        bg_none = findViewById(R.id.bg_none);
+        bg_none.setVisibility(View.GONE);
+
+        //日期栏的周一到周日
+        mon = findViewById(R.id.week_mon);
+        tues = findViewById(R.id.week_tues);
+        wed = findViewById(R.id.week_wed);
+        thur = findViewById(R.id.week_thur);
+        fri = findViewById(R.id.week_fri);
+        sat = findViewById(R.id.week_sat);
+        sun = findViewById(R.id.week_sun);
 
     }
 
@@ -208,7 +279,7 @@ public class MainActivity extends AppCompatActivity{
      * https://www.jianshu.com/p/e331ffd2452f
      */
     private void showPopWindow(){
-        View contentView = getLayoutInflater().inflate(R.layout.layout_popwindow, null);
+        View contentView = getLayoutInflater().inflate(R.layout.popwindow, null);
         PopupWindow popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.dismiss();
         popupWindow.isShowing();

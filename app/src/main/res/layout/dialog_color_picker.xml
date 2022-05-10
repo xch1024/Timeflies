@@ -15,7 +15,7 @@
         android:textColor="@color/week_normal"
         android:layout_gravity="center"/>
 
-    <com.example.timeflies.utils.ColorPickerView
+    <com.example.timeflies.View.ColorPickerView
         android:id="@+id/color_picker_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
 import com.example.timeflies.model.CourseData;
-import com.example.timeflies.utils.ToastCustom;
 
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 /**
  * 课程管理页面、已添加课程显示
@@ -34,7 +32,7 @@ public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.Co
     @NonNull
     @Override
     public CourseNameHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvcourse_name,null);
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvcourse_name,null);
         return new CourseNameHolder(inflate);
     }
 

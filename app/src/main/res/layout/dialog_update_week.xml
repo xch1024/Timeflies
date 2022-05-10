@@ -16,13 +16,13 @@
     </TextView>
 
     <RadioGroup
-        android:id="@+id/radio_group"
+        android:id="@+id/up_radio_group"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RadioButton
-            android:id="@+id/radio_full"
+            android:id="@+id/up_radio_full"
             android:checked="true"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -31,7 +31,7 @@
             android:text="全周"></RadioButton>
 
         <RadioButton
-            android:id="@+id/radio_single"
+            android:id="@+id/up_radio_single"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:text="单周"></RadioButton>
 
         <RadioButton
-            android:id="@+id/radio_dual"
+            android:id="@+id/up_radio_dual"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
 
 
         <EditText
-            android:id="@+id/week_start"
+            android:id="@+id/up_weekStart"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             android:textColor="@color/white"></TextView>
 
         <EditText
-            android:id="@+id/week_end"
+            android:id="@+id/up_weekEnd"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

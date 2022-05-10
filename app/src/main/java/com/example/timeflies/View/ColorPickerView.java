@@ -1,4 +1,4 @@
-package com.example.timeflies.utils;
+package com.example.timeflies.View;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -140,7 +140,7 @@ public class ColorPickerView extends View {
 
     private OnColorChangedListener mListener;
 
-    interface OnColorChangedListener {
+    public interface OnColorChangedListener {
         void onColorChanged(int color);
     }
 

@@ -60,7 +60,7 @@ public class ToastCustom extends Toast {
         try{
             cancelToast();
             //引用布局文件
-            View view1 = LayoutInflater.from(context).inflate(R.layout.layout_toast_false,null);
+            View view1 = LayoutInflater.from(context).inflate(R.layout.toast_false,null);
             TextView textView = view1.findViewById(R.id.toast_tvFalse);
 
             toast = new ToastCustom(context);
@@ -77,7 +77,7 @@ public class ToastCustom extends Toast {
         try{
             cancelToast();
             //引用布局文件
-            View view1 = LayoutInflater.from(context).inflate(R.layout.layout_toast_true,null);
+            View view1 = LayoutInflater.from(context).inflate(R.layout.toast_true,null);
             TextView textView = view1.findViewById(R.id.toast_tvTrue);
 
             toast = new ToastCustom(context);
@@ -94,7 +94,7 @@ public class ToastCustom extends Toast {
         try{
             cancelToast();
             //引用布局文件
-            View view1 = LayoutInflater.from(context).inflate(R.layout.layout_toast_warning,null);
+            View view1 = LayoutInflater.from(context).inflate(R.layout.toast_warning,null);
             TextView textView = view1.findViewById(R.id.toast_tvTrue);
 
             toast = new ToastCustom(context);

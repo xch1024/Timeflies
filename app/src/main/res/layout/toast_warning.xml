@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_45"
         android:orientation="horizontal"
-        android:background="@drawable/toast_shape_true"
+        android:background="@drawable/toast_shape_warning"
         android:gravity="center"
         android:paddingLeft="@dimen/dp_30"
         android:paddingRight="@dimen/dp_30">
@@ -14,13 +14,14 @@
         <ImageView
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
-            android:background="@drawable/toast_true">
+            android:background="@drawable/toast_warning">
         </ImageView>
 
         <TextView
             android:id="@+id/toast_tvTrue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:textColor="@color/white">
         </TextView>
     </LinearLayout>

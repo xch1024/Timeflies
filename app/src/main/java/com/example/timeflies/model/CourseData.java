@@ -202,9 +202,9 @@ public class CourseData implements Cloneable, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseData course = (CourseData) o;
-        if(Objects.equals(courseColor, course.courseColor) ) return true;
+//        if(Objects.equals(courseColor, course.courseColor) ) return true;
         return
-                false &&
+                Objects.equals(courseColor, course.courseColor) &&
                 Objects.equals(courseName, course.courseName) &&
                 Objects.equals(courseCredit, course.courseCredit) &&
                 Objects.equals(courseRemark, course.courseRemark);

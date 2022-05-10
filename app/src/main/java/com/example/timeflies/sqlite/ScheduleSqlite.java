@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -211,6 +212,17 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         return count;
     }
 
+    //更新时间段
+    public int updateWeek(int id, String courseTime){
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("courseTime", courseTime);
+//        Log.d("xch", "courseTime: ==="+courseTime);
+        int count = database.update(tableName, values, "_id=?", new String[]{String.valueOf(id)});
+        database.close();
+        return count;
+    }
+
     public List<CourseData> listAll(){
         List<CourseData> list = new ArrayList<>();
         SQLiteDatabase database = getWritableDatabase();
@@ -238,5 +250,7 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         }
         return list;
     }
+
+
 
 }

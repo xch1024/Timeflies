@@ -18,7 +18,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
     @Override
     public CourseAdapter.CourseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvcourse,parent,false);
+        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvcourse,parent,false);
         return new CourseHolder(inflater);
     }
 

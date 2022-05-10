@@ -6,11 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.timeflies.R;
 import com.example.timeflies.adapter.CourseNameAdapter;
@@ -29,6 +27,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
     private ImageView ivRemove, ivBack;
     private TextView hint;
     private View bg;
+    private TextView tv_bg;
     private View vAdd;
 
     private ScheduleSqlite sqlite = new ScheduleSqlite(this);
@@ -89,6 +88,9 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
         ivBack = findViewById(R.id.ivBack);
         hint = findViewById(R.id.hint);
         bg = findViewById(R.id.bg_none);
+        tv_bg = findViewById(R.id.tv_bg);
+        tv_bg.setText("还没有添加任何课程哦");
+        tv_bg.setTextColor(getResources().getColor(R.color.week_normal));
         vAdd = findViewById(R.id.addItem);
         tvTitle.setText(R.string.menu_added_view);
         ivRemove.setImageResource(R.drawable.remove);
@@ -136,7 +138,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
                 BtnClear();
                 break;
             case R.id.addItem:
-                intentActivity(CourseActivity.class);
+                intentActivity(AddCourse.class);
                 break;
         }
     }
@@ -175,7 +177,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
             ToastCustom.showMsgWarning(MenuAdded.this,"修改"+position);
 
             CourseData courseData = list.get(position);
-            Intent intent = new Intent(MenuAdded.this, AddCourse.class);
+            Intent intent = new Intent(MenuAdded.this, ShowCourse.class);
             intent.putExtra("course", courseData);
             startActivity(intent);
         }

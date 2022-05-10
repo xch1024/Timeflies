@@ -1,12 +1,9 @@
 package com.example.timeflies.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,10 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.timeflies.R;
-import com.example.timeflies.model.ContentData;
 import com.example.timeflies.model.CourseData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +32,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
     @Override
     public ContentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvcontent,parent,false);
+        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvcontent,parent,false);
         return new ContentHolder(inflater);
     }
 
