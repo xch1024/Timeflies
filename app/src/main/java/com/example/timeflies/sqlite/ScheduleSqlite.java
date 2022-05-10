@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -194,6 +193,9 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         if(!TextUtils.isEmpty(courseData.getCourseName())){
             values.put("courseName", courseData.getCourseName());
+        }
+        if(!TextUtils.isEmpty(courseData.getCourseColor())){
+            values.put("courseColor", courseData.getCourseColor());
         }
         if(!TextUtils.isEmpty(courseData.getCourseCredit())){
             values.put("courseCredit", courseData.getCourseCredit());

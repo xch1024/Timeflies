@@ -3,18 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/ripple_course">
         <FrameLayout
             android:id="@+id/cName"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_margin="@dimen/dp_10"
-            android:clickable="true"
-            android:background="@drawable/ripple_course">
+            android:layout_margin="1dp"
+            android:clickable="true">
 
             <ImageView
                 android:id="@+id/color"
+                android:src="@drawable/ripple_course"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"></ImageView>
+                android:layout_height="100dp"/>
 
             <TextView
                 android:id="@+id/className"
@@ -22,11 +27,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:text="课程名称"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:text="课程名称课程名称程名称课程名名称课程名称课程名称课程名称程名称课程名名称课程名称"
+                android:maxLines="3"
                 android:textSize="@dimen/sp_15"
-                android:lineHeight="25sp"></TextView>
+                android:lineHeight="25sp"/>
         </FrameLayout>
 
     </LinearLayout>
+
+</LinearLayout>
 

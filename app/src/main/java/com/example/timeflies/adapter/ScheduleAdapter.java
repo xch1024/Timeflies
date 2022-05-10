@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,18 +23,22 @@ import java.util.List;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder> {
 
 
-    public int ItemTotal;
+    private int tableLineWidth = 1;
+    private int cellHeight = 75;
+
+    private int ItemTotal;
     private List<TimeTableData> list;//数据源
     private Context context;//上下文
 
     public ScheduleAdapter(List<TimeTableData> list, Context context) {
         this.list = list;
         this.context = context;
+        preprocessorParam();
     }
 
     //item的显示个数
     public int getItemTotal() {
-        return ItemTotal;
+        return list.size();
     }
 
     public void setItemTotal(int itemTotal) {
@@ -44,7 +49,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     @Override
     public ScheduleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvtimetable,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_rvtimetable, parent,false);
         return new ScheduleHolder(view);
     }
 
@@ -60,11 +65,23 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
             @Override
             public void onClick(View view) {
 
-                ToastCustom.showMsgTrue(context, "跳转到选择时间段");
+//                ToastCustom.showMsgTrue(context, "跳转到选择时间段");
             }
         });
     }
 
+    /**
+     * 数据预处理
+     */
+    private void preprocessorParam() {
+        tableLineWidth = dip2px(tableLineWidth);
+        cellHeight = dip2px(cellHeight);
+    }
+
+    private int dip2px(float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale);
+    }
 
 
     @Override
@@ -74,10 +91,16 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     public class ScheduleHolder extends RecyclerView.ViewHolder {
 
+        private View view;
         private TextView tvNum,tvStart,tvEnd;
 
         public ScheduleHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView.findViewById(R.id.view);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,cellHeight);
+            layoutParams.setMargins(tableLineWidth,tableLineWidth,tableLineWidth,tableLineWidth);
+            view.setLayoutParams(layoutParams);
+
             tvNum = itemView.findViewById(R.id.time_num);
             tvStart = itemView.findViewById(R.id.time_start);
             tvEnd = itemView.findViewById(R.id.time_end);

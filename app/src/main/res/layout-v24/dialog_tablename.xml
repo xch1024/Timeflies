@@ -5,14 +5,14 @@
     android:padding="@dimen/dp_20"
     android:orientation="vertical"
     android:background="@drawable/dialog_shape">
+
     <TextView
         android:id="@+id/table_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="课表名称"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_20">
-    </TextView>
+        android:textSize="@dimen/sp_20"/>
 
     <EditText
         android:id="@+id/table_edit"
@@ -20,10 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_30"
         android:textColor="@color/edit_text"
-        android:singleLine="true"
         android:background="@drawable/edit_rectangle"
-        android:textCursorDrawable="@drawable/cursor_dialog"></EditText>
-
+        android:textCursorDrawable="@drawable/cursor_dialog"/>
 
     <LinearLayout
         android:layout_width="match_parent"

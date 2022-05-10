@@ -72,9 +72,8 @@
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
-                android:textColor="@color/text_normal"
+                android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:background="@drawable/edit_none_shape"
                 android:textCursorDrawable="@drawable/cursor_course">
@@ -87,9 +86,8 @@
                 android:layout_height="@dimen/dp_30"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
-                android:textColor="@color/text_normal"
+                android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@drawable/edit_none_shape"
                 android:textCursorDrawable="@drawable/cursor_course">
@@ -126,9 +124,8 @@
                     android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:textColorHint="@color/text_normal"
                     android:textSize="@dimen/sp_15"
-                    android:textColor="@color/text_normal"
+                    android:textColor="@color/week_normal"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:background="@drawable/edit_none_shape"
                     android:textCursorDrawable="@drawable/cursor_course">
@@ -140,9 +137,8 @@
                     android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:textColorHint="@color/text_normal"
                     android:textSize="@dimen/sp_15"
-                    android:textColor="@color/text_normal"
+                    android:textColor="@color/week_normal"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:background="@drawable/edit_none_shape"
                     android:textCursorDrawable="@drawable/cursor_course">
@@ -203,7 +199,7 @@
                 android:hint="授课老师(可不填)"
                 android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
-                android:textColor="@color/text_normal"
+                android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:background="@drawable/edit_none_shape">
             </EditText>\
@@ -239,7 +235,7 @@
                 android:hint="上课教室(可不填)"
                 android:textColorHint="@color/text_normal"
                 android:textSize="@dimen/sp_15"
-                android:textColor="@color/text_normal"
+                android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:background="@drawable/edit_none_shape">
 

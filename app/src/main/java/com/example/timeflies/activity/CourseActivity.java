@@ -6,15 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.timeflies.R;
 import com.example.timeflies.model.CourseData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
+import com.example.timeflies.utils.ColorPickerDialog;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
+
+import java.util.Locale;
 
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -23,6 +29,10 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     private EditText course_name, course_credit, course_remark;
     private DialogCustom dialogCustom;
     private ScheduleSqlite sqlite = new ScheduleSqlite(CourseActivity.this);
+
+    private int mColor;
+    private boolean mHexValueEnable = true;
+    private ImageView colorMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +50,19 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         View_Remark = findViewById(R.id.View_Remark);
         course_name = findViewById(R.id.course_name);
         course_color = findViewById(R.id.course_color);
+        colorMap = findViewById(R.id.colorMap);
+        colorMap.setColorFilter(getResources().getColor(R.color.text_normal));
+        course_color.setTextColor(getResources().getColor(R.color.text_normal));
         course_credit = findViewById(R.id.course_credit);
         credit = findViewById(R.id.credit);
         course_remark = findViewById(R.id.course_remark);
         course_cancel = findViewById(R.id.course_cancel);
         course_confirm = findViewById(R.id.course_confirm);
+
+        //不可粘贴，长按不会弹出粘贴框
+        course_name.setKeyListener(null);
+        course_credit.setKeyListener(null);
+        course_remark.setKeyListener(null);
     }
 
     private void setListener(){
@@ -81,7 +99,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     }
     //课程名称
     private void viewName(){
-        dialogCustom = new DialogCustom(CourseActivity.this,R.layout.layout_dialog_tablename, 0.8);
+        dialogCustom = new DialogCustom(CourseActivity.this,R.layout.dialog_tablename, 0.8);
         if(!TextUtils.isEmpty(course_name.getText().toString())){
             dialogCustom.setTableEdit(course_name.getText().toString());
         }
@@ -110,12 +128,27 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
     //更改颜色
     private void viewColor(){
+        new ColorPickerDialog.Builder(CourseActivity.this, mColor)
+                .setHexValueEnabled(mHexValueEnable)
+                .setOnColorPickedListener(mListener)
+                .build()
+                .show();
         ToastCustom.showMsgWarning(CourseActivity.this, "课程颜色");
     }
 
+    private ColorPickerDialog.OnColorPickedListener mListener = new ColorPickerDialog.OnColorPickedListener() {
+        @Override
+        public void onColorPicked(int color) {
+            mColor = color;
+            colorMap.setColorFilter(mColor);
+            course_color.setTextColor(mColor);
+            course_color.setText("#"+com.example.timeflies.utils.Utils.convertToRGB(color).toUpperCase(Locale.getDefault()));
+        }
+    };
+
     //更改学分
     private void viewCredit(){
-        dialogCustom = new DialogCustom(this, R.layout.layout_dialog_tablename, 0.8);
+        dialogCustom = new DialogCustom(this, R.layout.dialog_tablename, 0.8);
         if(!TextUtils.isEmpty(course_credit.getText().toString())){
             dialogCustom.setTableEdit(course_credit.getText().toString());
         }
@@ -143,7 +176,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
     //更改备注
     public void viewRemark(){
-        dialogCustom = new DialogCustom(CourseActivity.this,R.layout.layout_dialog_tablename, 0.8);
+        dialogCustom = new DialogCustom(CourseActivity.this,R.layout.dialog_tablename, 0.8);
         if(!TextUtils.isEmpty(course_remark.getText())){
             dialogCustom.setTableEdit(course_remark.getText().toString());
         }
@@ -180,11 +213,17 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     //添加课程到数据库
     private void addCourse() {
         String courseName = course_name.getText().toString();
+        String courseColor = course_color.getText().toString();
         String courseCredit = course_credit.getText().toString();
         String courseRemark = course_remark.getText().toString();
 
         CourseData courseData = new CourseData();
         courseData.setCourseName(courseName);
+        if(courseColor.equals("点击更改颜色")){
+            courseData.setCourseColor("#919191");
+        }else{
+            courseData.setCourseColor(courseColor);
+        }
         courseData.setCourseCredit(courseCredit);
         courseData.setCourseRemark(courseRemark);
         long insert = sqlite.insert(courseData);
@@ -204,4 +243,5 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent(CourseActivity.this, cls);
         startActivity(intent);
     }
+
 }

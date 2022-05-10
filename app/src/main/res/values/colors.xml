@@ -31,7 +31,7 @@
     <!--    点击颜色-->
     <color name="text_onclick">#FF6A5ACD</color>
     <!--    默认颜色-->
-    <color name="text_normal">#A1A1A1</color>
+    <color name="text_normal">#919191</color>
     <!--    星期默认-->
     <color name="week_normal">#CFCECE</color>
 
@@ -68,4 +68,14 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+
+
+
+    <color name="titleColor">#76B9ED</color>
+    <color name="viewLine">#ffe6e6e6</color>
+    <color name="textColor">#333333</color>
+
+    <color name="oneLight">#F5B94E</color>
+
 </resources>

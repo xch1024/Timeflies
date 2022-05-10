@@ -36,6 +36,7 @@ public class DialogCustom extends Dialog{
     private String content;
     private String leave, stay;
 
+
     public DialogCustom setContent(String content) {
         this.content = content;
         back_content.setText(content);
@@ -239,6 +240,10 @@ public class DialogCustom extends Dialog{
     }
 
     // 《===============================================================================================================》
+    public DialogCustom(Context context, int themeResId) {
+        super(context, themeResId);
+    }
+
     public DialogCustom(@NonNull Context context, int layoutId, Double width) {
         this(context, R.style.dialog, layoutId, width);
     }
@@ -452,6 +457,27 @@ public class DialogCustom extends Dialog{
         });
     }
     public void setAddCourseConfirmListener(View.OnClickListener listener){
+        add_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+
+    /**
+     * 修改周次
+     * dialog_update_week
+     */
+    public void setUpdateWeekCancelListener(View.OnClickListener listener){
+        add_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+    public void setUpdateWeekConfirmListener(View.OnClickListener listener){
         add_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

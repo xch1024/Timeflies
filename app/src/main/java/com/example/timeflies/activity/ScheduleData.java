@@ -155,7 +155,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      */
     private void BtnTable() {
         String sname = sqHelper.queryConfig("className");
-        dialogCustomName = new DialogCustom(this, R.layout.layout_dialog_tablename, 0.7);
+        dialogCustomName = new DialogCustom(this, R.layout.dialog_tablename, 0.7);
         //设置文本的初始文字
         dialogCustomName.setTableEdit(sname);
         dialogCustomName.setTableNameCancelListener(new View.OnClickListener() {
@@ -238,7 +238,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      */
     public void BtnWeek(){
         String current = sqHelper.queryConfig("currentWeek");
-        dialogCustomWeek = new DialogCustom(this, R.layout.layout_dialog_schedule, 0.7);
+        dialogCustomWeek = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
         dialogCustomWeek.setScheduleTitle("当前周");
         //设置文本的初始文字
         dialogCustomWeek.setScheduleMax(term_num.getText().toString());
@@ -274,7 +274,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      */
     private void BtnClass(){
         String cTotal = sqHelper.queryConfig("classTotal");
-        dialogCustomClass = new DialogCustom(this, R.layout.layout_dialog_schedule, 0.7);
+        dialogCustomClass = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
         dialogCustomClass.setScheduleTitle("一天课程节数");
         //设置文本的初始文字
         dialogCustomClass.setScheduleMax("20");
@@ -311,7 +311,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      */
     private void BtnTerm(){
         String tTotal = sqHelper.queryConfig("termTotal");
-        dialogCustomTerm = new DialogCustom(this, R.layout.layout_dialog_schedule, 0.7);
+        dialogCustomTerm = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
         dialogCustomTerm.setScheduleTitle("学期周数").setScheduleMax("30");
         //设置文本的初始文字
         dialogCustomTerm.setScheduleEdit(tTotal);

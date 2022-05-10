@@ -165,7 +165,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
 
 
     private void BtnAddItem(){
-        DialogCustom dialogCustom = new DialogCustom(MenuClock.this,R.layout.layout_dialog_tablename,0.7);
+        DialogCustom dialogCustom = new DialogCustom(MenuClock.this,R.layout.dialog_tablename,0.7);
         dialogCustom.setTableTitle("时间表名称");
         dialogCustom.setTableNameCancelListener(new View.OnClickListener() {
             @Override

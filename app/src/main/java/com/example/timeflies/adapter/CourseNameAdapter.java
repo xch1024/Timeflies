@@ -1,9 +1,11 @@
 package com.example.timeflies.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,7 @@ public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.Co
     public void onBindViewHolder(@NonNull CourseNameAdapter.CourseNameHolder holder, int position) {
         CourseData data = list.get(position);
         holder.tvName.setText(data.getCourseName());
+        holder.color.setColorFilter(Color.parseColor(data.getCourseColor()));
 
         holder.cName.setTag(position);
     }
@@ -52,11 +55,13 @@ public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.Co
     public class CourseNameHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
         private View cName;
+        private ImageView color;
 
         public CourseNameHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.className);
             cName = itemView.findViewById(R.id.cName);
+            color = itemView.findViewById(R.id.color);
 
             cName.setOnClickListener(CourseNameAdapter.this);
             cName.setOnLongClickListener(CourseNameAdapter.this);

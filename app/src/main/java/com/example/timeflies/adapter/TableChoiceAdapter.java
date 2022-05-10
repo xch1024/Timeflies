@@ -19,13 +19,7 @@ import com.example.timeflies.sqlite.ScheduleSqlite;
 
 import java.util.List;
 
-/**
- * @author:halo
- * @projectName:com.example.timeflies.adapter
- * @date:2022-04-20
- * @time:11:34
- * @description:
- */
+
 public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.TableHolder> implements View.OnClickListener, View.OnLongClickListener {
 
     private List<TimeTableData> mList;//数据源

@@ -25,12 +25,12 @@ public class CourseData implements Cloneable, Serializable {
     private int startWeek;//开始周次
     private int endWeek;//结束周次
 
-    private String teacherName;//教师名
-    private String classroom;//教室
-
     private int day;//星期几
     private int sectionStart;//开始节次
     private int sectionEnd;//结束节次
+    private String teacherName;//教师名
+    private String classroom;//教室
+
     private int termId;//学期
 
     //格式：起始周次-单双周-星期-节次-几节-授课老师-教室
@@ -112,6 +112,30 @@ public class CourseData implements Cloneable, Serializable {
         this.endWeek = endWeek;
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getSectionStart() {
+        return sectionStart;
+    }
+
+    public void setSectionStart(int sectionStart) {
+        this.sectionStart = sectionStart;
+    }
+
+    public int getSectionEnd() {
+        return sectionEnd;
+    }
+
+    public void setSectionEnd(int sectionEnd) {
+        this.sectionEnd = sectionEnd;
+    }
+
     public String getTeacherName() {
         return teacherName;
     }
@@ -126,30 +150,6 @@ public class CourseData implements Cloneable, Serializable {
 
     public void setClassroom(String classroom) {
         this.classroom = classroom;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public int getSectionStart() {
-        return sectionStart;
-    }
-
-    public void setSectionStart(int section) {
-        this.sectionStart = section;
-    }
-
-    public int getSectionEnd() {
-        return sectionEnd;
-    }
-
-    public void setSectionEnd(int step) {
-        this.sectionEnd = step;
     }
 
     public int getTermId() {
@@ -189,10 +189,10 @@ public class CourseData implements Cloneable, Serializable {
                 ", endWeek=" + endWeek +
                 ", teacherName='" + teacherName + '\'' +
                 ", classroom='" + classroom + '\'' +
-                ", day=" + day + '\'' +
-                ", sectionStart=" + sectionStart + '\'' +
-                ", sectionEnd=" + sectionEnd + '\'' +
-                ", termId=" + termId + '\'' +
+                ", day=" + day +
+                ", sectionStart=" + sectionStart +
+                ", sectionEnd=" + sectionEnd +
+                ", termId=" + termId +
                 ", courseTime='" + courseTime + '\'' +
                 '}';
     }
@@ -202,15 +202,17 @@ public class CourseData implements Cloneable, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseData course = (CourseData) o;
-        return  Objects.equals(courseName, course.courseName) &&
-                Objects.equals(courseColor, course.courseColor) &&
+        if(Objects.equals(courseColor, course.courseColor) ) return true;
+        return
+                false &&
+                Objects.equals(courseName, course.courseName) &&
                 Objects.equals(courseCredit, course.courseCredit) &&
                 Objects.equals(courseRemark, course.courseRemark);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(courseName, startWeek, endWeek, teacherName);
+        return Objects.hash(courseName, courseColor, courseCredit, courseRemark);
     }
 
     public List<CourseData> toDetail(){

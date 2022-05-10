@@ -9,21 +9,23 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.timeflies.R;
 import com.example.timeflies.adapter.ContentAdapter;
 import com.example.timeflies.model.CourseData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
+import com.example.timeflies.utils.ColorPickerDialog;
 import com.example.timeflies.utils.ToastCustom;
 import com.example.timeflies.utils.DialogCustom;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * https://www.jianshu.com/p/971396467a62   RecyclerView系列之三：处理item的点击事件
@@ -33,22 +35,26 @@ import java.util.List;
  */
 public class AddCourse extends AppCompatActivity implements View.OnClickListener{
 
+    private String TAG = "xch";
+
     private NestedScrollView nestedScrollView;
     private static RecyclerView recyclerView;
     private ContentAdapter contentAdapter;
     private ImageView ivBack,ivSave, ivColor;
     private View vAdd;
 
-    private TextView tvColor, tvTitle;
+    private TextView tvTitle;
     private View view_Name, view_Color, View_Credit, View_Remark;
-    private TextView course_color, credit, course_cancel, course_confirm;
+    private TextView course_color, credit;
     private EditText course_name, course_credit, course_remark;
 
     private DialogCustom dialogCustom;
 
-    private List<CourseData> list;
     private ScheduleSqlite sqlite = new ScheduleSqlite(this);
     private CourseData courseData;
+
+    private int mColor;
+    private boolean mHexValueEnable = true;
 
     @Override
     protected void onResume() {
@@ -64,6 +70,26 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_add_course);
 
         courseData = (CourseData) getIntent().getSerializableExtra("course");
+        //切分当前课程的时间段
+        handleCourse(AddCourse.this.courseData.toDetail());
+    }
+
+    //处理当前课程的数据
+    private void handleCourse(List<CourseData> courseList){
+        for(CourseData c : courseList){
+            String courseTime = c.getCourseTime();
+            Log.d(TAG, "handleCourse: "+c.getCourseName()+"======="+courseTime);
+            if(TextUtils.isEmpty(courseTime)) continue;
+            String[] courseArray = courseTime.split(";");
+            for(int i = 0; i < courseArray.length; i++){
+                CourseData clone = c.clone();
+                String[] info = courseArray[i].split(":");
+                clone.setStartWeek(Integer.parseInt(info[0]));
+                clone.setEndWeek(Integer.parseInt(info[1]));
+                clone.setWeekType(info[2]);
+                Log.d(TAG, "clone: ==="+clone);
+            }
+        }
     }
 
     /**
@@ -105,12 +131,15 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         View_Remark = findViewById(R.id.View_Remark);
         course_name = findViewById(R.id.course_name);
         ivColor = findViewById(R.id.colorMap);
-        tvColor = findViewById(R.id.course_color);
+        course_color = findViewById(R.id.course_color);
         course_credit = findViewById(R.id.course_credit);
         credit = findViewById(R.id.credit);
         course_remark = findViewById(R.id.course_remark);
-        course_cancel = findViewById(R.id.course_cancel);
-        course_confirm = findViewById(R.id.course_confirm);
+
+        //不可粘贴，长按不会弹出粘贴框
+        course_name.setKeyListener(null);
+        course_credit.setKeyListener(null);
+        course_remark.setKeyListener(null);
 
         //显示课程信息
         tvTitle.setText(courseData.getCourseName());//设置添加课程页面的标题文字
@@ -121,7 +150,11 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             course_credit.setText(courseData.getCourseCredit());
         }
         course_remark.setText(courseData.getCourseRemark());
-        ivColor.setColorFilter(tvColor.getCurrentTextColor());//设置图片颜色与文字同步
+
+        mColor = Color.parseColor(courseData.getCourseColor());
+        ivColor.setColorFilter(Color.parseColor(courseData.getCourseColor()));//设置图片颜色与文字同步
+        course_color.setTextColor(Color.parseColor(courseData.getCourseColor()));//设置图片颜色与文字同步
+        course_color.setText(courseData.getCourseColor());
     }
 
 
@@ -149,12 +182,26 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
                 case R.id.delItem:
                     btnDelLesson(position);
                     break;
+                case R.id.rv_week:
+                    btnUpdateWeek(position);
+                    ToastCustom.showMsgTrue(AddCourse.this, "R.id.rv_week"+(position+1));
+                    break;
+                case R.id.rv_time:
+                    ToastCustom.showMsgTrue(AddCourse.this, "R.id.rv_time"+(position+1));
+                    break;
+                case R.id.rv_teacher:
+                    ToastCustom.showMsgTrue(AddCourse.this, "R.id.rv_teacher"+(position+1));
+                    break;
+                case R.id.rv_location:
+                    ToastCustom.showMsgTrue(AddCourse.this, "R.id.rv_location"+(position+1));
+                    break;
                 default:
                     ToastCustom.showMsgTrue(AddCourse.this, "你点击了item按钮"+(position+1));
                     break;
             }
         }
 
+        //todo 长按功能未实现
         @Override
         public void onItemLongClick(View v, ContentAdapter.ViewName viewName, int position) {
             switch (v.getId()){
@@ -163,60 +210,129 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
                     break;
             }
         }
+
+        //删除时间段按钮
+        private void btnDelLesson(int position) {
+            dialogCustom = new DialogCustom(AddCourse.this, R.layout.dialog_back, 0.8);
+            dialogCustom.setContent("确定要删除当前时间段吗？");
+            dialogCustom.setCancelListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogCustom.dismiss();
+                }
+            });
+            dialogCustom.setConfirmListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    delLesson(position);
+                    dialogCustom.dismiss();
+                }
+            });
+            dialogCustom.show();
+        }
+
+        private void delLesson(int position) {
+            List<CourseData> list = courseData.toDetail();
+            CourseData course = list.get(position);
+            Iterator<CourseData> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                CourseData c = iterator.next();
+                if (c.getWeekType().equals(course.getWeekType()) &&
+                        c.getStartWeek() == course.getStartWeek() &&
+                        c.getEndWeek() == course.getEndWeek() &&
+                        c.getDay() == course.getDay() &&
+                        c.getSectionStart() == course.getSectionStart() &&
+                        c.getSectionEnd() == course.getSectionEnd()&&
+                        c.getTeacherName().equals(course.getTeacherName()) &&
+                        c.getClassroom().equals(course.getClassroom()) ){
+                    iterator.remove();
+                    break;
+                }
+            }
+            CourseData toCourse = CourseData.toCourse(list, AddCourse.this.courseData.getId());
+            if(null != toCourse){
+                int update = sqlite.update(toCourse);
+                if (update > 0) {
+                    String time = toCourse.getCourseTime();
+                    AddCourse.this.courseData.setCourseTime(time);
+                    ToastCustom.showMsgWarning(AddCourse.this,"删除成功");
+                    initContent();
+                    return;
+                }
+            }
+            ToastCustom.showMsgWarning(AddCourse.this,"删除失败");
+
+        }
+
+        //修改周次
+        private void btnUpdateWeek(int position) {
+            dialogCustom = new DialogCustom(AddCourse.this, R.layout.dialog_update_week, 0.8);
+            dialogCustom.setUpdateWeekCancelListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogCustom.dismiss();
+                }
+            });
+            dialogCustom.setUpdateWeekConfirmListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogCustom.dismiss();
+                    updateWeek(position);
+                    ToastCustom.showMsgTrue(AddCourse.this, "修改周次"+(position+1));
+                }
+            });
+            dialogCustom.show();
+        }
+
+        private int updateWeek(int position) {
+            //封装信息
+            CourseData course = new CourseData();
+
+            //单双周
+            int rbId = dialogCustom.getRadio();
+            if(R.id.radio_full == rbId){
+                course.setWeekType("全周");
+            }else if(R.id.radio_single == rbId){
+                course.setWeekType("单周");
+            }else if(R.id.radio_dual == rbId){
+                course.setWeekType("双周");
+            }
+
+            //开始周次
+            String weekStart = dialogCustom.getWeekStart();
+            if(!TextUtils.isEmpty(weekStart)){
+                course.setStartWeek(Integer.parseInt(weekStart));
+            }else{
+                ToastCustom.showMsgWarning(AddCourse.this,"开始周次不可为空");
+                return 0;
+            }
+
+            //结束周次
+            String weekEnd = dialogCustom.getWeekEnd();
+            if(!TextUtils.isEmpty(weekEnd)){
+                //周次格式
+                if(Integer.parseInt(weekStart) > Integer.parseInt(weekEnd)){
+                    ToastCustom.showMsgWarning(AddCourse.this,"周次时间段异常");
+                    return 0;
+                }else{
+                    course.setEndWeek(Integer.parseInt(weekEnd));
+                }
+            }else{
+                ToastCustom.showMsgWarning(AddCourse.this,"结束周次不可为空");
+                return 0;
+            }
+
+            Log.d("xch", "updateWeek: "+course);
+            //todo
+            //向数据库更新数据
+            return 1;
+        }
+
+
+
     };
 
-    //删除按钮
-    private void btnDelLesson(int position) {
-        dialogCustom = new DialogCustom(AddCourse.this, R.layout.layout_dialog_back, 0.8);
-        dialogCustom.setContent("确定要删除当前时间段吗？");
-        dialogCustom.setCancelListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogCustom.dismiss();
-            }
-        });
-        dialogCustom.setConfirmListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delLesson(position);
-                dialogCustom.dismiss();
-            }
-        });
-        dialogCustom.show();
-    }
 
-    private void delLesson(int position) {
-        List<CourseData> list = courseData.toDetail();
-        CourseData course = list.get(position);
-        Iterator<CourseData> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            CourseData c = iterator.next();
-            if (c.getWeekType().equals(course.getWeekType()) &&
-                    c.getStartWeek() == course.getStartWeek() &&
-                    c.getEndWeek() == course.getEndWeek() &&
-                    c.getDay() == course.getDay() &&
-                    c.getSectionStart() == course.getSectionStart() &&
-                    c.getSectionEnd() == course.getSectionEnd()&&
-                    c.getTeacherName().equals(course.getTeacherName()) &&
-                    c.getClassroom().equals(course.getClassroom()) ){
-                iterator.remove();
-                break;
-            }
-        }
-        CourseData toCourse = CourseData.toCourse(list, AddCourse.this.courseData.getId());
-        if(null != toCourse){
-            int update = sqlite.update(toCourse);
-            if (update > 0) {
-                String time = toCourse.getCourseTime();
-                AddCourse.this.courseData.setCourseTime(time);
-                ToastCustom.showMsgWarning(AddCourse.this,"删除成功");
-                initContent();
-                return;
-            }
-        }
-        ToastCustom.showMsgWarning(AddCourse.this,"删除失败");
-
-    }
 
     //===================================addCourse界面上的按钮===================================
     /**
@@ -240,9 +356,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
                 break;
             //更改颜色
             case R.id.view_Color:
-                ivColor.setColorFilter(Color.parseColor("#cc0000"));
-                tvColor.setTextColor(Color.parseColor("#cc0000"));
-                ToastCustom.showMsgTrue(this, "更改颜色成功");
+                viewColor();
                 break;
             //添加学分
             case R.id.View_Credit:
@@ -255,15 +369,33 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             //添加时间段
             case R.id.addItem:
                 BtnAddLesson();
-                recyclerView.scrollToPosition(contentAdapter.getItemCount() - 1);
-                scrollToEnd();
                 break;
         }
     }
 
+    // 颜色选择
+    private void viewColor() {
+        new ColorPickerDialog.Builder(AddCourse.this, mColor)
+        .setHexValueEnabled(mHexValueEnable)
+        .setOnColorPickedListener(mListener)
+        .build()
+        .show();
+    }
+
+    private ColorPickerDialog.OnColorPickedListener mListener = new ColorPickerDialog.OnColorPickedListener() {
+        @Override
+        public void onColorPicked(int color) {
+            mColor = color;
+            ivColor.setColorFilter(mColor);
+            course_color.setTextColor(mColor);
+            course_color.setText("#"+com.example.timeflies.utils.Utils.convertToRGB(color).toUpperCase(Locale.getDefault()));
+        }
+    };
+
+
     //课程名称
     private void viewName(){
-        dialogCustom = new DialogCustom(AddCourse.this,R.layout.layout_dialog_tablename, 0.8);
+        dialogCustom = new DialogCustom(AddCourse.this,R.layout.dialog_tablename, 0.8);
         if(!TextUtils.isEmpty(course_name.getText().toString())){
             dialogCustom.setTableEdit(course_name.getText().toString());
         }
@@ -291,7 +423,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
     //更改学分
     private void viewCredit(){
-        dialogCustom = new DialogCustom(this, R.layout.layout_dialog_tablename, 0.8);
+        dialogCustom = new DialogCustom(this, R.layout.dialog_tablename, 0.8);
         if(!TextUtils.isEmpty(course_credit.getText())){
             dialogCustom.setTableEdit(course_credit.getText().toString());
         }else{
@@ -322,7 +454,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
     //更改备注
     private void viewRemark(){
-        dialogCustom = new DialogCustom(AddCourse.this, R.layout.layout_dialog_tablename, 0.8);
+        dialogCustom = new DialogCustom(AddCourse.this, R.layout.dialog_tablename, 0.8);
         if(!TextUtils.isEmpty(course_remark.getText())){
             dialogCustom.setTableEdit(course_remark.getText().toString());
         }
@@ -346,7 +478,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
     //添加时间段对话框
     private void BtnAddLesson() {
-        DialogCustom dialogCustom = new DialogCustom(AddCourse.this, R.layout.layout_dialog_add_lesson, 0.9);
+        DialogCustom dialogCustom = new DialogCustom(AddCourse.this, R.layout.dialog_add_lesson, 0.9);
         dialogCustom.setCanceledOnTouchOutside(false);
         dialogCustom.setAddCourseCancelListener(new View.OnClickListener() {
             @Override
@@ -360,6 +492,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
                 int succeed = addLesson(dialogCustom);
                 if(succeed > 0 ){
                     ToastCustom.showMsgTrue(AddCourse.this,"保存成功");
+                    scrollToEnd();
                     dialogCustom.dismiss();
                 }
             }
@@ -367,6 +500,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         dialogCustom.show();
     }
 
+    //添加时间段
     private int addLesson(DialogCustom dialogCustom) {
         //封装信息
         CourseData course = new CourseData();
@@ -498,7 +632,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      *
      */
     private void BtnBack(){
-        DialogCustom dialog = new DialogCustom(AddCourse.this, R.layout.layout_dialog_back, 0.8);
+        DialogCustom dialog = new DialogCustom(AddCourse.this, R.layout.dialog_back, 0.8);
         dialog.setLeave("离开");
         dialog.setStay("留下");
         dialog.setCancelListener(view -> {
@@ -515,34 +649,35 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
      */
     private void updateCourse(){
         String courseName = course_name.getText().toString();
+        String courseColor = course_color.getText().toString();
         String courseCredit = course_credit.getText().toString();
         String courseRemark = course_remark.getText().toString();
 
         //封装信息
         CourseData course = new CourseData();
         course.setId(this.courseData.getId());
+
         course.setCourseName(courseName);
+        course.setCourseColor(courseColor);
         course.setCourseCredit(courseCredit);
         course.setCourseRemark(courseRemark);
 
         if(AddCourse.this.courseData.equals(course)){
             ToastCustom.showMsgWarning(AddCourse.this, "您尚未修改课程信息\n无需保存！");
-            ToastCustom.showMsgWarning(AddCourse.this,"无需保存"+course.getCourseName()+course.getCourseCredit()+course.getCourseRemark());
+            ToastCustom.showMsgWarning(AddCourse.this,course.getCourseName()+course.getCourseColor()+course.getCourseCredit()+course.getCourseRemark());
         }else{
             int update = sqlite.update(course);
             if (update > 0) {
                 tvTitle.setText(courseName);
                 ToastCustom.showMsgTrue(AddCourse.this, "修改课程成功");
-                ToastCustom.showMsgTrue(AddCourse.this,"修改课程成功"+course.getCourseName()+course.getCourseCredit()+course.getCourseRemark());
+                ToastCustom.showMsgTrue(AddCourse.this,course.getCourseName()+course.getCourseColor()+course.getCourseCredit()+course.getCourseRemark());
             }else{
                 ToastCustom.showMsgFalse(AddCourse.this, "修改失败");
-                ToastCustom.showMsgFalse(AddCourse.this,"修改失败"+course.getCourseName()+course.getCourseCredit()+course.getCourseRemark());
+                ToastCustom.showMsgFalse(AddCourse.this,course.getCourseName()+course.getCourseColor()+course.getCourseCredit()+course.getCourseRemark());
             }
         }
 
     }
-
-
 
 
 }

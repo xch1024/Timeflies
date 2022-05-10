@@ -102,7 +102,7 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
     }
 
     private void BtnUpdate() {
-        DialogCustom dialogCustom = new DialogCustom(this,R.layout.layout_dialog_tablename, 0.7);
+        DialogCustom dialogCustom = new DialogCustom(this,R.layout.dialog_tablename, 0.7);
         dialogCustom.setTableTitle("时间表名称");
         dialogCustom.setTableEdit(name);
         dialogCustom.setTableNameCancelListener(new View.OnClickListener() {
@@ -136,7 +136,6 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
     public void queryDb(int target) {
         //清除数据
         list.clear();
-        Log.i("xch", "queryDb: 查询");
         SQLiteOpenHelper helper = ScheduleSqlite.getInstance(this);
         SQLiteDatabase db = helper.getReadableDatabase();
         //规范：确保数据库打开成功，才能放心操作

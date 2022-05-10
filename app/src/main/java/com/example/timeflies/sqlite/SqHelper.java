@@ -7,6 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.timeflies.model.CourseData;
+import com.example.timeflies.model.TimeTableData;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author:halo
  * @projectName:com.example.timeflies.sqlite
@@ -31,7 +37,6 @@ public class SqHelper {
      * @return
      */
     public String queryConfig(String target) {
-        Log.i("xch", "queryConfig: 调用方查询");
         db = helper.getReadableDatabase();
         if (db.isOpen()) {
             Cursor cursor = db.rawQuery("select * from configs", null);
@@ -63,7 +68,33 @@ public class SqHelper {
         db.close();
     }
 
-
+    /**
+     * 查询数据库作息时间表的所有内容
+     *
+     */
+    public List<TimeTableData> queryDb() {
+        List<TimeTableData> list = new ArrayList<>();
+        //清除数据
+        list.clear();
+        SQLiteDatabase db = helper.getReadableDatabase();
+        //规范：确保数据库打开成功，才能放心操作
+        if (db.isOpen()) {
+            //返回游标
+            Cursor cursor = db.rawQuery("select * from schedules", null);
+            while(cursor.moveToNext()){
+                int _id = cursor.getInt(0);
+                String startTime = cursor.getString(1);
+                String endTime = cursor.getString(2);
+                TimeTableData s = new TimeTableData(_id, startTime, endTime);
+                list.add(s);
+            }
+            //规范：必须关闭游标，不然影响性能
+            cursor.close();
+            //规范：必须关闭数据库
+            db.close();
+        }
+        return list;
+    }
 
 
 }
