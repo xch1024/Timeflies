@@ -41,7 +41,7 @@ public class TimeTableView extends LinearLayout {
     private int tableLineWidth = 1;
 
     //课表信息字体大小
-    private int courseSize = 12;
+    private int courseSize = 11;
 
     //单元格高度
     private int cellHeight = 75;
@@ -240,7 +240,18 @@ public class TimeTableView extends LinearLayout {
         textView.setTextSize(courseSize);
         textView.setTextColor(Color.WHITE);
         textView.setGravity(Gravity.CENTER);
-        textView.setText(String.format("%s\n@%s\n第%d~%d周\n%s\n%s",
+        if(course.getClassroom().equals("null")){
+            course.setClassroom("");
+        }else{
+            course.setClassroom("\n@"+course.getClassroom());
+            Log.d(TAG, "course.getClassroom(): "+course.getClassroom());
+        }
+        if(course.getTeacherName().equals("null")){
+            course.setTeacherName("");
+        }else{
+            course.setTeacherName("\n"+course.getTeacherName());
+        }
+        textView.setText(String.format("%s%s\n\n第%d~%d周%s\n%s",
                 course.getCourseName(), course.getClassroom(),course.getStartWeek(),
                 course.getEndWeek(), course.getTeacherName(), course.getWeekType()));
         pViewGroup.addView(textView);
@@ -258,7 +269,7 @@ public class TimeTableView extends LinearLayout {
             TextView blank = new TextView(mContext);
             LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, cellHeight);
             layoutParams.setMargins(tableLineWidth,tableLineWidth,tableLineWidth,tableLineWidth);
-            blank.setBackgroundColor(Color.parseColor("#FF41964B"));
+//            blank.setBackgroundColor(Color.parseColor("#FF41964B"));
             blank.setLayoutParams(layoutParams);
             pViewGroup.addView(blank);
         }

@@ -168,24 +168,20 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
                     break;
                 case R.id.rv_week:
                     btnUpdateWeek(position);
-                    ToastCustom.showMsgTrue(ShowCourse.this, "R.id.rv_week"+(position+1));
                     break;
                 case R.id.rv_time:
-                    ToastCustom.showMsgTrue(ShowCourse.this, "R.id.rv_time"+(position+1));
+                    btnUpdateDay(position);
                     break;
                 case R.id.rv_teacher:
-                    ToastCustom.showMsgTrue(ShowCourse.this, "R.id.rv_teacher"+(position+1));
+                    btnUpdateTeacher(position);
                     break;
                 case R.id.rv_location:
-                    ToastCustom.showMsgTrue(ShowCourse.this, "R.id.rv_location"+(position+1));
-                    break;
-                default:
-                    ToastCustom.showMsgTrue(ShowCourse.this, "你点击了item按钮"+(position+1));
+                    btnUpdateClassroom(position);
                     break;
             }
         }
 
-        //todo 长按功能未实现
+        //todo 长按功能
         @Override
         public void onItemLongClick(View v, ContentAdapter.ViewName viewName, int position) {
             switch (v.getId()){
@@ -214,7 +210,6 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
             });
             dialogCustom.show();
         }
-
         private void delLesson(int position) {
             List<CourseData> list = courseData.toDetail();
             CourseData course = list.get(position);
@@ -256,19 +251,14 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
             String[] courseArray = courseTime.split(";");
             String[] info = courseArray[position].split(":");
 
-            String weekStart = info[0];
-            String weekEnd = info[1];
-            String weekType = info[2];
-//            Log.d(TAG, "weekType: " +weekType);
-
-            if(weekType.equals("全周")){
+            if(info[2].equals("全周")){
                 dialogCustom.setUpRadio(R.id.up_radio_full);
-            }else if(weekType.equals("单周")){
+            }else if(info[2].equals("单周")){
                 dialogCustom.setUpRadio(R.id.up_radio_single);
-            }else if(weekType.equals("双周")){
+            }else if(info[2].equals("双周")){
                 dialogCustom.setUpRadio(R.id.up_radio_dual);
             }
-            dialogCustom.setUpWeekStart(weekStart).setUpWeekEnd(weekEnd);
+            dialogCustom.setUpWeekStart(info[0]).setUpWeekEnd(info[1]);
             dialogCustom.setUpdateWeekCancelListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -287,17 +277,14 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
             });
             dialogCustom.show();
         }
-
         private int updateWeek(int position) {
-
             String courseTime = ShowCourse.this.courseData.getCourseTime();
             Log.d(TAG, "courseTime: ==="+courseTime);
             String[] courseArray = courseTime.split(";");
             String[] info = courseArray[position].split(":");
 
-
-            String weekType = info[2];
             //单双周
+            String weekType = info[2];
             int rbId = dialogCustom.getUpRadio();
             if(R.id.up_radio_full == rbId){
                 weekType = "全周";
@@ -309,7 +296,6 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
 
             //开始周次
             String weekStart = dialogCustom.getUpWeekStart();
-
             if(!TextUtils.isEmpty(weekStart) ){
                 Log.d(TAG, "Integer.parseInt(weekStart): "+Integer.parseInt(weekStart));
                 if(Integer.parseInt(weekStart) < 1) {
@@ -339,37 +325,250 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
                 return 0;
             }
 
+            //重新组装时间段
             String course = String.format("%s:%s:%s:%s:%s:%s:%s:%s",
                     weekStart,weekEnd,weekType,info[3],
                     info[4],info[5],info[6],info[7]);
             courseArray[position] = course;
             Log.d(TAG, "course: ==="+course);
 
-            int id = ShowCourse.this.courseData.getId();
-            String time = arrayToString(courseArray);
-            int update = sqlite.updateWeek(id, time);
-            if(update < 0){
-                ToastCustom.showMsgFalse(ShowCourse.this, "修改周次失败");
-            }else{
-                ShowCourse.this.courseData.setCourseTime(time);
-                initContent();
-                ToastCustom.showMsgTrue(ShowCourse.this, "修改周次成功");
-            }
+            int update = update(courseArray);
             return update;
         }
 
+        //修改节次
+        private void btnUpdateDay(int position) {
+            dialogCustom = new DialogCustom(ShowCourse.this, R.layout.dialog_update_day, 0.8);
+            String courseTime = ShowCourse.this.courseData.getCourseTime();
+            String[] courseArray = courseTime.split(";");
+            String[] info = courseArray[position].split(":");
 
-        private String arrayToString(String[] courseArray){
-            StringBuffer sb = new StringBuffer();
-            for(int i = 0, len = courseArray.length; i < len; i++){
-                sb.append(courseArray[i]);
-                if(i != len - 1)sb.append(";");
+            Log.d(TAG, "info[3]: "+info[3]);
+            Log.d(TAG, "info[4]: "+info[4]);
+            Log.d(TAG, "info[5]: "+info[5]);
+            dialogCustom.setUpDay(info[3]).setUpStepStart(info[4]).setUpStepEnd(info[5]);
+            dialogCustom.setUpdateDayCancelListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogCustom.dismiss();
+                }
+            });
+            dialogCustom.setUpdateDayConfirmListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int update = updateDay(position);
+                    if(update > 0){
+                        dialogCustom.dismiss();
+                    }
+                }
+            });
+            dialogCustom.show();
+        }
+        private int updateDay(int position) {
+            String courseTime = ShowCourse.this.courseData.getCourseTime();
+            Log.d(TAG, "courseTime: ==="+courseTime);
+            String[] courseArray = courseTime.split(";");
+            String[] info = courseArray[position].split(":");
+
+            //星期几
+            String day = dialogCustom.getUpDay();
+            if(!TextUtils.isEmpty(day) ){
+                if(Integer.parseInt(day) < 1) {
+                    ToastCustom.showMsgWarning(ShowCourse.this,"星期格式异常");
+                    return 0;
+                }else if(Integer.parseInt(day) > 7){
+                    ToastCustom.showMsgWarning(ShowCourse.this,"星期格式异常");
+                    return 0;
+                }else{
+                    day = dialogCustom.getUpDay();
+                }
+            }else{
+                ToastCustom.showMsgWarning(ShowCourse.this,"星期不可为空");
+                return 0;
             }
-            String time = sb.toString();
-            return time;
+
+            //开始节次
+            String secStart = dialogCustom.getUpStepStart();
+            Log.d(TAG, "dialogCustom.getUpStepStart(): "+secStart);
+            if(!TextUtils.isEmpty(secStart) ){
+                if(Integer.parseInt(secStart) < 1) {
+                    ToastCustom.showMsgWarning(ShowCourse.this,"开始节次数据异常");
+                    return 0;
+                }else if(Integer.parseInt(secStart) > 20){
+                    ToastCustom.showMsgWarning(ShowCourse.this,"开始节次数据异常");
+                    return 0;
+                }else{
+                    secStart = dialogCustom.getUpStepStart();
+                }
+            }else{
+                ToastCustom.showMsgWarning(ShowCourse.this,"开始节次不可为空");
+                return 0;
+            }
+
+            //结束节次
+            String secEnd = dialogCustom.getUpStepEnd();
+            if(!TextUtils.isEmpty(secEnd) ){
+                if(Integer.parseInt(secEnd) < 1) {
+                    ToastCustom.showMsgWarning(ShowCourse.this,"结束节次数据异常");
+                    return 0;
+                }else if(Integer.parseInt(secEnd) > 20){
+                    ToastCustom.showMsgWarning(ShowCourse.this,"结束节次数据异常");
+                    return 0;
+                }if(Integer.parseInt(secStart) > Integer.parseInt(secEnd)){
+                    ToastCustom.showMsgWarning(ShowCourse.this,"节次时间段异常");
+                    return 0;
+                }else{
+                    secEnd = dialogCustom.getUpStepEnd();
+                }
+            }else{
+                ToastCustom.showMsgWarning(ShowCourse.this,"结束节次不可为空");
+                return 0;
+            }
+
+            //重新组装时间段
+            String course = String.format("%s:%s:%s:%s:%s:%s:%s:%s",
+                    info[0],info[1],info[2],day,
+                    secStart,secEnd,info[6],info[7]);
+            courseArray[position] = course;
+            Log.d(TAG, "course: ==="+course);
+
+            int update = update(courseArray);
+            return update;
+        }
+
+        //修改授课老师
+        private void btnUpdateTeacher(int position) {
+            dialogCustom = new DialogCustom(ShowCourse.this, R.layout.dialog_tablename, 0.8);
+
+            String courseTime = ShowCourse.this.courseData.getCourseTime();
+            Log.d(TAG, "courseTime: ==="+courseTime);
+            String[] courseArray = courseTime.split(";");
+            String[] info = courseArray[position].split(":");
+
+            dialogCustom.setTableTitle("授课老师");
+            if(info[6].equals("null")){
+                dialogCustom.setTableEdit("");
+                dialogCustom.setTableEditHint("授课老师(可不填)");
+            }else{
+                dialogCustom.setTableEdit(info[6]);
+            }
+            dialogCustom.setTableNameCancelListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogCustom.dismiss();
+                }
+            });
+            dialogCustom.setTableNameConfirmListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int update = updateTeacher(position);
+                    if(update > 0){
+                        dialogCustom.dismiss();
+                    }
+                }
+            });
+            dialogCustom.show();
+        }
+        private int updateTeacher(int position) {
+            String courseTime = ShowCourse.this.courseData.getCourseTime();
+            Log.d(TAG, "courseTime: ==="+courseTime);
+            String[] courseArray = courseTime.split(";");
+            String[] info = courseArray[position].split(":");
+
+            String teacher = dialogCustom.getTableEdit();
+            if(TextUtils.isEmpty(teacher)){
+                teacher = "null";
+            }
+            //重新组装时间段
+            String course = String.format("%s:%s:%s:%s:%s:%s:%s:%s",
+                    info[0],info[1],info[2],info[3],
+                    info[4],info[5],teacher,info[7]);
+            courseArray[position] = course;
+            int update = update(courseArray);
+            Log.d(TAG, "course: ==="+course);
+            return update;
+        }
+
+        //修改上课教室
+        private void btnUpdateClassroom(int position){
+            dialogCustom = new DialogCustom(ShowCourse.this, R.layout.dialog_tablename, 0.8);
+            String courseTime = ShowCourse.this.courseData.getCourseTime();
+            String[] courseArray = courseTime.split(";");
+            String[] info = courseArray[position].split(":");
+
+            dialogCustom.setTableTitle("上课教室");
+            if(info[7].equals("null")){
+                dialogCustom.setTableEdit("");
+                dialogCustom.setTableEditHint("上课教室(可不填)");
+            }else{
+                dialogCustom.setTableEdit(info[7]);
+            }
+            dialogCustom.setTableNameCancelListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogCustom.dismiss();
+                }
+            });
+            dialogCustom.setTableNameConfirmListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int update = updateClassroom(position);
+                    if(update > 0){
+                        dialogCustom.dismiss();
+                    }
+                }
+            });
+            dialogCustom.show();
+
+        }
+        private int updateClassroom(int position) {
+            String courseTime = ShowCourse.this.courseData.getCourseTime();
+            String[] courseArray = courseTime.split(";");
+            String[] info = courseArray[position].split(":");
+            String classroom = dialogCustom.getTableEdit();
+            if(TextUtils.isEmpty(classroom)){
+                classroom = "null";
+            }
+            //重新组装时间段
+            String course = String.format("%s:%s:%s:%s:%s:%s:%s:%s",
+                    info[0],info[1],info[2],info[3],
+                    info[4],info[5],info[6],classroom);
+            courseArray[position] = course;
+            int update = update(courseArray);
+            Log.d(TAG, "course: ==="+course);
+            return update;
         }
     };
 
+    private int update(String[] courseArray){
+        int id = ShowCourse.this.courseData.getId();
+        String time = arrayToString(courseArray);
+        int update = sqlite.updateWeek(id, time);
+        if(update < 0){
+            ToastCustom.showMsgFalse(ShowCourse.this, "修改失败");
+        }else{
+            ShowCourse.this.courseData.setCourseTime(time);
+            initContent();
+            ToastCustom.showMsgTrue(ShowCourse.this, "修改成功");
+        }
+        return update;
+    }
+
+    /**
+     * 重新设置courseTime
+     * @param courseArray
+     * @return
+     */
+
+    private String arrayToString(String[] courseArray){
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0, len = courseArray.length; i < len; i++){
+            sb.append(courseArray[i]);
+            if(i != len - 1)sb.append(";");
+        }
+        String time = sb.toString();
+        return time;
+    }
 
 
     //===================================addCourse界面上的按钮===================================
@@ -702,16 +901,13 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
 
         if(ShowCourse.this.courseData.equals(course)){
             ToastCustom.showMsgWarning(ShowCourse.this, "您尚未修改课程信息\n无需保存！");
-            ToastCustom.showMsgWarning(ShowCourse.this,course.getCourseName()+course.getCourseColor()+course.getCourseCredit()+course.getCourseRemark());
         }else{
             int update = sqlite.update(course);
             if (update > 0) {
                 tvTitle.setText(courseName);
                 ToastCustom.showMsgTrue(ShowCourse.this, "修改课程成功");
-                ToastCustom.showMsgTrue(ShowCourse.this,course.getCourseName()+course.getCourseColor()+course.getCourseCredit()+course.getCourseRemark());
             }else{
                 ToastCustom.showMsgFalse(ShowCourse.this, "修改失败");
-                ToastCustom.showMsgFalse(ShowCourse.this,course.getCourseName()+course.getCourseColor()+course.getCourseCredit()+course.getCourseRemark());
             }
         }
 

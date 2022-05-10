@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
-import com.example.timeflies.model.TimeTableData;
+import com.example.timeflies.model.TimeData;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder> {
 
     private ScheduleAdapter scheduleAdapter;
-    private List<TimeTableData> list;//作息时间数据源
+    private List<TimeData> list;//作息时间数据源
     private LinearLayoutManager linearLayoutManager;
     private int ItemTotal;
 

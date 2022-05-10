@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.example.timeflies.R;
 import com.example.timeflies.adapter.ContentAdapter;
 import com.example.timeflies.adapter.TableChoiceAdapter;
-import com.example.timeflies.model.TimeTableData;
+import com.example.timeflies.model.TimeData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
@@ -29,7 +29,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
 
     private TableChoiceAdapter tableChoiceAdapter;
     private RecyclerView recyclerView;
-    private List<TimeTableData> list = new ArrayList<>();
+    private List<TimeData> list = new ArrayList<>();
 
     private TextView tvTitle;
     private ImageView ivNull, ivBack;
@@ -147,7 +147,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
             while(cursor.moveToNext()){
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
-                TimeTableData data = new TimeTableData(id, name);
+                TimeData data = new TimeData(id, name);
                 list.add(data);
             }
             cursor.close();

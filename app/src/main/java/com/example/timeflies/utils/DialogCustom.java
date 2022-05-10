@@ -1,5 +1,6 @@
 package com.example.timeflies.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
@@ -276,9 +277,43 @@ public class DialogCustom extends Dialog{
         this.upWeekEnd = upWeekEnd;
         up_weekEnd.setText(upWeekEnd);
         return this;
+    }
+// 《dialog_update_day===============================================================================================================》
+    private EditText up_week_day, up_step_start,up_step_end;
+    private String upDay, upStepStart, upStepEnd;
 
+    public String getUpDay() {
+        upDay = up_week_day.getText().toString();
+        return upDay;
     }
 
+    public DialogCustom setUpDay(String upDay) {
+        this.upDay = upDay;
+        up_week_day.setText(upDay);
+        return this;
+    }
+
+    public String getUpStepStart() {
+        upStepStart = up_step_start.getText().toString();
+        return upStepStart;
+    }
+
+    public DialogCustom setUpStepStart(String upStepStart) {
+        this.upStepStart = upStepStart;
+        up_step_start.setText(upStepStart);
+        return this;
+    }
+
+    public String getUpStepEnd() {
+        upStepEnd = up_step_end.getText().toString();
+        return upStepEnd;
+    }
+
+    public DialogCustom setUpStepEnd(String upStepEnd) {
+        this.upStepEnd = upStepEnd;
+        up_step_end.setText(upStepEnd);
+        return this;
+    }
     // 《===============================================================================================================》
 
     public DialogCustom(Context context, int themeResId) {
@@ -305,23 +340,23 @@ public class DialogCustom extends Dialog{
      *
      */
     private void initView() {
-        //layout_dialog_menu
+        //dialog_menu
         mNo = findViewById(R.id.no);
         mSure = findViewById(R.id.sure);
 
-        //layout_dialog_back
+        //dialog_back
         back_content = findViewById(R.id.back_content);
         mLeave = findViewById(R.id.leave);
         mStay = findViewById(R.id.stay);
 
-        //layout_dialog_credit
+        //dialog_credit
         mTitle = findViewById(R.id.title);
         mEdit = findViewById(R.id.edit);
         mClear = findViewById(R.id.credit_clear);
         mCancel = findViewById(R.id.credit_cancel);
         mConfirm = findViewById(R.id.credit_confirm);
 
-        //layout_dialog_add_lesson
+        //dialog_add_lesson
         radioGroup = findViewById(R.id.radio_group);
         week_start = findViewById(R.id.week_start);
         week_end = findViewById(R.id.week_end);
@@ -333,14 +368,14 @@ public class DialogCustom extends Dialog{
         add_cancel = findViewById(R.id.add_cancel);
         add_confirm = findViewById(R.id.add_confirm);
 
-        //layout_dialog_schedule
+        //dialog_schedule
         schedule_title = findViewById(R.id.schedule_title);
         schedule_edit = findViewById(R.id.schedule_edit);
         schedule_max = findViewById(R.id.schedule_max);
         schedule_cancel = findViewById(R.id.schedule_cancel);
         schedule_confirm = findViewById(R.id.schedule_confirm);
 
-        //layout_dialog_tableName
+        //dialog_tableName
         table_name = findViewById(R.id.table_name);
         table_edit = findViewById(R.id.table_edit);
         table_cancel = findViewById(R.id.table_cancel);
@@ -351,6 +386,10 @@ public class DialogCustom extends Dialog{
         up_weekStart = findViewById(R.id.up_weekStart);
         up_weekEnd = findViewById(R.id.up_weekEnd);
 
+        //dialog_update_day
+        up_week_day = findViewById(R.id.up_week_day);
+        up_step_start = findViewById(R.id.up_step_start);
+        up_step_end = findViewById(R.id.up_step_end);
     }
 
     /**
@@ -531,4 +570,26 @@ public class DialogCustom extends Dialog{
             }
         });
     }
+
+    /**
+     * 修改节次
+     */
+    public void setUpdateDayCancelListener(View.OnClickListener listener){
+        add_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+    public void setUpdateDayConfirmListener(View.OnClickListener listener){
+        add_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+
+
 }

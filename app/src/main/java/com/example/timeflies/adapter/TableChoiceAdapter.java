@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
-import com.example.timeflies.model.TimeTableData;
+import com.example.timeflies.model.TimeData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
 
 import java.util.List;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.TableHolder> implements View.OnClickListener, View.OnLongClickListener {
 
-    private List<TimeTableData> mList;//数据源
+    private List<TimeData> mList;//数据源
     private Context mContext;//上下文
-    public TableChoiceAdapter(Context context, List<TimeTableData> list){
+    public TableChoiceAdapter(Context context, List<TimeData> list){
         this.mContext = context;
         this.mList = list;
     }
@@ -39,7 +39,7 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TableChoiceAdapter.TableHolder holder, int position) {
-        TimeTableData data = mList.get(position);
+        TimeData data = mList.get(position);
 
         //默认时间表删除键不可见
         if(position == 0){
@@ -139,7 +139,7 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
             db.insert("tableNames", null, values);
         }
         db.close();
-        mList.add(new TimeTableData(0, target));
+        mList.add(new TimeData(0, target));
         notifyDataSetChanged();
     }
 

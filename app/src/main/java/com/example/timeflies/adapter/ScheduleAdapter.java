@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
-import com.example.timeflies.model.TimeTableData;
+import com.example.timeflies.model.TimeData;
 
 import java.util.List;
 
@@ -27,10 +27,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     private int cellHeight = 75;
 
     private int ItemTotal;
-    private List<TimeTableData> list;//数据源
+    private List<TimeData> list;//数据源
     private Context context;//上下文
 
-    public ScheduleAdapter(List<TimeTableData> list, Context context) {
+    public ScheduleAdapter(List<TimeData> list, Context context) {
         this.list = list;
         this.context = context;
         preprocessorParam();
@@ -55,7 +55,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleAdapter.ScheduleHolder holder, int position) {
-        TimeTableData data = list.get(position);
+        TimeData data = list.get(position);
 
         holder.tvNum.setText(String.valueOf(position+1));
         holder.tvStart.setText(data.getStartTime());

@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/table_name"
+                android:id="@+id/time_name"
                 android:clickable="true"
                 android:background="@drawable/ripple_border_menu"
                 android:padding="@dimen/dp_15"

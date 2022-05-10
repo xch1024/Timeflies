@@ -22,7 +22,7 @@ import com.example.timeflies.R;
 import com.example.timeflies.View.TimeTableView;
 import com.example.timeflies.adapter.ScheduleAdapter;
 import com.example.timeflies.model.CourseData;
-import com.example.timeflies.model.TimeTableData;
+import com.example.timeflies.model.TimeData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
 import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
     private long weekNum = 1;
     private long date;
 
-    private List<TimeTableData> list = new ArrayList<>();
+    private List<TimeData> list = new ArrayList<>();
     private SqHelper sqHelper;
     private int num;
     private RecyclerView rvSchedule;

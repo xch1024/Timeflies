@@ -5,10 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import com.example.timeflies.model.CourseData;
-import com.example.timeflies.model.TimeTableData;
+import com.example.timeflies.model.TimeData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +70,8 @@ public class SqHelper {
      * 查询数据库作息时间表的所有内容
      *
      */
-    public List<TimeTableData> queryDb() {
-        List<TimeTableData> list = new ArrayList<>();
+    public List<TimeData> queryDb() {
+        List<TimeData> list = new ArrayList<>();
         //清除数据
         list.clear();
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -85,7 +83,7 @@ public class SqHelper {
                 int _id = cursor.getInt(0);
                 String startTime = cursor.getString(1);
                 String endTime = cursor.getString(2);
-                TimeTableData s = new TimeTableData(_id, startTime, endTime);
+                TimeData s = new TimeData(_id, startTime, endTime);
                 list.add(s);
             }
             //规范：必须关闭游标，不然影响性能

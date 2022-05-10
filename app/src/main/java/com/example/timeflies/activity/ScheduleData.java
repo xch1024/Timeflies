@@ -27,7 +27,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;
 
-    private View term_time,table_name, class_time, current_week, class_total, term_total, added;
+    private View term_time,time_name, class_time, current_week, class_total, term_total, added;
     private TextView name, term_date, week_num, class_num, term_num;
 
     private static String className, termStart, currentWeek, classTotal, termTotal;
@@ -71,7 +71,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         ivDonate.setImageResource(R.drawable.donation);
 
         term_time = findViewById(R.id.term_time);
-        table_name = findViewById(R.id.table_name);
+        time_name = findViewById(R.id.time_name);
         class_time = findViewById(R.id.class_time);
         current_week = findViewById(R.id.current_week);
         class_total = findViewById(R.id.class_total);
@@ -98,7 +98,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         ivBack.setOnClickListener(this);
         ivDonate.setOnClickListener(this);
 
-        table_name.setOnClickListener(this);
+        time_name.setOnClickListener(this);
         class_time.setOnClickListener(this);
         term_time.setOnClickListener(this);
         current_week.setOnClickListener(this);

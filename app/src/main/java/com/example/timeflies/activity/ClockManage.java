@@ -10,14 +10,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.timeflies.R;
 import com.example.timeflies.adapter.ClockManageAdapter;
-import com.example.timeflies.model.TimeTableData;
+import com.example.timeflies.model.TimeData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
@@ -29,7 +28,7 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
 
     private RecyclerView rvRecyclerView;
     private ClockManageAdapter adapter;
-    private List<TimeTableData> list = new ArrayList<>();
+    private List<TimeData> list = new ArrayList<>();
 
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;
@@ -146,7 +145,7 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
                 int _id = cursor.getInt(0);
                 String startTime = cursor.getString(1);
                 String endTime = cursor.getString(2);
-                TimeTableData s = new TimeTableData(_id, startTime, endTime);
+                TimeData s = new TimeData(_id, startTime, endTime);
                 list.add(s);
             }
             //规范：必须关闭游标，不然影响性能
