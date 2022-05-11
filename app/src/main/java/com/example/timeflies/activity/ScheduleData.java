@@ -15,24 +15,26 @@ import android.widget.TextView;
 
 import com.example.timeflies.R;
 import com.example.timeflies.View.TimeTableView;
+import com.example.timeflies.operater.ScheduleSupport;
 import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class ScheduleData extends AppCompatActivity implements View.OnClickListener {
 
+    private String TAG = "xch";
     private DialogCustom dialogCustom;
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;
 
-    private View term_time,time_name, class_time, current_week, class_total, term_total, added;
+    private View view_course_name,view_course_time, view_term_time, view_cur_week, view_sec_time, view_term_weeks, view_menu_added;
     private TextView class_name, term_Start, cur_week, sec_time, term_weeks;
 
-    private TimeTableView timetable;
     //更新数据库
     private SqHelper sqHelper = new SqHelper(ScheduleData.this);
     //sp存储数据
@@ -61,7 +63,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      */
     private void configInit(){
         //从sp获取初始数据
-        Log.d("xch", "configInit: "+sp.getString("className","默认"));
+//        Log.d("xch", "sp.getString(\"className\",\"默认\") "+sp.getString("className","默认"));
         className = sp.getString("className","默认");
         timeId = sp.getString("timeId","1");
         termStart = sp.getLong("termStart", termStart);
@@ -83,13 +85,13 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         tvTitle.setText(R.string.ScheduleData);
         ivDonate.setImageResource(R.drawable.donation);
 
-        term_time = findViewById(R.id.term_time);
-        time_name = findViewById(R.id.time_name);
-        class_time = findViewById(R.id.class_time);
-        current_week = findViewById(R.id.current_week);
-        class_total = findViewById(R.id.class_total);
-        term_total = findViewById(R.id.term_total);
-        added = findViewById(R.id.added);
+        view_course_name = findViewById(R.id.view_course_name);
+        view_course_time = findViewById(R.id.view_course_time);
+        view_term_time = findViewById(R.id.view_term_time);
+        view_cur_week = findViewById(R.id.view_cur_week);
+        view_sec_time = findViewById(R.id.view_sec_time);
+        view_term_weeks = findViewById(R.id.view_term_weeks);
+        view_menu_added = findViewById(R.id.view_menu_added);
 
         class_name = findViewById(R.id.class_name);
         term_Start = findViewById(R.id.term_Start);
@@ -98,7 +100,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         term_weeks = findViewById(R.id.term_weeks);
 
         class_name.setText(className);
-        term_Start.setText(longToDate(termStart));
+        term_Start.setText(ScheduleSupport.longToDate(termStart));
         cur_week.setText("第 "+ curWeek+ " 周");
         sec_time.setText(String.valueOf(secTime));
         term_weeks.setText(termWeeks);
@@ -111,13 +113,13 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         ivBack.setOnClickListener(this);
         ivDonate.setOnClickListener(this);
 
-        time_name.setOnClickListener(this);
-        class_time.setOnClickListener(this);
-        term_time.setOnClickListener(this);
-        current_week.setOnClickListener(this);
-        class_total.setOnClickListener(this);
-        term_total.setOnClickListener(this);
-        added.setOnClickListener(this);
+        view_course_name.setOnClickListener(this);
+        view_course_time.setOnClickListener(this);
+        view_term_time.setOnClickListener(this);
+        view_cur_week.setOnClickListener(this);
+        view_sec_time.setOnClickListener(this);
+        view_term_weeks.setOnClickListener(this);
+        view_menu_added.setOnClickListener(this);
     }
 
     @Override
@@ -129,25 +131,25 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
             case R.id.ivSave:
                 ToastCustom.showMsgTrue(this, "捐赠");
                 break;
-            case R.id.table_name:
-                BtnTable();
+            case R.id.view_course_name:
+                BtnCourseName();
                 break;
-            case R.id.class_time:
+            case R.id.view_course_time:
                 intentActivity(MenuClock.class);
                 break;
-            case R.id.term_time:
-                BtnTermStart();
+            case R.id.view_term_time:
+                BtnTermTime();
                 break;
-            case R.id.current_week:
-                BtnWeek();
+            case R.id.view_cur_week:
+                BtnCurWeek();
                 break;
-            case R.id.class_total:
-                BtnClass();
+            case R.id.view_sec_time:
+                BtnSecTime();
                 break;
-            case R.id.term_total:
-                BtnTerm();
+            case R.id.view_term_weeks:
+                BtnTermWeeks();
                 break;
-            case R.id.added:
+            case R.id.view_menu_added:
                 intentActivity(MenuAdded.class);
                 break;
         }
@@ -165,7 +167,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
     /**
      * 课表名称按钮
      */
-    private void BtnTable() {
+    private void BtnCourseName() {
         className = sp.getString("className",className);
         dialogCustom = new DialogCustom(this, R.layout.dialog_tablename, 0.8);
         //设置文本的初始文字
@@ -195,16 +197,18 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         dialogCustom.show();
     }
 
+    //todo 日期转换没设置
     /**
      * 学期开始日期按钮
      */
-    private void BtnTermStart(){
+    private void BtnTermTime(){
         long date = sp.getLong("termStart", new Date().getTime());
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+//        Log.d(TAG, "BtnTermTime: year==month==dayOfMonth"+year+"==="+month+"==="+dayOfMonth);
         //日期选择交互器
         DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleData.this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -218,36 +222,31 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                 calendar.set(year, month, dayOfMonth, 0, 0, 0);
                 Date time = calendar.getTime();
 
-                long week = timetable.calcWeek(time);
+                String timeNow = ScheduleSupport.longToDate(time.getTime());
+                Log.d(TAG, "日期选择交互器选择的时间:==== "+timeNow);
+                //计算当前周
+                int week = ScheduleSupport.timeTransform(timeNow);
+                Log.d(TAG, "计算当前周: " +week);
+
                 //同步数据库和sp
-                cur_week.setText("第"+curWeek+"周");
-                term_Start.setText(longToDate(date));
+                cur_week.setText("第"+week+"周");
+                term_Start.setText(ScheduleSupport.longToDate(time.getTime()));
 
                 sp.edit().putLong("termStart",time.getTime()).apply();
-                sp.edit().putString("curWeek",longToDate(time.getTime())).apply();
-                sqHelper.updateConfig("termStart",longToDate(time.getTime()));
+                sp.edit().putString("curWeek",String.valueOf(week)).apply();
+                sqHelper.updateConfig("termStart",String.valueOf(time.getTime()));
                 sqHelper.updateConfig("curWeek", String.valueOf(week));
-
-                configInit();
-                initView();
             }
         },year, month, dayOfMonth);
         datePickerDialog.show();
     }
 
-    /**
-     * long 类型转换成日期
-     */
-    public String longToDate(long lo){
-        Date date = new Date(lo);
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-M-dd");
-        return sd.format(date);
-    }
+
 
     /**
      * 当前周按钮
      */
-    public void BtnWeek(){
+    public void BtnCurWeek(){
         termWeeks = sp.getString("termWeeks",termWeeks);
         curWeek = sp.getString("curWeek",curWeek);
         dialogCustom = new DialogCustom(this, R.layout.dialog_schedule, 0.8);
@@ -284,9 +283,11 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 一天课程节数按钮
+     * secTime int
      */
-    private void BtnClass(){
+    private void BtnSecTime(){
         secTime = sp.getInt("secTime",secTime);
+//        Log.d(TAG, "sp.getInt(\"secTime\",secTime);: "+secTime);
         dialogCustom = new DialogCustom(this, R.layout.dialog_schedule, 0.8);
         dialogCustom.setScheduleTitle("一天课程节数");
         //设置文本的初始文字
@@ -311,8 +312,9 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                 }else{
                     sec_time.setText(number);
                     //同步数据库
+//                    Log.d(TAG, "Integer.parseInt(number): "+Integer.parseInt(number));
                     sp.edit().putInt("secTime", Integer.parseInt(number)).apply();
-                    sqHelper.updateConfig("sec_time", number);
+                    sqHelper.updateConfig("secTime", number);
                     dialogCustom.dismiss();
                 }
             }
@@ -323,7 +325,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
     /**
      * 学期周数按钮
      */
-    private void BtnTerm(){
+    private void BtnTermWeeks(){
         termWeeks = sp.getString("termWeeks",termWeeks);
         dialogCustom = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
         dialogCustom.setScheduleTitle("学期周数").setScheduleMax("30");
@@ -349,6 +351,10 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     //同步到数据库
                     sp.edit().putString("termWeeks",term).apply();
                     sqHelper.updateConfig("termWeeks", term);
+                    //todo 调试显示第二条作息
+                    sp.edit().putString("timeId", term).apply();
+                    sqHelper.updateConfig("timeId", term);
+
                     dialogCustom.dismiss();
                 }
             }

@@ -1,6 +1,8 @@
 package com.example.timeflies.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +35,12 @@ public class ClockManageAdapter extends RecyclerView.Adapter<ClockManageAdapter.
     @Override
     public ManageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //RecyclerView中的item的match_parent属性失效问题解决方案。：https://blog.csdn.net/OverseasAndroid/article/details/51840819
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvclock_manage, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_times_section, parent, false);
         return new ManageHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClockManageAdapter.ManageHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ClockManageAdapter.ManageHolder holder, @SuppressLint("RecyclerView") int position) {
         TimeData data = list.get(position);
 
         //为每个item设置显示的起始时间

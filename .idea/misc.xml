@@ -92,6 +92,7 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_menu_global_set.xml" value="0.23258196721311475" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_menu_setting.xml" value="0.23258196721311475" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_schedule_data.xml" value="0.23258196721311475" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_show_course.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/adad.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/cursor_color.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/dialog_add_lesson.xml" value="0.24409722222222222" />
@@ -152,6 +153,9 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow_style.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/recycle_anim.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_schedule.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_times_section.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvclock_manage.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvcontent.xml" value="0.16631944444444444" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvcourse.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvcourse_name.xml" value="0.24409722222222222" />

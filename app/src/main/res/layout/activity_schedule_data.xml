@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/time_name"
+                android:id="@+id/view_course_name"
                 android:clickable="true"
                 android:background="@drawable/ripple_border_menu"
                 android:padding="@dimen/dp_15"
@@ -55,7 +55,7 @@
                 android:background="@drawable/content_shape">
 
                 <LinearLayout
-                    android:id="@+id/class_time"
+                    android:id="@+id/view_course_time"
                     android:clickable="true"
                     android:background="@drawable/ripple_border_menu"
                     android:padding="@dimen/dp_15"
@@ -81,7 +81,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/term_time"
+                    android:id="@+id/view_term_time"
                     android:clickable="true"
                     android:background="@drawable/ripple_border_menu"
                     android:padding="@dimen/dp_15"
@@ -108,7 +108,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/current_week"
+                    android:id="@+id/view_cur_week"
                     android:clickable="true"
                     android:background="@drawable/ripple_border_menu"
                     android:padding="@dimen/dp_15"
@@ -136,7 +136,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/class_total"
+                    android:id="@+id/view_sec_time"
                     android:clickable="true"
                     android:background="@drawable/ripple_border_menu"
                     android:padding="@dimen/dp_15"
@@ -164,7 +164,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/term_total"
+                    android:id="@+id/view_term_weeks"
                     android:clickable="true"
                     android:background="@drawable/ripple_border_menu"
                     android:padding="@dimen/dp_15"
@@ -194,7 +194,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/added"
+                android:id="@+id/view_menu_added"
                 android:clickable="true"
                 android:background="@drawable/ripple_border_menu"
                 android:padding="@dimen/dp_15"

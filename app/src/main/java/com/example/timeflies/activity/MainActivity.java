@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity{
     //周标题栏
     private TextView tv_Date, tv_curWeek, tv_curTime;
     private TextView mon,tues,wed,thur,fri,sat,sun;
-    private SimpleDateFormat day = new SimpleDateFormat("E");
+    private SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy/M/d");
+    private SimpleDateFormat sdfWeek = new SimpleDateFormat("E");
+    private Date date = new Date();
 
     //时间表
     private List<TimeData> list = new ArrayList<>();
@@ -62,15 +64,15 @@ public class MainActivity extends AppCompatActivity{
     private SharedPreferences sp;
     private String className = "默认";//课表名称
     private String timeId = "1";//当前时间表id
-    private long termStart;//学期开始日期
+    private long termStart = new Date().getTime();//学期开始日期
     private String curWeek = "1";//当前周
     private int secTime = 10;//一天课程节数
     private String termWeeks = "20";//学期周数
     private String termId = "1";//当前学期id
 
     private List<CourseData> acquireData(){
-        sp = getSharedPreferences("config", MODE_PRIVATE);
-        if (sp.getBoolean("isFirstUse", true)) {//首次使用
+        //首次使用
+        if (sp.getBoolean("isFirstUse", true)) {
             sp.edit().putBoolean("isFirstUse", false).apply();
 
             sp.edit().putString("className", className).apply();
@@ -102,6 +104,8 @@ public class MainActivity extends AppCompatActivity{
         initView();
         setBar_color();
 
+
+
         //查询作息时间表，并展示指定条数
         list = sqHelper.queryTime(timeId);
 
@@ -115,18 +119,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
 
-        get_time();
         setWeekBold();
         initView();
-
-        //从sp获取初始数据
-        className = sp.getString("className","默认");
-        timeId = sp.getString("timeId","1");
-        termStart = sp.getLong("termStart", new Date().getTime());
-        curWeek = sp.getString("curWeek", "1");
-        secTime = sp.getInt("secTime", 10);
-        termWeeks = sp.getString("termWeeks","20");
-        termId = sp.getString("termId","1");
 
         timeTable.setMaxSection(secTime);
         int visible = timeTable.loadData(acquireData(), new Date(termStart));
@@ -135,7 +129,6 @@ public class MainActivity extends AppCompatActivity{
         setView(visible);
 
         //获取开学日期-现在第几周
-        curWeek = String.valueOf(timeTable.calcWeek(new Date(termStart)));
         tv_curWeek.setText("第"+curWeek+"周");
     }
 
@@ -233,26 +226,12 @@ public class MainActivity extends AppCompatActivity{
         tv_curWeek.setText(week);
         Date date = new Date(currentTimeMillis());
         if(String.valueOf(timeTable.getCurWeek()).equals(curWeek)){
-            Log.d(TAG, "setTv_curWeek: =="+ day.format(date));
-            tv_curTime.setText(day.format(date));
+//            Log.d(TAG, "setTv_curWeek: =="+ day.format(date));
+            tv_curTime.setText(sdfWeek.format(date));
         }else{
             tv_curTime.setText("非本周");
         }
         setWeekBold();
-    }
-
-
-
-    /**
-     * 获取当前时间(年月日)
-     */
-    private void get_time(){
-        //设置时间 年-月日
-        SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyy/M/d");
-        Date date = new Date(currentTimeMillis());
-        tv_Date.setText(SimpleDateFormat.format(date));
-        //设置当天周几
-        tv_curTime.setText(day.format(date));
     }
 
 
@@ -271,12 +250,16 @@ public class MainActivity extends AppCompatActivity{
         rvSchedule = findViewById(R.id.rv_schedule);
         sqHelper = new SqHelper(this);
 
-
         //课表数据
         timeTable = findViewById(R.id.timeTable);
 
         bg_none = findViewById(R.id.bg_none);
         bg_none.setVisibility(View.GONE);
+
+        //设置时间 年-月日
+        tv_Date.setText(sdfDay.format(date));
+        //设置当天周几
+        tv_curTime.setText(sdfWeek.format(date));
 
         //日期栏的周一到周日
         mon = findViewById(R.id.week_mon);
@@ -287,6 +270,14 @@ public class MainActivity extends AppCompatActivity{
         sat = findViewById(R.id.week_sat);
         sun = findViewById(R.id.week_sun);
 
+        //从sp获取初始数据
+        className = sp.getString("className","默认");
+        timeId = sp.getString("timeId","2");
+        termStart = sp.getLong("termStart", new Date().getTime());
+        curWeek = sp.getString("curWeek", "1");
+        secTime = sp.getInt("secTime", 10);
+        termWeeks = sp.getString("termWeeks","20");
+        termId = sp.getString("termId","1");
     }
 
     /**
@@ -295,6 +286,7 @@ public class MainActivity extends AppCompatActivity{
      *
      */
     private void initTime(int count, String timeId){
+        Log.d(TAG, "initTime: "+timeId);
         List<TimeData> timeDataList = timeSplit(timeId);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -308,17 +300,23 @@ public class MainActivity extends AppCompatActivity{
         rvSchedule.setNestedScrollingEnabled(false);
     }
 
+    /**
+     * 切分时间段
+     * @param timeId
+     * @return
+     */
     private List<TimeData> timeSplit(String timeId){
         list.clear();
         list = sqHelper.queryTime(timeId);
+        Log.d(TAG, "timeSplit: "+list.toString());
         int id = list.get(0).getId();
         String name = list.get(0).getTableName();
         String time = list.get(0).getTableTime();
-        Log.d(TAG, "list.get(0).getTableTime();: "+id+"=============="+time);
+//        Log.d(TAG, "list.get(0).getTableTime();: "+id+"=============="+time);
         String[] timeArray = time.split(";");
         List<TimeData> timeDataList = new ArrayList<>();
         for (int i = 0; i < timeArray.length; i++){
-            Log.d(TAG, "String[] timeArray: "+timeArray[i]);
+//            Log.d(TAG, "String[] timeArray: "+timeArray[i]);
             String[] info = timeArray[i].split("-");
             TimeData td = new TimeData();
             td.setId(id);
@@ -328,7 +326,7 @@ public class MainActivity extends AppCompatActivity{
 //            Log.d(TAG, "td: "+td);
             timeDataList.add(td);
         }
-        Log.d(TAG, "timeDataList.add(td);: "+timeDataList);
+//        Log.d(TAG, "timeDataList.add(td);: "+timeDataList);
         return timeDataList;
     }
 

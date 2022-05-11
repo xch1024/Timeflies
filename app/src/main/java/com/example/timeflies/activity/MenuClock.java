@@ -29,7 +29,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
 
     private TableChoiceAdapter tableChoiceAdapter;
     private RecyclerView recyclerView;
-    private List<TimeData> list = new ArrayList<>();
+    private List<TimeData> timeDataList;
 
     private TextView tvTitle;
     private ImageView ivNull, ivBack;
@@ -42,7 +42,6 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_menu_clock);
 
         initView();
-        list = sqHelper.queryTime("1");
     }
 
     @Override
@@ -50,9 +49,8 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         super.onStart();
 
         initView();
-        initTable("1");
+        initTable();
         setListener();
-
     }
 
     private void initView(){
@@ -65,25 +63,24 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
 
         tvTitle.setText(R.string.menu_clock_view);
         ivNull.setVisibility(View.GONE);
-
     }
+
+    private void initTable() {
+
+        timeDataList = sqHelper.queryTime();
+        LinearLayoutManager LayoutManager = new LinearLayoutManager(MenuClock.this);
+        recyclerView.setLayoutManager(LayoutManager);
+        tableChoiceAdapter = new TableChoiceAdapter(MenuClock.this, timeDataList);
+        recyclerView.setAdapter(tableChoiceAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
+        LayoutManager.setStackFromEnd(true);
+        tableChoiceAdapter.setOnItemClickListener(MyItemClickListener);
+    }
+
     private void setListener(){
         ivBack.setOnClickListener(this);
         vAddItem.setOnClickListener(this);
 
-    }
-
-    private void initTable(String id) {
-        list.clear();
-        list = sqHelper.queryTime(id);
-        LinearLayoutManager LayoutManager = new LinearLayoutManager(MenuClock.this);
-        recyclerView.setLayoutManager(LayoutManager);
-        tableChoiceAdapter = new TableChoiceAdapter(MenuClock.this, list);
-        recyclerView.setAdapter(tableChoiceAdapter);
-
-        recyclerView.setNestedScrollingEnabled(false);
-        LayoutManager.setStackFromEnd(true);
-        tableChoiceAdapter.setOnItemClickListener(MyItemClickListener);
     }
 
     @Override
@@ -93,7 +90,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
                 intentActivity(MainActivity.class);
                 break;
             case R.id.addItem:
-                BtnAddItem();
+//                BtnAddItem();
                 break;
         }
     }
@@ -118,10 +115,14 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
                     ToastCustom.showMsgWarning(MenuClock.this,"长按删除哦");
                     break;
                 case R.id.ivEdit:
-                    TimeData timeData = list.get(position);
+                    int timeId = timeDataList.get(position).getId();
+                    String timeName = timeDataList.get(position).getTableName();
                     //页面跳转及传值
+                    TimeData timeData = timeDataList.get(position);
                     Intent intent = new Intent(MenuClock.this,ClockManage.class);
-                    intent.putExtra("time", timeData);
+                    intent.putExtra("timeData", timeData);
+                    intent.putExtra("timeId", timeId);
+                    intent.putExtra("timeName", timeName);
                     startActivity(intent);
                     break;
             }
@@ -131,11 +132,15 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         public void onItemLongClick(View v, int position) {
             switch (v.getId()){
                 case R.id.ivDelete:
-                    int id = list.get(position).getId();
-                    list.remove(position);
-                    tableChoiceAdapter.notifyItemRemoved(position);
-                    initTable("1");
-                    ToastCustom.showMsgTrue(MenuClock.this,"删除成功~");
+                    int id = timeDataList.get(position).getId();
+                    int delete = sqHelper.delTimes(id);
+                    if(delete > 0 ){
+                        ToastCustom.showMsgTrue(MenuClock.this,"删除成功~");
+                        timeDataList.clear();
+                        initTable();
+                    }else{
+                        ToastCustom.showMsgTrue(MenuClock.this,"删除失败~");
+                    }
                     break;
             }
         }
@@ -157,7 +162,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
                 if(TextUtils.isEmpty(name)){
                     ToastCustom.showMsgWarning(MenuClock.this,"名称不能为空哦~");
                 }else{
-                    initTable("1");
+                    initTable();
                     tableChoiceAdapter.notifyDataSetChanged();
                     copy();
                     ToastCustom.showMsgTrue(MenuClock.this,"新建成功~");

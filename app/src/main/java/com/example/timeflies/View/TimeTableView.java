@@ -244,7 +244,7 @@ public class TimeTableView extends LinearLayout {
             course.setClassroom("");
         }else{
             course.setClassroom("\n@"+course.getClassroom());
-            Log.d(TAG, "course.getClassroom(): "+course.getClassroom());
+//            Log.d(TAG, "course.getClassroom(): "+course.getClassroom());
         }
         if(course.getTeacherName().equals("null")){
             course.setTeacherName("");

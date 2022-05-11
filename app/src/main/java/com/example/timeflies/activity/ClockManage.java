@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.example.timeflies.R;
 import com.example.timeflies.adapter.ClockManageAdapter;
 import com.example.timeflies.model.TimeData;
 import com.example.timeflies.sqlite.ScheduleSqlite;
+import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
@@ -28,15 +32,18 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
 
     private RecyclerView rvRecyclerView;
     private ClockManageAdapter adapter;
-    private List<TimeData> list = new ArrayList<>();
+    private TimeData timeData;
 
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;
 
-    private TextView tvName;
-    private View uName;
+    private TextView time_name;
+    private View view_time_Name;
 
-    private static String name ,id;
+    private SqHelper sqHelper;
+    private DialogCustom dialogCustom;
+    private int timeId;
+    private String timeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +51,13 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_clock_manage);
 
         initView();
+        initSchedule();
         setListener();
-        queryDb(Integer.parseInt(id));
     }
 
     private void initSchedule() {
+        List<TimeData> list = timeData.toDetail();
+        Log.d("xch", "timeData==="+ timeData);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvRecyclerView.setLayoutManager(layoutManager);
         adapter = new ClockManageAdapter(list, this);
@@ -59,26 +68,31 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
     private void initView(){
         //页面传值  获取值
         Bundle bundle = getIntent().getExtras();
-        name = bundle.getString("name");
-        id = bundle.getString("table_id");
+        timeData = (TimeData) bundle.getSerializable("timeData");
+        timeId = bundle.getInt("timeId");
+        timeName = bundle.getString("timeName");
+        Log.d("xch", "bundle:timeId== "+timeId);
+        Log.d("xch", "bundle:timeName== "+timeName);
+        sqHelper = new SqHelper(this);
 
-        tvName =findViewById(R.id.sName);
-        tvName.setText(name);
-
-        rvRecyclerView = findViewById(R.id.rv_clockManage);
         tvTitle = findViewById(R.id.tvTitle);
         ivBack = findViewById(R.id.ivBack);
         ivDonate = findViewById(R.id.ivSave);
+
+        view_time_Name = findViewById(R.id.view_time_Name);
+        time_name =findViewById(R.id.time_name);
+
+        rvRecyclerView = findViewById(R.id.rv_clockManage);
+
         tvTitle.setText(R.string.clock_manage);
-
-        uName = findViewById(R.id.uName);
-
+        ivDonate.setVisibility(View.GONE);
+        time_name.setText(timeName);
     }
 
     private void setListener(){
         ivBack.setOnClickListener(this);
         ivDonate.setOnClickListener(this);
-        uName.setOnClickListener(this);
+        view_time_Name.setOnClickListener(this);
     }
 
     @Override
@@ -87,11 +101,9 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
             case R.id.ivBack:
                 intentActivity(MenuClock.class);
                 break;
-            case R.id.ivSave:
-                ToastCustom.showMsgTrue(this, "保存");
-                break;
-            case R.id.uName:
-                if(Integer.valueOf(id) == 1){
+            case R.id.view_time_Name:
+                Log.d("xch", "view_time_Name: "+timeId);
+                if(timeId == 1){
                     ToastCustom.showMsgWarning(this, "默认时间表不能改名哦~");
                 }else{
                     BtnUpdate();
@@ -101,9 +113,9 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
     }
 
     private void BtnUpdate() {
-        DialogCustom dialogCustom = new DialogCustom(this,R.layout.dialog_tablename, 0.7);
+        dialogCustom = new DialogCustom(this,R.layout.dialog_tablename, 0.8);
         dialogCustom.setTableTitle("时间表名称");
-        dialogCustom.setTableEdit(name);
+        dialogCustom.setTableEdit(timeName);
         dialogCustom.setTableNameCancelListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,8 +126,12 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 String newName = dialogCustom.getTableEdit();
-                updateName(Integer.valueOf(id), newName);
-                dialogCustom.dismiss();
+                int update = sqHelper.updateTimes(timeId, newName);
+                if( update > 0 ){
+                    time_name.setText(newName);
+                    ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
+                    dialogCustom.dismiss();
+                }
             }
         });
         dialogCustom.show();
@@ -123,53 +139,13 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
 
     /**
      * 页面跳转
-     *
-     *
      */
     private void intentActivity(Class<?> cls){
         Intent intent = new Intent(ClockManage.this, cls);
         startActivity(intent);
     }
 
-    //查询数据库内容
-    public void queryDb(int target) {
-        //清除数据
-        list.clear();
-        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        //规范：确保数据库打开成功，才能放心操作
-        if (db.isOpen()) {
-            //返回游标
-            Cursor cursor = db.rawQuery("select * from schedules where tableName_id = ?", new String[]{String.valueOf(target)});
-            while(cursor.moveToNext()){
-                int _id = cursor.getInt(0);
-                String startTime = cursor.getString(1);
-                String endTime = cursor.getString(2);
-                TimeData s = new TimeData();
-                list.add(s);
-            }
-            //规范：必须关闭游标，不然影响性能
-            cursor.close();
-            //规范：必须关闭数据库
-            db.close();
 
-            //重新加载recycle
-            initSchedule();
-        }
-    }
-
-    public void updateName(int _id,String target){
-        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        if (db.isOpen()){
-            ContentValues values = new ContentValues();
-            values.put("tableName",target);
-            db.update("tableNames", values, "_id = ?", new String[]{String.valueOf(_id)});
-        }
-        //规范：必须关闭数据库
-        db.close();
-        tvName.setText(target);
-    }
 
 
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/course_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_add_head"
+            layout="@layout/include_head"/>
+
+<!--        让RecyclerView上面的部件跟随其一起滑动,因此添加了一个NestedScrollView,嵌套-->
+        <!--    上下滚动试图-->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+<!--        scrollview内只能有一个布局，因此添加一个linearlayout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="200dp"
+                android:orientation="vertical">
+
+                <!--课程信息四排内容-->
+                <include
+                    layout="@layout/include_course"/>
+
+                <!--    分割线-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/course_line" />
+
+                <!--    recyclerview-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+<!--    为了让按钮始终显示在页面上方,因此最外层使用了FrameLayout-->
+    <include
+        layout="@layout/include_btn_add"/>
+
+</FrameLayout>

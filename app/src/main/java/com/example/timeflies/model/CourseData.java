@@ -215,6 +215,7 @@ public class CourseData implements Cloneable, Serializable {
         return Objects.hash(courseName, courseColor, courseCredit, courseRemark);
     }
 
+
     public List<CourseData> toDetail(){
         List<CourseData> courseDataList = new ArrayList<>();
         if (TextUtils.isEmpty(courseTime)) return courseDataList;

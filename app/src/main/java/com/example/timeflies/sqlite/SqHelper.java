@@ -68,14 +68,15 @@ public class SqHelper {
         db.close();
     }
 
-
     /**
      * 查询数据库作息时间表的所有内容
+     * 指定timeId
      */
-    public List<TimeData> queryTime(String  id) {
+    public List<TimeData> queryTime(String  timeId) {
         List<TimeData> list = new ArrayList<>();
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from times where _id = ?",new String[]{id});
+        Log.d(TAG, "queryTime: "+timeId);
+        Cursor cursor = db.rawQuery("select * from times where _id = ?",new String[]{timeId});
         //规范：确保数据库打开成功，才能放心操作
         if (cursor.getCount() > 0) {
             while(cursor.moveToNext()){
@@ -85,7 +86,31 @@ public class SqHelper {
                 time.setStartTime(cursor.getString(2));
                 time.setEndTime(cursor.getString(3));
                 time.setTableTime(cursor.getString(4));
-                Log.d(TAG, "queryTime: "+time);
+//                Log.d(TAG, "queryTime: "+time);
+                list.add(time);
+            }
+            //规范：必须关闭游标，不然影响性能
+            cursor.close();
+        }
+        //规范：必须关闭数据库
+        db.close();
+        return list;
+    }
+
+    public List<TimeData> queryTime() {
+        List<TimeData> list = new ArrayList<>();
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from times",null);
+        //规范：确保数据库打开成功，才能放心操作
+        if (cursor.getCount() > 0) {
+            while(cursor.moveToNext()){
+                TimeData time = new TimeData();
+                time.setId(cursor.getInt(0));
+                time.setTableName(cursor.getString(1));
+                time.setStartTime(cursor.getString(2));
+                time.setEndTime(cursor.getString(3));
+                time.setTableTime(cursor.getString(4));
+//                Log.d(TAG, "queryTime: "+time);
                 list.add(time);
             }
             //规范：必须关闭游标，不然影响性能
@@ -99,13 +124,44 @@ public class SqHelper {
     /**
      * 删除时间表
      */
-    public void delTable(Context context, int id){
-        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(context);
+    public int delTimes(int id){
         SQLiteDatabase db = helper.getWritableDatabase();
+        int count = 0;
         if(db.isOpen()){
-            db.delete("tableNames", "_id= ?", new String[]{String.valueOf(id)});
+            count = db.delete("times", "_id= ?", new String[]{String.valueOf(id)});
         }
         db.close();
+        return count;
+    }
+    public int delete(String whereClause, String[] whereArgs){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        int count = db.delete("times", whereClause, whereArgs);
+        db.close();
+        return count;
+    }
+
+    /**
+     * 删除时间表 修改时间表
+     * @param _id
+     * @param target
+     */
+    public int updateTimes(int _id, String target){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        int count = 0;
+        if (db.isOpen()){
+            ContentValues values = new ContentValues();
+            values.put("tableName",target);
+            count = db.update("times", values, "_id = ?", new String[]{String.valueOf(_id)});
+        }
+        //规范：必须关闭数据库
+        db.close();
+        return count;
+    }
+    public int update(ContentValues values, String whereClause, String[] whereArgs){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        int count = db.update("times", values, whereClause, whereArgs);
+        db.close();
+        return count;
     }
 
 }

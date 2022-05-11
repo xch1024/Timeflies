@@ -37,6 +37,7 @@ public class TimeData implements Cloneable, Serializable {
     }
 
 
+    //拆分
     public List<TimeData> toDetail(){
         List<TimeData> timeDataList = new ArrayList<>();
         String[] timeArray = tableTime.split(";");
@@ -56,6 +57,33 @@ public class TimeData implements Cloneable, Serializable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 切分时间段
+     * @return
+     */
+    public static List<TimeData> timeSplit(List<TimeData> list){
+        list.clear();
+        int id = list.get(0).getId();
+        String name = list.get(0).getTableName();
+        String time = list.get(0).getTableTime();
+//        Log.d(TAG, "list.get(0).getTableTime();: "+id+"=============="+time);
+        String[] timeArray = time.split(";");
+        List<TimeData> timeDataList = new ArrayList<>();
+        for (int i = 0; i < timeArray.length; i++){
+//            Log.d(TAG, "String[] timeArray: "+timeArray[i]);
+            String[] info = timeArray[i].split("-");
+            TimeData td = new TimeData();
+            td.setId(id);
+            td.setTableName(name);
+            td.setStartTime(info[0]);
+            td.setEndTime(info[1]);
+//            Log.d(TAG, "td: "+td);
+            timeDataList.add(td);
+        }
+//        Log.d(TAG, "timeDataList.add(td);: "+timeDataList);
+        return timeDataList;
     }
 
     @Override

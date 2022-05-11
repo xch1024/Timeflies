@@ -1,9 +1,6 @@
 package com.example.timeflies.adapter;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timeflies.R;
 import com.example.timeflies.model.TimeData;
-import com.example.timeflies.sqlite.ScheduleSqlite;
 
 import java.util.List;
 
@@ -34,7 +30,7 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
     @Override
     public TableHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvtime_manage,parent,false);
+        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_time_name,parent,false);
         return new TableChoiceAdapter.TableHolder(inflater);
     }
 

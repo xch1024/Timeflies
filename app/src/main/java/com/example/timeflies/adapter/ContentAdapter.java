@@ -32,7 +32,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
     @Override
     public ContentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvcontent,parent,false);
+        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_course_schedule,parent,false);
         return new ContentHolder(inflater);
     }
 

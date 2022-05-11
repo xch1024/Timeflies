@@ -29,17 +29,13 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/clockManage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </androidx.recyclerview.widget.RecyclerView>
-
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-
-
     <include
-        layout="@layout/include_btn_add"></include>
+        layout="@layout/include_btn_add"/>
 </FrameLayout>

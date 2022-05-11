@@ -1,7 +1,6 @@
 package com.example.timeflies.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.timeflies.R;
 import com.example.timeflies.model.TimeData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +21,6 @@ import java.util.List;
  *
  */
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder> {
-
 
     private String TAG = "xch";
 
@@ -50,7 +47,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     @Override
     public ScheduleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //创建ViewHolder，返回每一项的布局
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rvtimetable, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_times, parent,false);
         return new ScheduleHolder(view);
     }
 
