@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,24 +41,53 @@ public class MainActivity extends AppCompatActivity{
     private String TAG = "xch";
 
     private DialogCustom dialog;
+
+    //周标题栏
     private TextView tv_Date, tv_curWeek, tv_curTime;
-    private long weekNum = 1;
-    private long date;
-
-    private List<TimeData> list = new ArrayList<>();
-    private TimeData timeData;
-    private SqHelper sqHelper;
-    private int num;
-    private RecyclerView rvSchedule;
-
-    private List<CourseData> courses = new ArrayList<>();
-    private ScheduleSqlite sqlite = new ScheduleSqlite(this);
-    public TimeTableView timeTable;
-    private View bg_none;
-
     private TextView mon,tues,wed,thur,fri,sat,sun;
     private SimpleDateFormat day = new SimpleDateFormat("E");
 
+    //时间表
+    private List<TimeData> list = new ArrayList<>();
+    private SqHelper sqHelper;
+    private RecyclerView rvSchedule;
+
+    //课程表
+    private List<CourseData> courses = new ArrayList<>();
+    private ScheduleSqlite sqlite = new ScheduleSqlite(this);
+    private TimeTableView timeTable;
+    private View bg_none;
+
+    //sp存储数据
+    private SharedPreferences sp;
+    private String className = "默认";//课表名称
+    private String timeId = "1";//当前时间表id
+    private long termStart;//学期开始日期
+    private String curWeek = "1";//当前周
+    private int secTime = 10;//一天课程节数
+    private String termWeeks = "20";//学期周数
+    private String termId = "1";//当前学期id
+
+    private List<CourseData> acquireData(){
+        sp = getSharedPreferences("config", MODE_PRIVATE);
+        if (sp.getBoolean("isFirstUse", true)) {//首次使用
+            sp.edit().putBoolean("isFirstUse", false).apply();
+
+            sp.edit().putString("className", className).apply();
+            sp.edit().putString("timeId", timeId).apply();
+            sp.edit().putLong("termStart", termStart).apply();
+            sp.edit().putString("curWeek", curWeek).apply();
+            sp.edit().putInt("secTime", secTime).apply();
+            sp.edit().putString("termWeeks", termWeeks).apply();
+            sp.edit().putString("termId", termId).apply();
+
+        }else{
+            courses = sqlite.listAll();
+        }
+        return courses;
+    }
+
+    //获取页面左右滑动
     private int currentX;
 
     @Override
@@ -67,12 +97,13 @@ public class MainActivity extends AppCompatActivity{
 
         //数据库配置
         SQLiteStudioService.instance().start(this);
+        sp = getSharedPreferences("config", MODE_PRIVATE);
 
         initView();
         setBar_color();
 
         //查询作息时间表，并展示指定条数
-        list = sqHelper.queryTime("1");
+        list = sqHelper.queryTime(timeId);
 
     }
 
@@ -86,21 +117,26 @@ public class MainActivity extends AppCompatActivity{
 
         get_time();
         setWeekBold();
-
         initView();
-        initTime(num, "1");
-        timeTable.setMaxSection(num);
-        //获取开学时间
-        // 第四周 1649779200905
-        // 第三周 1650384000522
-        date = Long.parseLong("1649779200905");
 
-        int visible = timeTable.loadData(acquireData(), new Date(date));
+        //从sp获取初始数据
+        className = sp.getString("className","默认");
+        timeId = sp.getString("timeId","1");
+        termStart = sp.getLong("termStart", new Date().getTime());
+        curWeek = sp.getString("curWeek", "1");
+        secTime = sp.getInt("secTime", 10);
+        termWeeks = sp.getString("termWeeks","20");
+        termId = sp.getString("termId","1");
+
+        timeTable.setMaxSection(secTime);
+        int visible = timeTable.loadData(acquireData(), new Date(termStart));
+        initTime(secTime, timeId);
+
         setView(visible);
 
         //获取开学日期-现在第几周
-        weekNum = timeTable.calcWeek(new Date(date));
-        tv_curWeek.setText("第"+weekNum+"周");
+        curWeek = String.valueOf(timeTable.calcWeek(new Date(termStart)));
+        tv_curWeek.setText("第"+curWeek+"周");
     }
 
 
@@ -179,7 +215,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-
     //本周没有课程视图是否可见
     private void setView(int key){
         if(key < 0){
@@ -191,14 +226,13 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-
     /**
      * 设置当前页面是第几周的课
      */
     public void setTv_curWeek(String week){
         tv_curWeek.setText(week);
         Date date = new Date(currentTimeMillis());
-        if(timeTable.getCurWeek() == weekNum ){
+        if(String.valueOf(timeTable.getCurWeek()).equals(curWeek)){
             Log.d(TAG, "setTv_curWeek: =="+ day.format(date));
             tv_curTime.setText(day.format(date));
         }else{
@@ -207,10 +241,7 @@ public class MainActivity extends AppCompatActivity{
         setWeekBold();
     }
 
-    private List<CourseData> acquireData(){
-        courses = sqlite.listAll();
-        return courses;
-    }
+
 
     /**
      * 获取当前时间(年月日)
@@ -239,7 +270,7 @@ public class MainActivity extends AppCompatActivity{
         //时间表
         rvSchedule = findViewById(R.id.rv_schedule);
         sqHelper = new SqHelper(this);
-        num = Integer.parseInt(sqHelper.queryConfig("classTotal"));
+
 
         //课表数据
         timeTable = findViewById(R.id.timeTable);

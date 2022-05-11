@@ -4,44 +4,55 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.timeflies.R;
+import com.example.timeflies.View.TimeTableView;
 import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
-import com.example.timeflies.utils.ScheduleSupport;
 import com.example.timeflies.utils.ToastCustom;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ScheduleData extends AppCompatActivity implements View.OnClickListener {
 
-    private DialogCustom dialogCustomName, dialogCustomWeek, dialogCustomClass, dialogCustomTerm;
+    private DialogCustom dialogCustom;
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;
 
     private View term_time,time_name, class_time, current_week, class_total, term_total, added;
-    private TextView name, term_date, week_num, class_num, term_num;
+    private TextView class_name, term_Start, cur_week, sec_time, term_weeks;
 
-    private static String className, termStart, currentWeek, classTotal, termTotal;
-    private SqHelper sqHelper;
-    private ScheduleSupport scheduleSupport;
+    private TimeTableView timetable;
+    //更新数据库
+    private SqHelper sqHelper = new SqHelper(ScheduleData.this);
+    //sp存储数据
+    private SharedPreferences sp;
+    private String className = "默认";//课表名称
+    private String timeId = "1";//当前时间表id
+    private long termStart = new Date().getTime();//学期开始日期
+    private String curWeek = "1";//当前周
+    private int secTime = 10;//一天课程节数
+    private String termWeeks = "20";//学期周数
+    private String termId = "1";//当前学期id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_data);
 
+        sp = getSharedPreferences("config",MODE_PRIVATE);
         configInit();
         initView();
-
         setListener();
     }
 
@@ -49,12 +60,15 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      * 从数据库查询设置配置信息
      */
     private void configInit(){
-        sqHelper = new SqHelper(this);
-        className = sqHelper.queryConfig("className");
-        termStart = sqHelper.queryConfig("termStart");
-        currentWeek = sqHelper.queryConfig("currentWeek");
-        classTotal = sqHelper.queryConfig("classTotal");
-        termTotal = sqHelper.queryConfig("termTotal");
+        //从sp获取初始数据
+        Log.d("xch", "configInit: "+sp.getString("className","默认"));
+        className = sp.getString("className","默认");
+        timeId = sp.getString("timeId","1");
+        termStart = sp.getLong("termStart", termStart);
+        curWeek = sp.getString("curWeek", "1");
+        secTime = sp.getInt("secTime", 10);
+        termWeeks = sp.getString("termWeeks","20");
+        termId = sp.getString("termId","1");
     }
 
     /**
@@ -63,7 +77,6 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      *
      */
     private void initView(){
-
         tvTitle = findViewById(R.id.tvTitle);
         ivDonate = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
@@ -78,17 +91,17 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         term_total = findViewById(R.id.term_total);
         added = findViewById(R.id.added);
 
-        name = findViewById(R.id.name);
-        term_date = findViewById(R.id.term_date);
-        week_num = findViewById(R.id.week_num);
-        class_num = findViewById(R.id.class_num);
-        term_num = findViewById(R.id.term_num);
+        class_name = findViewById(R.id.class_name);
+        term_Start = findViewById(R.id.term_Start);
+        cur_week = findViewById(R.id.cur_week);
+        sec_time = findViewById(R.id.sec_time);
+        term_weeks = findViewById(R.id.term_weeks);
 
-        name.setText(className);
-        term_date.setText(termStart);
-        week_num.setText("第 "+ currentWeek+ " 周");
-        class_num.setText(classTotal);
-        term_num.setText(termTotal);
+        class_name.setText(className);
+        term_Start.setText(longToDate(termStart));
+        cur_week.setText("第 "+ curWeek+ " 周");
+        sec_time.setText(String.valueOf(secTime));
+        term_weeks.setText(termWeeks);
     }
 
     /**
@@ -105,7 +118,6 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         class_total.setOnClickListener(this);
         term_total.setOnClickListener(this);
         added.setOnClickListener(this);
-
     }
 
     @Override
@@ -154,191 +166,194 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      * 课表名称按钮
      */
     private void BtnTable() {
-        String sname = sqHelper.queryConfig("className");
-        dialogCustomName = new DialogCustom(this, R.layout.dialog_tablename, 0.7);
+        className = sp.getString("className",className);
+        dialogCustom = new DialogCustom(this, R.layout.dialog_tablename, 0.8);
         //设置文本的初始文字
-        dialogCustomName.setTableEdit(sname);
-        dialogCustomName.setTableNameCancelListener(new View.OnClickListener() {
+        dialogCustom.setTableEdit(className);
+        dialogCustom.setTableNameCancelListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogCustomName.dismiss();
+                dialogCustom.dismiss();
             }
         });
-        dialogCustomName.setTableNameConfirmListener(new View.OnClickListener() {
+        dialogCustom.setTableNameConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //获取输入框文字
-                String names = dialogCustomName.getTableEdit();
+                String names = dialogCustom.getTableEdit();
                 if(TextUtils.isEmpty(names)){
                     ToastCustom.showMsgWarning(ScheduleData.this, "名称不能为空哦ʕ ᵔᴥᵔ ʔ");
                 }else{
-                    name.setText(names);
-                    //同步数据库
+                    class_name.setText(names);
+                    //同步数据库和sp
+                    sp.edit().putString("className",String.valueOf(names)).apply();
                     sqHelper.updateConfig("className", names);
-                    dialogCustomName.dismiss();
+                    dialogCustom.dismiss();
                 }
             }
         });
-        dialogCustomName.show();
+        dialogCustom.show();
     }
 
     /**
      * 学期开始日期按钮
      */
     private void BtnTermStart(){
+        long date = sp.getLong("termStart", new Date().getTime());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        //日期选择交互器
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleData.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-        try{
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat y = new SimpleDateFormat("yyyy");
-            SimpleDateFormat m = new SimpleDateFormat("MM");
-            SimpleDateFormat d = new SimpleDateFormat("dd");
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth();
+                int dayOfMonth = datePicker.getDayOfMonth();
 
-            Date dt= format.parse(termStart);
-            int year  = Integer.parseInt(y.format(dt));
-            int month  = Integer.parseInt(m.format(dt)) - 1;
-            int day  = Integer.parseInt(d.format(dt));
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, dayOfMonth, 0, 0, 0);
+                Date time = calendar.getTime();
 
-            //日期选择交互器
-            DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleData.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                long week = timetable.calcWeek(time);
+                //同步数据库和sp
+                cur_week.setText("第"+curWeek+"周");
+                term_Start.setText(longToDate(date));
 
-                    i1 = i1 +1;
-                    String dates = i +"-"+ i1 +"-"+ i2;
-                    term_date.setText(dates);
-                    //同步到数据库
-                    sqHelper.updateConfig("termStart", dates);
+                sp.edit().putLong("termStart",time.getTime()).apply();
+                sp.edit().putString("curWeek",longToDate(time.getTime())).apply();
+                sqHelper.updateConfig("termStart",longToDate(time.getTime()));
+                sqHelper.updateConfig("curWeek", String.valueOf(week));
 
-                    SimpleDateFormat format1 =  new SimpleDateFormat("yyyy-MM-dd");
-                    Date d = new Date();
-                    Date d1 = null;
-                    try{
-                        d1 = format1.parse(dates);
-                    }catch(ParseException e){
+                configInit();
+                initView();
+            }
+        },year, month, dayOfMonth);
+        datePickerDialog.show();
+    }
 
-                    }
-                    int weeks = ScheduleSupport.getWeek(d, d1);
-                    ToastCustom.showMsgWarning(ScheduleData.this,"当天为开学第"+weeks+"周");
-                    week_num.setText("第"+weeks+"周");
-                    sqHelper.updateConfig("currentWeek", String.valueOf(weeks));
-
-                    configInit();
-                    initView();
-                }
-            },year, month, day);
-            datePickerDialog.show();
-
-        }
-        catch (ParseException e){        }
-
+    /**
+     * long 类型转换成日期
+     */
+    public String longToDate(long lo){
+        Date date = new Date(lo);
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-M-dd");
+        return sd.format(date);
     }
 
     /**
      * 当前周按钮
      */
     public void BtnWeek(){
-        String current = sqHelper.queryConfig("currentWeek");
-        dialogCustomWeek = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
-        dialogCustomWeek.setScheduleTitle("当前周");
+        termWeeks = sp.getString("termWeeks",termWeeks);
+        curWeek = sp.getString("curWeek",curWeek);
+        dialogCustom = new DialogCustom(this, R.layout.dialog_schedule, 0.8);
+        dialogCustom.setScheduleTitle("当前周");
         //设置文本的初始文字
-        dialogCustomWeek.setScheduleMax(term_num.getText().toString());
-        dialogCustomWeek.setScheduleEdit(current);
-        dialogCustomWeek.setScheduleCancelListener(new View.OnClickListener() {
+        dialogCustom.setScheduleMax(termWeeks);
+        dialogCustom.setScheduleEdit(curWeek);
+        dialogCustom.setScheduleCancelListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogCustomWeek.dismiss();
+                dialogCustom.dismiss();
             }
         });
-        dialogCustomWeek.setScheduleConfirmListener(new View.OnClickListener() {
+        dialogCustom.setScheduleConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //获取输入框文字
-                String week = dialogCustomWeek.getScheduleEdit();
+                String week = dialogCustom.getScheduleEdit();
                 if(TextUtils.isEmpty(week)){
                     ToastCustom.showMsgWarning(ScheduleData.this, "名称不能为空哦ʕ ᵔᴥᵔ ʔ");
-                }else if(Integer.parseInt(week) > Integer.parseInt(termTotal) ||Integer.parseInt(week) <= 0){
+                }else if(Integer.parseInt(week) > Integer.parseInt(termWeeks) ||Integer.parseInt(week) <= 0){
                     ToastCustom.showMsgFalse(ScheduleData.this, "请注意范围ʕ ᵔᴥᵔ ʔ");
                 }else{
-                    week_num.setText("第 "+week+" 周");
-                    //同步数据库
-                    sqHelper.updateConfig("currentWeek", week);
-                    dialogCustomWeek.dismiss();
+                    cur_week.setText("第 "+week+" 周");
+                    //同步数据库和sp
+                    sp.edit().putString("curWeek",week).apply();
+                    sqHelper.updateConfig("curWeek", week);
+                    dialogCustom.dismiss();
                 }
             }
         });
-        dialogCustomWeek.show();
+        dialogCustom.show();
     }
 
     /**
      * 一天课程节数按钮
      */
     private void BtnClass(){
-        String cTotal = sqHelper.queryConfig("classTotal");
-        dialogCustomClass = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
-        dialogCustomClass.setScheduleTitle("一天课程节数");
+        secTime = sp.getInt("secTime",secTime);
+        dialogCustom = new DialogCustom(this, R.layout.dialog_schedule, 0.8);
+        dialogCustom.setScheduleTitle("一天课程节数");
         //设置文本的初始文字
-        dialogCustomClass.setScheduleMax("20");
-        dialogCustomClass.setScheduleEdit(cTotal);
+        dialogCustom.setScheduleMax("20");
+        dialogCustom.setScheduleEdit(String.valueOf(secTime));
 
-        dialogCustomClass.setScheduleCancelListener(new View.OnClickListener() {
+        dialogCustom.setScheduleCancelListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogCustomClass.dismiss();
+                dialogCustom.dismiss();
             }
         });
-        dialogCustomClass.setScheduleConfirmListener(new View.OnClickListener() {
+        dialogCustom.setScheduleConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //获取输入框文字
-                String  number= dialogCustomClass.getScheduleEdit();
+                String  number= dialogCustom.getScheduleEdit();
                 if(TextUtils.isEmpty(number)){
                     ToastCustom.showMsgWarning(ScheduleData.this, "名称不能为空哦ʕ ᵔᴥᵔ ʔ");
                 }else if(Integer.parseInt(number) > 20 || Integer.parseInt(number) <= 0){
                     ToastCustom.showMsgFalse(ScheduleData.this, "请注意范围ʕ ᵔᴥᵔ ʔ");
                 }else{
-                    class_num.setText(number);
+                    sec_time.setText(number);
                     //同步数据库
-                    sqHelper.updateConfig("classTotal", number);
-                    dialogCustomClass.dismiss();
+                    sp.edit().putInt("secTime", Integer.parseInt(number)).apply();
+                    sqHelper.updateConfig("sec_time", number);
+                    dialogCustom.dismiss();
                 }
             }
         });
-        dialogCustomClass.show();
+        dialogCustom.show();
     }
 
     /**
      * 学期周数按钮
      */
     private void BtnTerm(){
-        String tTotal = sqHelper.queryConfig("termTotal");
-        dialogCustomTerm = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
-        dialogCustomTerm.setScheduleTitle("学期周数").setScheduleMax("30");
+        termWeeks = sp.getString("termWeeks",termWeeks);
+        dialogCustom = new DialogCustom(this, R.layout.dialog_schedule, 0.7);
+        dialogCustom.setScheduleTitle("学期周数").setScheduleMax("30");
         //设置文本的初始文字
-        dialogCustomTerm.setScheduleEdit(tTotal);
-        dialogCustomTerm.setScheduleCancelListener(new View.OnClickListener() {
+        dialogCustom.setScheduleEdit(termWeeks);
+        dialogCustom.setScheduleCancelListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogCustomTerm.dismiss();
+                dialogCustom.dismiss();
             }
         });
-        dialogCustomTerm.setScheduleConfirmListener(new View.OnClickListener() {
+        dialogCustom.setScheduleConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //获取输入框文字
-                String term = dialogCustomTerm.getScheduleEdit();
+                String term = dialogCustom.getScheduleEdit();
                 if(TextUtils.isEmpty(term)){
                     ToastCustom.showMsgWarning(ScheduleData.this, "名称不能为空哦ʕ ᵔᴥᵔ ʔ");
                 }else if(Integer.parseInt(term) > 30 || Integer.parseInt(term) <= 0){
                     ToastCustom.showMsgFalse(ScheduleData.this, "请注意范围ʕ ᵔᴥᵔ ʔ");
                 }else{
-                    term_num.setText(term);
+                    term_weeks.setText(term);
                     //同步到数据库
-                    sqHelper.updateConfig("termTotal", term);
-                    dialogCustomTerm.dismiss();
+                    sp.edit().putString("termWeeks",term).apply();
+                    sqHelper.updateConfig("termWeeks", term);
+                    dialogCustom.dismiss();
                 }
             }
         });
-        dialogCustomTerm.show();
+        dialogCustom.show();
     }
 
 

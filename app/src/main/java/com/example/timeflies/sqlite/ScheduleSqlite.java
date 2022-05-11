@@ -59,11 +59,11 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         db.execSQL(norTime);
 
         //创建本地配置表
-        String sqlConfig = "create table configs(_id integer primary key autoincrement not null, className Text, time_id Text, termStart Text, currentWeek text, classTotal text, termTotal text)";
+        String sqlConfig = "create table configs(_id integer primary key autoincrement not null, className Text, timeId Text, termStart Text, curWeek Text, secTime Text, termWeeks Text, termId Text)";
         db.execSQL(sqlConfig);
 
         //插入默认配置信息
-        String sqlNormal = "insert into configs(className, time_id, termStart, currentWeek, classTotal, termTotal) values('1', '1','2022-4-25',  '2', '10', '20')";
+        String sqlNormal = "insert into configs(className, timeId, termStart, curWeek, secTime, termWeeks, termId) values('默认', '1', '2022-4-25', '1', '10', '20', '1')";
         db.execSQL(sqlNormal);
 
         String sqlCourse = "create table courses(" +
