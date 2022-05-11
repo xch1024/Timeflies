@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ScheduleSqlite extends SQLiteOpenHelper {
 
+    private static String time = "08:00-08:45;08:55-09:40;10:10-10:55;11:05-11:50;14:00-14:45;14:55-15:40;16:00-16:45;16:55-17:40;18:30-19:15;19:25-20:10;20:20-21:05;21:15-22:00;22:10-22:55;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50";
     private static String tableName = "courses";
     private Context context;
     /**
@@ -49,50 +50,20 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        //创建时间名称表tableNames 设置主键_id自增
-        String sqlName = "create table tableNames(_id integer primary key autoincrement not null, tableName Text)";
-        db.execSQL(sqlName);
-        //插入默认时间表名称
-        String table = "insert into tableNames(tableName) values('默认')";
-        db.execSQL(table);
+        //时间节次表
+        String times = "create table times(_id integer primary key autoincrement not null, tableName Text ,startTime Text, endTime Text, time Text)";
+        db.execSQL(times);
 
-
-        //创建时间表schedules 设置tableName_id为外键关联tableNames表的主键_id
-        String sql = "create table schedules(_id integer primary key autoincrement not null, startTime Text, endTime Text, " +
-                "tableName_id integer , foreign key(tableName_id) references tableNames(_id))";
-        db.execSQL(sql);
-        //插入20条作息时间
-        String sqlMut = "insert into schedules(startTime, endTime, tableName_id)" +
-                "values('08:00', '08:45', '1') " +
-                    ", ('08:55', '09:40', '1')" +
-                    ", ('10:10', '10:55', '1')" +
-                    ", ('11:05', '11:50', '1')" +
-
-                    ", ('14:00', '14:45', '1')" +
-                    ", ('14:55', '15:40', '1')" +
-                    ", ('16:00', '16:45', '1')" +
-                    ", ('16:55', '17:40', '1')" +
-
-                    ", ('18:30', '19:15', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" +
-                    ", ('19:25', '20:10', '1')" ;
-        db.execSQL(sqlMut);
+        //在Insert Into...中采用变量的方法  https://blog.csdn.net/denlee/article/details/1591789
+        String norTime = "insert into times(_id, tableName, time) values('1', '默认', '"+time+"')";
+        db.execSQL(norTime);
 
         //创建本地配置表
-        String sqlConfig = "create table configs(_id integer primary key autoincrement not null, className Text, termStart Text, currentWeek text, classTotal text, termTotal text)";
+        String sqlConfig = "create table configs(_id integer primary key autoincrement not null, className Text, time_id Text, termStart Text, currentWeek text, classTotal text, termTotal text)";
         db.execSQL(sqlConfig);
+
         //插入默认配置信息
-        String sqlNormal = "insert into configs(className, termStart, currentWeek, classTotal, termTotal) values('1','2022-4-25',  '2', '10', '20')";
+        String sqlNormal = "insert into configs(className, time_id, termStart, currentWeek, classTotal, termTotal) values('1', '1','2022-4-25',  '2', '10', '20')";
         db.execSQL(sqlNormal);
 
         String sqlCourse = "create table courses(" +

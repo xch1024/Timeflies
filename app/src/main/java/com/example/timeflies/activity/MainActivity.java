@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity{
     private long date;
 
     private List<TimeData> list = new ArrayList<>();
+    private TimeData timeData;
     private SqHelper sqHelper;
     private int num;
     private RecyclerView rvSchedule;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity{
         setBar_color();
 
         //查询作息时间表，并展示指定条数
-        list = sqHelper.queryDb();
+        list = sqHelper.queryTime("1");
 
     }
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity{
         setWeekBold();
 
         initView();
-        initTime(num);
+        initTime(num, "1");
         timeTable.setMaxSection(num);
         //获取开学时间
         // 第四周 1649779200905
@@ -179,8 +180,6 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-
-
     //本周没有课程视图是否可见
     private void setView(int key){
         if(key < 0){
@@ -264,14 +263,42 @@ public class MainActivity extends AppCompatActivity{
      * @count 一天课程节数
      *
      */
-    private void initTime(int count){
+    private void initTime(int count, String timeId){
+        List<TimeData> timeDataList = timeSplit(timeId);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         rvSchedule.setLayoutManager(layoutManager);
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(list, this);
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(timeDataList, this);
+//        String[] times = new String[listSize];
+//        for (int i = 0; i < listSize; i++) times[i] = list.get(i).getTableName();
         //设置item显示的数量
         scheduleAdapter.setItemTotal(count);
         rvSchedule.setAdapter(scheduleAdapter);
         rvSchedule.setNestedScrollingEnabled(false);
+    }
+
+    private List<TimeData> timeSplit(String timeId){
+        list.clear();
+        list = sqHelper.queryTime(timeId);
+        int id = list.get(0).getId();
+        String name = list.get(0).getTableName();
+        String time = list.get(0).getTableTime();
+        Log.d(TAG, "list.get(0).getTableTime();: "+id+"=============="+time);
+        String[] timeArray = time.split(";");
+        List<TimeData> timeDataList = new ArrayList<>();
+        for (int i = 0; i < timeArray.length; i++){
+            Log.d(TAG, "String[] timeArray: "+timeArray[i]);
+            String[] info = timeArray[i].split("-");
+            TimeData td = new TimeData();
+            td.setId(id);
+            td.setTableName(name);
+            td.setStartTime(info[0]);
+            td.setEndTime(info[1]);
+//            Log.d(TAG, "td: "+td);
+            timeDataList.add(td);
+        }
+        Log.d(TAG, "timeDataList.add(td);: "+timeDataList);
+        return timeDataList;
     }
 
     /**

@@ -47,14 +47,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
 
         setContent(holder, position);
 
-        holder.itemView.setTag(position);
-        holder.delItem.setTag(position);
-        holder.rv_week.setTag(position);
-        holder.rv_time.setTag(position);
-        holder.rv_checkbox.setTag(position);
-        holder.rv_teacher.setTag(position);
-        holder.rv_location.setTag(position);
-
         //添加动画效果
 //        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.recycle_anim);
 //        holder.itemView.startAnimation(animation);
@@ -72,6 +64,15 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
         if(!data.getClassroom().equals("null")){
             holder.tvClassroom.setText(data.getClassroom());
         }
+
+        holder.itemView.setTag(position);
+        holder.delItem.setTag(position);
+        holder.rv_week.setTag(position);
+        holder.rv_time.setTag(position);
+        holder.rv_checkbox.setTag(position);
+        holder.rv_teacher.setTag(position);
+        holder.rv_location.setTag(position);
+
     }
 
 
@@ -121,7 +122,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
 
         /**
          * 初始化item内部控件
-         *
          */
         private void initView(){
             delItem = itemView.findViewById(R.id.delItem);
@@ -142,7 +142,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
 
         /**
          * 设置点击
-         *
          */
         private void setListener(){
             // 为ItemView添加点击事件

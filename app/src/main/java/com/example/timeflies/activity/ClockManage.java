@@ -145,7 +145,7 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
                 int _id = cursor.getInt(0);
                 String startTime = cursor.getString(1);
                 String endTime = cursor.getString(2);
-                TimeData s = new TimeData(_id, startTime, endTime);
+                TimeData s = new TimeData();
                 list.add(s);
             }
             //规范：必须关闭游标，不然影响性能

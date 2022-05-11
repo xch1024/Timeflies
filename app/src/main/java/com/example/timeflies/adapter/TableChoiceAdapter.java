@@ -24,6 +24,7 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
 
     private List<TimeData> mList;//数据源
     private Context mContext;//上下文
+
     public TableChoiceAdapter(Context context, List<TimeData> list){
         this.mContext = context;
         this.mList = list;
@@ -39,8 +40,11 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TableChoiceAdapter.TableHolder holder, int position) {
-        TimeData data = mList.get(position);
+        setContent(holder, position);
+    }
 
+    private void setContent(TableHolder holder, int position) {
+        TimeData data = mList.get(position);
         //默认时间表删除键不可见
         if(position == 0){
             holder.ivDel.setVisibility(View.GONE);
@@ -58,24 +62,28 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
         return mList.size();
     }
 
-
     public class TableHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
         private ImageView ivDel, ivUpdate;
 
         public TableHolder(@NonNull View itemView) {
             super(itemView);
+            initView();
+            setListener();
 
+        }
+        private void initView() {
             tvName = itemView.findViewById(R.id.tvName);
             ivDel = itemView.findViewById(R.id.ivDelete);
             ivUpdate = itemView.findViewById(R.id.ivEdit);
+        }
 
+        private void setListener() {
             tvName.setOnClickListener(TableChoiceAdapter.this);
             ivDel.setOnClickListener(TableChoiceAdapter.this);
             ivUpdate.setOnClickListener(TableChoiceAdapter.this);
 
             ivDel.setOnLongClickListener(TableChoiceAdapter.this);
-
         }
     }
 
@@ -112,49 +120,24 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
             }
         }
     }
+
     @Override
     public boolean onLongClick(View view) {
         int position = (int) view.getTag();      //getTag()获取数据
         if(mOnItemClickListener != null){
             switch (view.getId()){
-                default:
+                case R.id.ivDelete:
                     mOnItemClickListener.onItemLongClick(view, position);
                     break;
             }
         }
-        return false;
+        return true;
     }
 
 //=================================================================
 
-    /**
-     * 新建时间表
-     */
-    public void insertTable(Context context, String target){
-        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(context);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        if(db.isOpen()){
-            ContentValues values = new ContentValues();
-            values.put("tableName", target);
-            db.insert("tableNames", null, values);
-        }
-        db.close();
-        mList.add(new TimeData(0, target));
-        notifyDataSetChanged();
-    }
 
-    /**
-     * 删除时间表
-     */
-    public void delTable(Context context, int id){
-        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        if(db.isOpen()){
-           db.delete("tableNames", "_id= ?", new String[]{String.valueOf(id)});
-        }
-        db.close();
-        notifyDataSetChanged();
-    }
+
 
 
 

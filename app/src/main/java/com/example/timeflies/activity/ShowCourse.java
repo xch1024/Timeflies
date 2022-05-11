@@ -559,7 +559,6 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
      * @param courseArray
      * @return
      */
-
     private String arrayToString(String[] courseArray){
         StringBuffer sb = new StringBuffer();
         for(int i = 0, len = courseArray.length; i < len; i++){

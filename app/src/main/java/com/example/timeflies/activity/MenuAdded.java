@@ -39,6 +39,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+
         initView();
         initCourseNameView();
         setListener();
@@ -174,8 +175,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
     private CourseNameAdapter.OnItemClickListener MyItemClickListener = new CourseNameAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View v, int position) {
-            ToastCustom.showMsgWarning(MenuAdded.this,"修改"+position);
-
+//            ToastCustom.showMsgWarning(MenuAdded.this,"修改"+position);
             CourseData courseData = list.get(position);
             Intent intent = new Intent(MenuAdded.this, ShowCourse.class);
             intent.putExtra("course", courseData);
