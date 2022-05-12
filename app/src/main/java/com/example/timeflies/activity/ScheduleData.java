@@ -351,9 +351,6 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     //同步到数据库
                     sp.edit().putString("termWeeks",term).apply();
                     sqHelper.updateConfig("termWeeks", term);
-                    //todo 调试显示切换作息时间表
-                    sp.edit().putString("timeId", term).apply();
-                    sqHelper.updateConfig("timeId", term);
 
                     dialogCustom.dismiss();
                 }

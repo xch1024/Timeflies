@@ -2,6 +2,7 @@ package com.example.timeflies.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,49 +10,71 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.example.timeflies.model.ConfigData;
 import com.example.timeflies.model.TimeData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author:halo
- * @projectName:com.example.timeflies.sqlite
- * @date:2022-04-19
- * @time:19:53
- * @description:
- */
 public class SqHelper {
 
     String TAG = "xch";
     private SQLiteOpenHelper helper;
     private SQLiteDatabase db;
-    private static String message;
 
     public SqHelper(Context context) {
         helper =  ScheduleSqlite.getInstance(context);
         db = helper.getWritableDatabase();
     }
 
+    public long insertConfig(String nullColumnHack, ContentValues values){
+        db = helper.getWritableDatabase();
+        long count = 0;
+        if (db.isOpen()) {
+            count = db.insert("configs", nullColumnHack, values);
+            db.close();
+        }
+        return count;
+    }
+
+    public void insertConfig(String className, String timeId, String termStart, String curWeek, String secTime, String termWeeks){
+        db = helper.getWritableDatabase();
+        if (db.isOpen()) {
+            ContentValues values = new ContentValues();
+            values.put("className", className);
+            values.put("timeId", timeId);
+            values.put("termStart", termStart);
+            values.put("curWeek", curWeek);
+            values.put("secTime", secTime);
+            values.put("termWeeks", termWeeks);
+            db.insert("configs", null, values);
+        }
+        db.close();
+    }
     /**
      * 查询配置信息
-     * @param target
      * @return
      */
-    public String queryConfig(String target) {
+    public List<ConfigData> queryConfig() {
+        List<ConfigData> list = new ArrayList<>();
         db = helper.getReadableDatabase();
         if (db.isOpen()) {
-            Cursor cursor = db.rawQuery("select * from configs", null);
+            Cursor cursor = db.rawQuery("select * from configs",null);
             while(cursor.moveToNext()){
-                int targetIndex = cursor.getColumnIndex(target);
-                if( targetIndex >= 0){
-                    message = cursor.getString(targetIndex);
-                }
+                ConfigData configData = new ConfigData();
+                configData.setId(cursor.getInt(0));
+                configData.setClassName(cursor.getString(1));
+                configData.setTimeId(cursor.getString(2));
+                configData.setTermStart(cursor.getString(3));
+                configData.setCurWeek(cursor.getString(4));
+                configData.setSceTime(cursor.getString(5));
+                configData.setTermWeeks(cursor.getString(6));
+                list.add(configData);
             }
             cursor.close();
         }
         db.close();
-        return message;
+        return list;
     }
 
     /**
@@ -208,6 +231,7 @@ public class SqHelper {
         return count;
     }
 
+    //修改上课节次
     public int updateTimeStep(TimeData timeData){
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();

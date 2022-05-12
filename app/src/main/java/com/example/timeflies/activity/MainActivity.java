@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +24,11 @@ import android.widget.TextView;
 import com.example.timeflies.R;
 import com.example.timeflies.View.TimeTableView;
 import com.example.timeflies.adapter.ScheduleAdapter;
+import com.example.timeflies.adapter.TableNameAdapter;
+import com.example.timeflies.model.ConfigData;
 import com.example.timeflies.model.CourseData;
 import com.example.timeflies.model.TimeData;
+import com.example.timeflies.operater.ScheduleSupport;
 import com.example.timeflies.sqlite.ScheduleSqlite;
 import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
@@ -49,15 +54,20 @@ public class MainActivity extends AppCompatActivity{
     private SimpleDateFormat sdfWeek = new SimpleDateFormat("E");
     private Date date = new Date();
 
+    private SqHelper sqHelper;
+    private ScheduleSqlite sqlite = new ScheduleSqlite(this);
+
     //时间表
     private TimeData timeData;
     private List<TimeData> timeDataList = new ArrayList<>();
-    private SqHelper sqHelper;
     private RecyclerView rvSchedule;
+
+    //切换课表
+    private List<ConfigData> configDataList = new ArrayList<>();
+    private RecyclerView rvTableName;
 
     //课程表
     private List<CourseData> courses = new ArrayList<>();
-    private ScheduleSqlite sqlite = new ScheduleSqlite(this);
     private TimeTableView timeTable;
     private View bg_none;
 
@@ -70,25 +80,6 @@ public class MainActivity extends AppCompatActivity{
     private int secTime = 10;//一天课程节数
     private String termWeeks = "20";//学期周数
     private String termId = "1";//当前学期id
-
-    private List<CourseData> acquireData(){
-        //首次使用
-        if (sp.getBoolean("isFirstUse", true)) {
-            sp.edit().putBoolean("isFirstUse", false).apply();
-
-            sp.edit().putString("className", className).apply();
-            sp.edit().putString("timeId", timeId).apply();
-            sp.edit().putLong("termStart", termStart).apply();
-            sp.edit().putString("curWeek", curWeek).apply();
-            sp.edit().putInt("secTime", secTime).apply();
-            sp.edit().putString("termWeeks", termWeeks).apply();
-            sp.edit().putString("termId", termId).apply();
-
-        }else{
-            courses = sqlite.listAll();
-        }
-        return courses;
-    }
 
     //获取页面左右滑动
     private int currentX;
@@ -123,6 +114,7 @@ public class MainActivity extends AppCompatActivity{
 
         timeTable.setMaxSection(secTime);
         int visible = timeTable.loadData(acquireData(), new Date(termStart));
+
         initTime(secTime, timeId);
 
         setView(visible);
@@ -158,6 +150,107 @@ public class MainActivity extends AppCompatActivity{
             }
             return true;
         });
+    }
+
+    /**
+     * 初始化控件
+     * https://blog.csdn.net/qq_28484355/article/details/50804711
+     * https://www.cnblogs.com/homg/p/3345012.html
+     */
+    public void initView(){
+        sqHelper = new SqHelper(this);
+
+        //日期-当前周-今天周几
+        tv_Date = findViewById(R.id.tv_Date);
+        tv_curWeek = findViewById(R.id.tv_curWeek);
+        tv_curTime = findViewById(R.id.tv_curTime);
+
+        //时间表
+        rvSchedule = findViewById(R.id.rv_schedule);
+
+        //课表数据
+        timeTable = findViewById(R.id.timeTable);
+
+        bg_none = findViewById(R.id.bg_none);
+        bg_none.setVisibility(View.GONE);
+
+        //设置时间 年-月日
+        tv_Date.setText(sdfDay.format(date));
+        //设置当天周几
+        tv_curTime.setText(sdfWeek.format(date));
+
+        //日期栏的周一到周日
+        mon = findViewById(R.id.week_mon);
+        tues = findViewById(R.id.week_tues);
+        wed = findViewById(R.id.week_wed);
+        thur = findViewById(R.id.week_thur);
+        fri = findViewById(R.id.week_fri);
+        sat = findViewById(R.id.week_sat);
+        sun = findViewById(R.id.week_sun);
+
+        //从sp获取初始数据
+        className = sp.getString("className","默认");
+        timeId = sp.getString("timeId","1");
+        termStart = sp.getLong("termStart", new Date().getTime());
+        curWeek = sp.getString("curWeek", "1");
+        secTime = sp.getInt("secTime", 10);
+        termWeeks = sp.getString("termWeeks","20");
+        termId = sp.getString("termId","1");
+    }
+
+    /**
+     * 初始化recycleView,展示作息时间表
+     * @count 一天课程节数
+     */
+    private void initTime(int count, String timeId){
+        String id = sp.getString("timeId","1");
+//        Log.d(TAG, "initTime: "+id);
+        timeDataList.clear();
+        timeData = sqHelper.queryTimeData(id);
+        timeDataList = timeData.toDetail();
+//        list = timeData.();
+//        Log.d(TAG, "initTime: "+timeId);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        rvSchedule.setLayoutManager(layoutManager);
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(timeDataList, this);
+//        String[] times = new String[listSize];
+//        for (int i = 0; i < listSize; i++) times[i] = list.get(i).getTableName();
+        //设置item显示的数量
+        scheduleAdapter.setItemTotal(count);
+        rvSchedule.setAdapter(scheduleAdapter);
+        rvSchedule.setNestedScrollingEnabled(false);
+    }
+
+    /**
+     * 初始化切换课程表
+     */
+    private void initTableName(String termId){
+        configDataList.clear();
+        String id = sp.getString("termId","1");
+        configDataList = sqHelper.queryConfig();
+        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
+        manager.setOrientation(RecyclerView.HORIZONTAL);
+        rvTableName.setLayoutManager(manager);
+        TableNameAdapter tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
+        rvTableName.setAdapter(tableNameAdapter);
+    }
+
+    private List<CourseData> acquireData(){
+        //首次使用
+        if (sp.getBoolean("isFirstUse", true)) {
+            sp.edit().putBoolean("isFirstUse", false).apply();
+            sp.edit().putString("className", className).apply();
+            sp.edit().putString("timeId", timeId).apply();
+            sp.edit().putLong("termStart", termStart).apply();
+            sp.edit().putString("curWeek", curWeek).apply();
+            sp.edit().putInt("secTime", secTime).apply();
+            sp.edit().putString("termWeeks", termWeeks).apply();
+            sp.edit().putString("termId", termId).apply();
+        }else{
+            courses = sqlite.listAll(termId);
+        }
+        return courses;
     }
 
 
@@ -235,82 +328,16 @@ public class MainActivity extends AppCompatActivity{
 
 
     /**
-     * 初始化控件
-     * https://blog.csdn.net/qq_28484355/article/details/50804711
-     * https://www.cnblogs.com/homg/p/3345012.html
-     */
-    public void initView(){
-        //日期-当前周-今天周几
-        tv_Date = findViewById(R.id.tv_Date);
-        tv_curWeek = findViewById(R.id.tv_curWeek);
-        tv_curTime = findViewById(R.id.tv_curTime);
-
-        //时间表
-        rvSchedule = findViewById(R.id.rv_schedule);
-        sqHelper = new SqHelper(this);
-
-        //课表数据
-        timeTable = findViewById(R.id.timeTable);
-
-        bg_none = findViewById(R.id.bg_none);
-        bg_none.setVisibility(View.GONE);
-
-        //设置时间 年-月日
-        tv_Date.setText(sdfDay.format(date));
-        //设置当天周几
-        tv_curTime.setText(sdfWeek.format(date));
-
-        //日期栏的周一到周日
-        mon = findViewById(R.id.week_mon);
-        tues = findViewById(R.id.week_tues);
-        wed = findViewById(R.id.week_wed);
-        thur = findViewById(R.id.week_thur);
-        fri = findViewById(R.id.week_fri);
-        sat = findViewById(R.id.week_sat);
-        sun = findViewById(R.id.week_sun);
-
-        //从sp获取初始数据
-        className = sp.getString("className","默认");
-        timeId = sp.getString("timeId","1");
-        termStart = sp.getLong("termStart", new Date().getTime());
-        curWeek = sp.getString("curWeek", "1");
-        secTime = sp.getInt("secTime", 10);
-        termWeeks = sp.getString("termWeeks","20");
-        termId = sp.getString("termId","1");
-    }
-
-    /**
-     * 初始化recycleView,展示作息时间表
-     * @count 一天课程节数
-     *
-     */
-    private void initTime(int count, String timeId){
-        String id = sp.getString("timeId","1");
-        Log.d(TAG, "initTime: "+id);
-        timeDataList.clear();
-        timeData = sqHelper.queryTimeData(id);
-        timeDataList = timeData.toDetail();
-        Log.d(TAG, "initTime: "+timeDataList);
-//        list = timeData.();
-//        Log.d(TAG, "initTime: "+timeId);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        rvSchedule.setLayoutManager(layoutManager);
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(timeDataList, this);
-//        String[] times = new String[listSize];
-//        for (int i = 0; i < listSize; i++) times[i] = list.get(i).getTableName();
-        //设置item显示的数量
-        scheduleAdapter.setItemTotal(count);
-        rvSchedule.setAdapter(scheduleAdapter);
-        rvSchedule.setNestedScrollingEnabled(false);
-    }
-
-    /**
      * popWindow弹窗
      * https://www.jianshu.com/p/e331ffd2452f
      */
     private void showPopWindow(){
-        View contentView = getLayoutInflater().inflate(R.layout.popwindow, null);
+        //切换课表
+        View contentView = getLayoutInflater().inflate(R.layout.pop_window, null);
+
+        rvTableName = contentView.findViewById(R.id.pop_rv_table_name);
+        initTableName("1");
+
         PopupWindow popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.dismiss();
         popupWindow.isShowing();
@@ -348,7 +375,7 @@ public class MainActivity extends AppCompatActivity{
                 intentActivity(ScheduleData.class);
                 break;
             case R.id.add_table:
-                ToastCustom.showMsgTrue(this,"新建课表按钮");
+                btnInsertTable();
                 break;
             case R.id.manage:
                 ToastCustom.showMsgTrue(this,"管理按钮");
@@ -378,6 +405,56 @@ public class MainActivity extends AppCompatActivity{
                 intentActivity(MenuAlarm.class);
                 break;
         }
+    }
+
+    //新建课表
+    private void btnInsertTable() {
+        dialog = new DialogCustom(MainActivity.this, R.layout.dialog_tablename,0.8);
+        dialog.setTableTitle("新建课表");
+        dialog.setTableNameCancelListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setTableNameConfirmListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long insert = btnInsert();
+                if(insert > 0 ){
+                    ToastCustom.showMsgTrue(MainActivity.this, "新建成功~");
+                    initTableName("1");
+                }else{
+                    ToastCustom.showMsgFalse(MainActivity.this, "新建失败~");
+                }
+                dialog.dismiss();
+            }
+
+            private long btnInsert() {
+                String tableName = dialog.getTableEdit();
+                String timeId = sp.getString("timeId","1");
+                long termStart = sp.getLong("termStart",new Date().getTime());
+                String curWeek = sp.getString("curWeek","1");
+                int secTime = sp.getInt("secTime",10);
+                String termWeeks = sp.getString("termWeeks","20");
+                ContentValues values = new ContentValues();
+                values.put("className", tableName);
+                values.put("timeId", timeId);
+                values.put("termStart", termStart);
+                values.put("curWeek", curWeek);
+                values.put("secTime", secTime);
+                values.put("termWeeks", termWeeks);
+                long insert = sqHelper.insertConfig(null, values);
+//                Log.d(TAG, "tableName: "+tableName);
+//                Log.d(TAG, "timeId: "+timeId);
+//                Log.d(TAG, "termStart: "+ ScheduleSupport.longToDate(termStart));
+//                Log.d(TAG, "curWeek: "+curWeek);
+//                Log.d(TAG, "secTime: "+secTime);
+//                Log.d(TAG, "termWeeks: "+termWeeks);
+                return insert;
+            }
+        });
+        dialog.show();
     }
 
     /**

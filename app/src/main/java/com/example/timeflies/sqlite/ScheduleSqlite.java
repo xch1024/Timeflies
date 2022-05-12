@@ -194,7 +194,7 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         return count;
     }
 
-    public List<CourseData> listAll(){
+    public List<CourseData> listAll(String termId){
         List<CourseData> list = new ArrayList<>();
         SQLiteDatabase database = getWritableDatabase();
         Cursor data = database.query(tableName, null, null, null, null, null, null);

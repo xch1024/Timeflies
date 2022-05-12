@@ -8,20 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author:halo
- * @projectName:com.example.timeflies.model
- * @date:2022-04-17
- * @time:17:33
- * @description:
- */
 public class TimeData implements Cloneable, Serializable {
 
-    public int id;
-    public String tableName;
-    public String startTime;
-    public String endTime;
-    public String tableTime;
+    private int id;
+    private String tableName;
+    private String startTime;
+    private String endTime;
+    private String tableTime;
 
     public TimeData(){
 
