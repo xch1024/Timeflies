@@ -269,7 +269,7 @@ public class TimeTableView extends LinearLayout {
             TextView blank = new TextView(mContext);
             LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, cellHeight);
             layoutParams.setMargins(tableLineWidth,tableLineWidth,tableLineWidth,tableLineWidth);
-            blank.setBackgroundColor(Color.parseColor("#FF41964B"));
+//            blank.setBackgroundColor(Color.parseColor("#FF41964B"));
             blank.setLayoutParams(layoutParams);
             pViewGroup.addView(blank);
         }

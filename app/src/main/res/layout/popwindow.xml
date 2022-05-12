@@ -55,7 +55,7 @@
                 android:thumb="@drawable/seekbar_thumb"
                 android:progressDrawable="@drawable/seekbar_progress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></SeekBar>
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -69,8 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/menu_switch">
-            </TextView>
+                android:text="@string/menu_switch"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,8 +86,7 @@
                     android:text="@string/menu_newtable"
                     android:textColor="@color/text_onclick"
                     android:clickable="true"
-                    android:background="@drawable/ripple_border">
-                </TextView>
+                    android:background="@drawable/ripple_border"/>
 
                 <TextView
                     android:id="@+id/manage"
@@ -100,8 +98,7 @@
                     android:text="@string/menu_manage"
                     android:textColor="@color/text_onclick"
                     android:clickable="true"
-                    android:background="@drawable/ripple_borderless">
-                </TextView>
+                    android:background="@drawable/ripple_borderless"/>
 
             </LinearLayout>
 
@@ -120,7 +117,7 @@
                 <View
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
-                    android:background="@drawable/content_shape"></View>
+                    android:background="@drawable/content_shape"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -128,7 +125,7 @@
                     android:text="大二上学期的课程"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:textSize="9sp"></TextView>
+                    android:textSize="9sp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -162,8 +159,7 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_clock"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,14 +181,13 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_setting"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/menu_setting"
                     android:textSize="@dimen/sp_12"
-                    android:layout_gravity="center"></TextView>
+                    android:layout_gravity="center"/>
             </LinearLayout>
             <LinearLayout
                 android:onClick="homePage"
@@ -207,14 +202,13 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_added"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/menu_added"
                     android:textSize="@dimen/sp_12"
-                    android:layout_gravity="center"></TextView>
+                    android:layout_gravity="center"/>
             </LinearLayout>
             <LinearLayout
                 android:onClick="homePage"
@@ -229,14 +223,13 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_help"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/menu_help"
                     android:textSize="@dimen/sp_12"
-                    android:layout_gravity="center"></TextView>
+                    android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -258,15 +251,13 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_about"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/menu_about"
                     android:textSize="@dimen/sp_12"
-                    android:layout_gravity="center">
-                </TextView>
+                    android:layout_gravity="center"/>
             </LinearLayout>
             <LinearLayout
                 android:onClick="homePage"
@@ -281,15 +272,13 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_connect"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/menu_connect"
                     android:textSize="@dimen/sp_12"
-                    android:layout_gravity="center">
-                </TextView>
+                    android:layout_gravity="center"/>
             </LinearLayout>
             <LinearLayout
                 android:onClick="homePage"
@@ -304,15 +293,13 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_globalset"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/menu_globalset"
                     android:textSize="@dimen/sp_12"
-                    android:layout_gravity="center">
-                </TextView>
+                    android:layout_gravity="center"/>
             </LinearLayout>
             <LinearLayout
                 android:onClick="homePage"
@@ -327,15 +314,13 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:src="@drawable/menu_alarm"
-                    android:layout_gravity="center">
-                </ImageView>
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/menu_alarm"
                     android:textSize="@dimen/sp_12"
-                    android:layout_gravity="center">
-                </TextView>
+                    android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
 

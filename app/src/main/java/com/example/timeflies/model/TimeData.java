@@ -110,6 +110,7 @@ public class TimeData implements Cloneable, Serializable {
             sb.append(courseList.get(i).toTime());
             if(i != len - 1)sb.append(";");
         }
+
         course.setTableTime(String.valueOf(sb));
         return course;
     }

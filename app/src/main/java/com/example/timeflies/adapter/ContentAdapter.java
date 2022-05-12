@@ -216,16 +216,4 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
     }
 
 
-
-    /**
-     * 删除item方法，供外部使用
-     * @param position
-     */
-    public void delItem(int position){
-        list.remove(position);
-        notifyItemRemoved(position);
-        notifyDataSetChanged();
-    }
-
-
 }

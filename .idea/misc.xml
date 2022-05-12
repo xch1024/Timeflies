@@ -103,6 +103,7 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/dialog_menu.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/dialog_schedule.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/dialog_update_day.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/dialog_update_time.xml" value="0.2" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/dialog_update_week.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/dialog_week.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/edit.xml" value="0.24409722222222222" />
@@ -113,6 +114,7 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_course.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_head.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_none_course.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_spinner.xml" value="0.5" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/include_timetable.xml" value="0.33" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/item_dateview_month.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/item_dateview_week.xml" value="0.24409722222222222" />
@@ -153,7 +155,10 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow_style.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/recycle_anim.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_name.xml" value="0.2189207650273224" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_schedule.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_time_name.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_times.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_times_section.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvclock_manage.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvcontent.xml" value="0.16631944444444444" />
@@ -161,6 +166,8 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvcourse_name.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvtime_manage.xml" value="0.25" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rvtimetable.xml" value="0.25" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/spiner_time_none_select.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/spiner_time_select.xml" value="0.25" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/test.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/theme.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/toast_false.xml" value="0.14131944444444444" />

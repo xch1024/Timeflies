@@ -104,8 +104,6 @@ public class MainActivity extends AppCompatActivity{
         initView();
         setBar_color();
 
-
-
         //查询作息时间表，并展示指定条数
         list = sqHelper.queryTime(timeId);
 
@@ -286,7 +284,7 @@ public class MainActivity extends AppCompatActivity{
      *
      */
     private void initTime(int count, String timeId){
-        Log.d(TAG, "initTime: "+timeId);
+//        Log.d(TAG, "initTime: "+timeId);
         List<TimeData> timeDataList = timeSplit(timeId);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -308,7 +306,7 @@ public class MainActivity extends AppCompatActivity{
     private List<TimeData> timeSplit(String timeId){
         list.clear();
         list = sqHelper.queryTime(timeId);
-        Log.d(TAG, "timeSplit: "+list.toString());
+//        Log.d(TAG, "timeSplit: "+list.toString());
         int id = list.get(0).getId();
         String name = list.get(0).getTableName();
         String time = list.get(0).getTableTime();

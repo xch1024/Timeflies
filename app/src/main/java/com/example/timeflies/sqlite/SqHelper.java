@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.timeflies.model.TimeData;
 
@@ -75,7 +77,7 @@ public class SqHelper {
     public List<TimeData> queryTime(String  timeId) {
         List<TimeData> list = new ArrayList<>();
         SQLiteDatabase db = helper.getWritableDatabase();
-        Log.d(TAG, "queryTime: "+timeId);
+//        Log.d(TAG, "queryTime: "+timeId);
         Cursor cursor = db.rawQuery("select * from times where _id = ?",new String[]{timeId});
         //规范：确保数据库打开成功，才能放心操作
         if (cursor.getCount() > 0) {
@@ -121,6 +123,48 @@ public class SqHelper {
         return list;
     }
 
+    //
+    public TimeData queryTimeData(String  timeId){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from times where _id = ?",new String[]{timeId});
+        TimeData time = new TimeData();
+        if (cursor.getCount() > 0) {
+            while(cursor.moveToNext()){
+                time.setId(cursor.getInt(0));
+                time.setTableName(cursor.getString(1));
+                time.setStartTime(cursor.getString(2));
+                time.setEndTime(cursor.getString(3));
+                time.setTableTime(cursor.getString(4));
+            }
+            //规范：必须关闭游标，不然影响性能
+            cursor.close();
+        }
+        //规范：必须关闭数据库
+        db.close();
+        return time;
+    }
+
+    /**
+     * 新建时间表
+     */
+    public long insert(String nullColumnHack, ContentValues values){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        long count = db.insert("times", nullColumnHack, values);
+        db.close();
+        return count;
+    }
+
+    public long insert(TimeData timeData){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("tableName",timeData.getTableName());
+        values.put("time",timeData.getTableTime());
+//        Log.d(TAG, "insert: "+values);
+        long count = db.insert("times", null,values);
+        db.close();
+        return count;
+    }
+
     /**
      * 删除时间表
      */
@@ -160,6 +204,18 @@ public class SqHelper {
     public int update(ContentValues values, String whereClause, String[] whereArgs){
         SQLiteDatabase db = helper.getWritableDatabase();
         int count = db.update("times", values, whereClause, whereArgs);
+        db.close();
+        return count;
+    }
+
+    public int updateTimeStep(TimeData timeData){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if(db.isOpen()){
+            values.put("tableName",timeData.getTableName());
+            values.put("time",timeData.getTableTime());
+        }
+        int count = db.update("times", values, "_id=?", new String[]{String.valueOf(timeData.getId())});
         db.close();
         return count;
     }

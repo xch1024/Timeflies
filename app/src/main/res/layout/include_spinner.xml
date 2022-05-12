@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/course_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:clickable="true"
+        android:layout_margin="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="@drawable/edit_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/sp_time_id"
+                android:spinnerMode="dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="30dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@color/course_bg"
+        android:text="课表显示的时间表，点击框框切换"
+        android:textColor="@color/dialog_onclick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

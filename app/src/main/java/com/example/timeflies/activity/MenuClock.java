@@ -5,34 +5,42 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.timeflies.R;
 import com.example.timeflies.adapter.ContentAdapter;
+import com.example.timeflies.adapter.MySpinnerAdapter;
 import com.example.timeflies.adapter.TableChoiceAdapter;
 import com.example.timeflies.model.TimeData;
-import com.example.timeflies.sqlite.ScheduleSqlite;
 import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MenuClock extends AppCompatActivity implements View.OnClickListener {
+public class MenuClock extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
+    private String TAG = "xch";
     private TableChoiceAdapter tableChoiceAdapter;
     private RecyclerView recyclerView;
     private List<TimeData> timeDataList;
 
+    private List<TimeData> list;
+    private MySpinnerAdapter adapter;
+    private SharedPreferences sp;
+    private String timeId;
+
     private TextView tvTitle;
     private ImageView ivNull, ivBack;
+    private Spinner spinner;
     private View vAddItem;
     private SqHelper sqHelper = new SqHelper(MenuClock.this);
 
@@ -41,6 +49,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_clock);
 
+        sp = getSharedPreferences("config", MODE_PRIVATE);
         initView();
     }
 
@@ -49,6 +58,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         super.onStart();
 
         initView();
+        initSpinner();
         initTable();
         setListener();
     }
@@ -58,15 +68,24 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         tvTitle = findViewById(R.id.tvTitle);
         ivNull = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
+        spinner = findViewById(R.id.sp_time_id);
         vAddItem = findViewById(R.id.addItem);
-        vAddItem.setVisibility(View.GONE);
+
 
         tvTitle.setText(R.string.menu_clock_view);
         ivNull.setVisibility(View.GONE);
     }
 
-    private void initTable() {
+    private void initSpinner(){
+        timeId = sp.getString("timeId", "1");
+        list = sqHelper.queryTime();
+        int i = queryPosById(list, Integer.parseInt(timeId));
+        adapter = new MySpinnerAdapter(list,MenuClock.this);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(i);
+    }
 
+    private void initTable() {
         timeDataList = sqHelper.queryTime();
         LinearLayoutManager LayoutManager = new LinearLayoutManager(MenuClock.this);
         recyclerView.setLayoutManager(LayoutManager);
@@ -80,6 +99,37 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
     private void setListener(){
         ivBack.setOnClickListener(this);
         vAddItem.setOnClickListener(this);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    /**
+     * 找对应id的pos
+     */
+    private int queryPosById(List<TimeData> list, int timeId){
+        int i = 0;
+        while(timeId != list.get(i).getId()){
+            i++;
+        }
+        return i;
+    }
+
+    /**
+     * 监听spinner
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        timeId = sp.getString("timeId", "1");
+            if(i != queryPosById(timeDataList, Integer.parseInt(timeId))){
+                ToastCustom.showMsgTrue(MenuClock.this,"时间表切换成功~");
+                sp.edit().putString("timeId",String.valueOf(list.get(i).getId())).apply();
+//                Log.d("xch", "onItemSelected: "+sp.getString("timeId","1"));
+                adapter.notifyDataSetChanged();
+                spinner.setSelection(i);
+            }
+        }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
@@ -90,7 +140,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
                 intentActivity(MainActivity.class);
                 break;
             case R.id.addItem:
-//                BtnAddItem();
+                BtnAddItem();
                 break;
         }
     }
@@ -112,16 +162,16 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         public void onItemClick(View v, ContentAdapter.ViewName viewName, int position) {
             switch (v.getId()){
                 case R.id.ivDelete:
-                    ToastCustom.showMsgWarning(MenuClock.this,"长按删除哦");
+                    ToastCustom.showMsgWarning(MenuClock.this,"长按确认删除哦~");
                     break;
                 case R.id.ivEdit:
-                    int timeId = timeDataList.get(position).getId();
+                    int id = timeDataList.get(position).getId();
                     String timeName = timeDataList.get(position).getTableName();
                     //页面跳转及传值
                     TimeData timeData = timeDataList.get(position);
-                    Intent intent = new Intent(MenuClock.this,ClockManage.class);
+                    Intent intent = new Intent(MenuClock.this, ClockManage.class);
                     intent.putExtra("timeData", timeData);
-                    intent.putExtra("timeId", timeId);
+                    intent.putExtra("timeId", id);
                     intent.putExtra("timeName", timeName);
                     startActivity(intent);
                     break;
@@ -132,14 +182,19 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         public void onItemLongClick(View v, int position) {
             switch (v.getId()){
                 case R.id.ivDelete:
+                    String spId = sp.getString("timeId","0");
                     int id = timeDataList.get(position).getId();
-                    int delete = sqHelper.delTimes(id);
-                    if(delete > 0 ){
-                        ToastCustom.showMsgTrue(MenuClock.this,"删除成功~");
-                        timeDataList.clear();
-                        initTable();
+                    if(Integer.parseInt(spId) == id){
+                        ToastCustom.showMsgWarning(MenuClock.this,"不能删除已选中的时间表哦~");
                     }else{
-                        ToastCustom.showMsgTrue(MenuClock.this,"删除失败~");
+                        int delete = sqHelper.delTimes(id);
+                        if(delete > 0 ){
+                            ToastCustom.showMsgTrue(MenuClock.this,"删除成功~");
+                            timeDataList.clear();
+                            initTable();
+                        }else{
+                            ToastCustom.showMsgTrue(MenuClock.this,"删除失败~");
+                        }
                     }
                     break;
             }
@@ -162,9 +217,9 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
                 if(TextUtils.isEmpty(name)){
                     ToastCustom.showMsgWarning(MenuClock.this,"名称不能为空哦~");
                 }else{
+                    copy(name);
                     initTable();
-                    tableChoiceAdapter.notifyDataSetChanged();
-                    copy();
+                    initSpinner();
                     ToastCustom.showMsgTrue(MenuClock.this,"新建成功~");
                     dialogCustom.dismiss();
                 }
@@ -176,26 +231,16 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
     /**
      * 复制20条时间
      */
-    private void copy(){
-        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        if(db.isOpen()) {
-            db.execSQL("insert into schedules(startTime, endTime) select startTime, endTime from schedules where tableName_id = 1");
-        }
-        db.close();
+    private void copy(String name){
+        String id = sp.getString("timeId","1");
+        TimeData data = sqHelper.queryTimeData(id);
+//        Log.d(TAG, "copy: "+data);
+        TimeData newData = new TimeData();
+        newData.setId(Integer.parseInt(id));
+        newData.setTableName(name);
+        newData.setTableTime(data.getTableTime());
+//        Log.d(TAG, "newData: "+newData);
+        sqHelper.insert(newData);
     }
-
-    /**
-     * 删除
-     */
-    private void delete(){
-        SQLiteOpenHelper helper = ScheduleSqlite.getInstance(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        if(db.isOpen()) {
-
-        }
-        db.close();
-    }
-
 
 }

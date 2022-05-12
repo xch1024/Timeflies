@@ -39,6 +39,7 @@ public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.Co
     @Override
     public void onBindViewHolder(@NonNull CourseNameAdapter.CourseNameHolder holder, int position) {
         CourseData data = list.get(position);
+
         holder.tvName.setText(data.getCourseName());
         holder.color.setColorFilter(Color.parseColor(data.getCourseColor()));
 
@@ -57,8 +58,9 @@ public class CourseNameAdapter extends RecyclerView.Adapter<CourseNameAdapter.Co
 
         public CourseNameHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.className);
+
             cName = itemView.findViewById(R.id.cName);
+            tvName = itemView.findViewById(R.id.className);
             color = itemView.findViewById(R.id.color);
 
             cName.setOnClickListener(CourseNameAdapter.this);

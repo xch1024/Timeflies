@@ -25,11 +25,13 @@ import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClockManage extends AppCompatActivity implements View.OnClickListener {
 
+    private List<TimeData> list = new ArrayList<>();
     private RecyclerView rvRecyclerView;
     private ClockManageAdapter adapter;
     private TimeData timeData;
@@ -56,13 +58,15 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initSchedule() {
-        List<TimeData> list = timeData.toDetail();
-        Log.d("xch", "timeData==="+ timeData);
+        list.clear();
+        list = timeData.toDetail();
+        Log.d("xch", "List<TimeData> list==="+ list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvRecyclerView.setLayoutManager(layoutManager);
         adapter = new ClockManageAdapter(list, this);
         rvRecyclerView.setAdapter(adapter);
         rvRecyclerView.setNestedScrollingEnabled(false);
+        adapter.setOnItemClickListener(clickListener);
     }
 
     private void initView(){
@@ -71,8 +75,8 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
         timeData = (TimeData) bundle.getSerializable("timeData");
         timeId = bundle.getInt("timeId");
         timeName = bundle.getString("timeName");
-        Log.d("xch", "bundle:timeId== "+timeId);
-        Log.d("xch", "bundle:timeName== "+timeName);
+//        Log.d("xch", "bundle:timeId== "+timeId);
+//        Log.d("xch", "bundle:timeName== "+timeName);
         sqHelper = new SqHelper(this);
 
         tvTitle = findViewById(R.id.tvTitle);
@@ -85,7 +89,6 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
         rvRecyclerView = findViewById(R.id.rv_clockManage);
 
         tvTitle.setText(R.string.clock_manage);
-        ivDonate.setVisibility(View.GONE);
         time_name.setText(timeName);
     }
 
@@ -95,6 +98,59 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
         view_time_Name.setOnClickListener(this);
     }
 
+    private ClockManageAdapter.OnItemClickListener clickListener = new ClockManageAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View v, int position) {
+            switch (v.getId()){
+                case R.id.update_time:
+                    ToastCustom.showMsgWarning(ClockManage.this, "现在设置第 "+(position+1)+ " 节上课时间");
+                    btnUpdateTime(position);
+                    break;
+            }
+        }
+    };
+
+    private String TAG = "xch";
+
+    private void btnUpdateTime(int position) {
+        String start = list.get(position).getStartTime();
+        String end = list.get(position).getEndTime();
+        dialogCustom = new DialogCustom(ClockManage.this, R.layout.dialog_update_time, 0.8);
+        dialogCustom.setTimeStep("第 "+(position+1)+" 节").setUptimeStart(start).setUptimeEnd(end);
+        dialogCustom.setUpdateTimeCancelListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogCustom.dismiss();
+            }
+        });
+        dialogCustom.setUpdateTimeConfirmListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int update = btnUpdate(position);
+                if(update > 0 ){
+                    initSchedule();
+                    ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
+                    dialogCustom.dismiss();
+                }
+            }
+        });
+        dialogCustom.show();
+        dialogCustom.setCanceledOnTouchOutside(false);
+    }
+
+    private int btnUpdate(int position) {
+        String start = dialogCustom.getUptimeStart();
+        String end = dialogCustom.getUptimeEnd();
+//        Log.d(TAG, "btnUpdate: getUptimeStart"+start);
+//        Log.d(TAG, "btnUpdate: getUptimeEnd"+end);
+        list.get(position).setStartTime(start);
+        list.get(position).setEndTime(end);
+        timeData = TimeData.toCourse(list, timeId);
+        timeData.setTableName(list.get(position).getTableName());
+        int update = sqHelper.updateTimeStep(timeData);
+        return update;
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -102,12 +158,15 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
                 intentActivity(MenuClock.class);
                 break;
             case R.id.view_time_Name:
-                Log.d("xch", "view_time_Name: "+timeId);
+//                Log.d("xch", "view_time_Name: "+timeId);
                 if(timeId == 1){
                     ToastCustom.showMsgWarning(this, "默认时间表不能改名哦~");
                 }else{
                     BtnUpdate();
                 }
+                break;
+            case R.id.ivSave:
+                ToastCustom.showMsgWarning(this, "保存~");
                 break;
         }
     }

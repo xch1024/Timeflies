@@ -314,6 +314,47 @@ public class DialogCustom extends Dialog{
         up_step_end.setText(upStepEnd);
         return this;
     }
+// 《dialog_update_time===============================================================================================================》
+    private TextView time_step;
+    private EditText uptime_start, uptime_end;
+    private String timeStep, uptimeStart, uptimeEnd;
+
+    public String getTimeStep() {
+        timeStep = time_step.getText().toString();
+        return timeStep;
+    }
+
+    public DialogCustom setTimeStep(String timeStep) {
+        this.timeStep = timeStep;
+        time_step.setText(timeStep);
+        return this;
+    }
+
+    public String getUptimeStart() {
+        uptimeStart = uptime_start.getText().toString();
+        return uptimeStart;
+    }
+
+    public DialogCustom setUptimeStart(String uptimeStart) {
+        this.uptimeStart = uptimeStart;
+        uptime_start.setText(uptimeStart);
+        return this;
+    }
+
+    public String getUptimeEnd() {
+        uptimeEnd = uptime_end.getText().toString();
+        return uptimeEnd;
+    }
+
+    public DialogCustom setUptimeEnd(String uptimeEnd) {
+        this.uptimeEnd = uptimeEnd;
+        uptime_end.setText(uptimeEnd);
+        return this;
+    }
+
+
+
+
     // 《===============================================================================================================》
 
     public DialogCustom(Context context, int themeResId) {
@@ -390,6 +431,11 @@ public class DialogCustom extends Dialog{
         up_week_day = findViewById(R.id.up_week_day);
         up_step_start = findViewById(R.id.up_step_start);
         up_step_end = findViewById(R.id.up_step_end);
+
+        //dialog_update_time
+        time_step = findViewById(R.id.time_step);
+        uptime_start = findViewById(R.id.uptime_start);
+        uptime_end = findViewById(R.id.uptime_end);
     }
 
     /**
@@ -583,6 +629,26 @@ public class DialogCustom extends Dialog{
         });
     }
     public void setUpdateDayConfirmListener(View.OnClickListener listener){
+        add_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+
+    /**
+     * 修改时间节次
+     */
+    public void setUpdateTimeCancelListener(View.OnClickListener listener){
+        add_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+    public void setUpdateTimeConfirmListener(View.OnClickListener listener){
         add_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

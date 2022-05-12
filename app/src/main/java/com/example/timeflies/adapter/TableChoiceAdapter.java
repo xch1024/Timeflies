@@ -66,7 +66,6 @@ public class TableChoiceAdapter extends RecyclerView.Adapter<TableChoiceAdapter.
             super(itemView);
             initView();
             setListener();
-
         }
         private void initView() {
             tvName = itemView.findViewById(R.id.tvName);
