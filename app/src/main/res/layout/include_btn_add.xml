@@ -22,7 +22,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
-                android:src="@drawable/add_white"/>
+                android:src="@drawable/photo_add_white"/>
 
         </LinearLayout>
     </LinearLayout>

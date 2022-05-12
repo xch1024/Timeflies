@@ -3,7 +3,7 @@
     android:color="@color/ripple_color">
 
     <item
-        android:drawable="@drawable/content_shape"></item>
+        android:drawable="@drawable/shape_content_shape"></item>
 
 
 </ripple>

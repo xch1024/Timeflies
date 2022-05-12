@@ -42,7 +42,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@drawable/toast_false">
+                        android:src="@drawable/photo_toast_false">
                     </ImageView>
                 </LinearLayout>
 
@@ -62,7 +62,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
-                android:background="@drawable/course_calendar"
+                android:background="@drawable/photo_course_calendar"
                 android:layout_gravity="center_vertical">
             </ImageView>
 
@@ -75,8 +75,8 @@
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/edit_none_shape"
-                android:textCursorDrawable="@drawable/cursor_course">
+                android:background="@drawable/shape_edit_none_shape"
+                android:textCursorDrawable="@drawable/shape_cursor_course">
 
             </TextView>
 
@@ -89,8 +89,8 @@
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:background="@drawable/edit_none_shape"
-                android:textCursorDrawable="@drawable/cursor_course">
+                android:background="@drawable/shape_edit_none_shape"
+                android:textCursorDrawable="@drawable/shape_cursor_course">
             </TextView>
 
         </LinearLayout>
@@ -114,7 +114,7 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/course_time">
+                    android:background="@drawable/photo_course_time">
 
                 </ImageView>
 
@@ -127,8 +127,8 @@
                     android:textSize="@dimen/sp_15"
                     android:textColor="@color/week_normal"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:background="@drawable/edit_none_shape"
-                    android:textCursorDrawable="@drawable/cursor_course">
+                    android:background="@drawable/shape_edit_none_shape"
+                    android:textCursorDrawable="@drawable/shape_cursor_course">
                 </TextView>
 
                 <TextView
@@ -140,8 +140,8 @@
                     android:textSize="@dimen/sp_15"
                     android:textColor="@color/week_normal"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:background="@drawable/edit_none_shape"
-                    android:textCursorDrawable="@drawable/cursor_course">
+                    android:background="@drawable/shape_edit_none_shape"
+                    android:textCursorDrawable="@drawable/shape_cursor_course">
                 </TextView>
             </LinearLayout>
 
@@ -184,7 +184,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
-                android:background="@drawable/course_teacher"
+                android:background="@drawable/photo_course_teacher"
                 android:layout_gravity="center_vertical">
 
             </ImageView>
@@ -201,7 +201,7 @@
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/edit_none_shape">
+                android:background="@drawable/shape_edit_none_shape">
             </EditText>\
 
         </LinearLayout>
@@ -219,7 +219,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
-                android:background="@drawable/course_location"
+                android:background="@drawable/photo_course_location"
                 android:layout_gravity="center_vertical">
 
             </ImageView>
@@ -237,7 +237,7 @@
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/week_normal"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/edit_none_shape">
+                android:background="@drawable/shape_edit_none_shape">
 
             </EditText>
 

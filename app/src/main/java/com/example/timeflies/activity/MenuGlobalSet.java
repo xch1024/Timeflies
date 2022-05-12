@@ -30,7 +30,7 @@ public class MenuGlobalSet extends AppCompatActivity implements View.OnClickList
         ivBack = findViewById(R.id.ivBack);
         ivDonate = findViewById(R.id.ivSave);
         tvTitle.setText(R.string.menu_globalset);
-        ivDonate.setImageResource(R.drawable.donation);
+        ivDonate.setImageResource(R.drawable.photo_donation);
     }
 
     private void setListener(){

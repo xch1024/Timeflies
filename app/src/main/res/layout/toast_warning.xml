@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_45"
         android:orientation="horizontal"
-        android:background="@drawable/toast_shape_warning"
+        android:background="@drawable/shape_toast_shape_warning"
         android:gravity="center"
         android:paddingLeft="@dimen/dp_30"
         android:paddingRight="@dimen/dp_30">
@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
-            android:background="@drawable/toast_warning">
+            android:background="@drawable/photo_toast_warning">
         </ImageView>
 
         <TextView

@@ -4,6 +4,6 @@
 
     <item
         android:id="@android:id/mask"
-        android:drawable="@drawable/ripple_shape_mask" />
+        android:drawable="@drawable/shape_ripple_shape_mask" />
 
 </ripple>

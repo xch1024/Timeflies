@@ -34,7 +34,7 @@ public class MenuAbout extends AppCompatActivity implements View.OnClickListener
         ivDonate = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
         tvTitle.setText(R.string.menu_about);
-        ivDonate.setImageResource(R.drawable.donation);
+        ivDonate.setImageResource(R.drawable.photo_donation);
     }
 
     private void setListener(){

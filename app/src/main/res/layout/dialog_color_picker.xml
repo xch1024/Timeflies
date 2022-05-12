@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/dp_15"
-    android:background="@drawable/dialog_shape"
+    android:background="@drawable/shape_dialog_shape"
     android:orientation="vertical">
 
     <TextView
@@ -70,8 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/edit_none_shape"
-                android:textCursorDrawable="@drawable/cursor_dialog"
+                android:background="@drawable/shape_edit_none_shape"
+                android:textCursorDrawable="@drawable/shape_cursor_dialog"
                 android:gravity="center_vertical"
                 android:hint="当前颜色"
                 android:textColor="@color/week_normal"

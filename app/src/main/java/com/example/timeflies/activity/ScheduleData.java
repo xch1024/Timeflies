@@ -14,14 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.timeflies.R;
-import com.example.timeflies.View.TimeTableView;
 import com.example.timeflies.operater.ScheduleSupport;
 import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -83,7 +80,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         ivDonate = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
         tvTitle.setText(R.string.ScheduleData);
-        ivDonate.setImageResource(R.drawable.donation);
+        ivDonate.setImageResource(R.drawable.photo_donation);
 
         view_course_name = findViewById(R.id.view_course_name);
         view_course_time = findViewById(R.id.view_course_time);

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/radio_none_select"
+    <item android:drawable="@drawable/photo_radio_none_select"
         android:state_checked="false"/>
 
-    <item android:drawable="@drawable/radio_select"
+    <item android:drawable="@drawable/photo_radio_select"
         android:state_checked="true"/>
 
 

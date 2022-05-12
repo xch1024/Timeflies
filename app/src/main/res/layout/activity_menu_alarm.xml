@@ -59,7 +59,7 @@
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center"
-                    android:src="@drawable/menu_globalset"
+                    android:src="@drawable/photo_menu_globalset"
                     android:background="@drawable/ripple_borderless"
                     android:layout_marginLeft="@dimen/dp_30"></ImageView>
             </LinearLayout>

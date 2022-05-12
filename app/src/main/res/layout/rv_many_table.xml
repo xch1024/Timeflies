@@ -42,14 +42,14 @@
                     <ImageView
                         android:id="@+id/many_delete"
                         android:layout_gravity="right"
-                        android:src="@drawable/remove_red"
+                        android:src="@drawable/photo_remove_red"
                         android:background="@drawable/ripple_borderless"
                         android:layout_marginRight="30dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp"/>
                     <ImageView
                         android:id="@+id/many_edit"
-                        android:src="@drawable/edit"
+                        android:src="@drawable/photo_edit"
                         android:background="@drawable/ripple_borderless"
                         android:layout_width="30dp"
                         android:layout_height="30dp"/>

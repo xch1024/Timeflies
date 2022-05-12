@@ -35,7 +35,7 @@ public class MenuSetting extends AppCompatActivity implements View.OnClickListen
         ivDonate = findViewById(R.id.ivSave);
         ivBack = findViewById(R.id.ivBack);
         tvTitle.setText(R.string.menu_setting);
-        ivDonate.setImageResource(R.drawable.donation);
+        ivDonate.setImageResource(R.drawable.photo_donation);
 
         table_data = findViewById(R.id.table_data);
         about = findViewById(R.id.about);

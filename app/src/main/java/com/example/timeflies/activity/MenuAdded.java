@@ -5,10 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -100,7 +98,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
         tv_bg.setTextColor(getResources().getColor(R.color.week_normal));
         vAdd = findViewById(R.id.addItem);
         tvTitle.setText(R.string.menu_added_view);
-        ivRemove.setImageResource(R.drawable.remove);
+        ivRemove.setImageResource(R.drawable.photo_remove);
         bg.setVisibility(View.GONE);
     }
 

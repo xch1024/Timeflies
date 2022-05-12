@@ -2,5 +2,5 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/ripple_color">
 
-    <item android:drawable="@drawable/rv_classname_shape"/>
+    <item android:drawable="@drawable/shape_rv_classname_shape"/>
 </ripple>

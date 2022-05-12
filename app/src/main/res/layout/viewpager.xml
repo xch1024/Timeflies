@@ -3,7 +3,7 @@
     android:id="@+id/view_Linear"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg"
+    android:background="@drawable/photo_bg"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
