@@ -51,6 +51,7 @@ public class SqHelper {
         }
         db.close();
     }
+
     /**
      * 查询配置信息
      * @return
@@ -91,6 +92,16 @@ public class SqHelper {
             db.update("configs", values, "_id = ?", new String[]{"1"});
         }
         db.close();
+    }
+
+    /**
+     * 删除时间表
+     */
+    public int delConfig(int id){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        int count = db.delete("configs", "_id=?", new String[]{String.valueOf(id)});
+        db.close();
+        return count;
     }
 
     /**

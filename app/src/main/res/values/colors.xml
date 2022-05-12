@@ -33,7 +33,7 @@
     <!--    默认颜色-->
     <color name="text_normal">#919191</color>
     <!--    星期默认-->
-    <color name="week_normal">#CFCECE</color>
+    <color name="week_normal">#8E8D8D</color>
 
     <!--    dialog颜色-->
     <!--    背景颜色-->

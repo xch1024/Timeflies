@@ -51,6 +51,7 @@
             android:layout_marginTop="@dimen/dp_10">
 
             <SeekBar
+                android:id="@+id/seekBar"
                 android:splitTrack="false"
                 android:thumb="@drawable/seekbar_thumb"
                 android:progressDrawable="@drawable/seekbar_progress"

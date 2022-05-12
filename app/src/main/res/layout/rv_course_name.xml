@@ -4,10 +4,10 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_10"
-        android:background="@drawable/ripple_course">
+        android:background="@drawable/ripple_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <FrameLayout
             android:id="@+id/cName"
             android:layout_width="match_parent"

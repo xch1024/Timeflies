@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.timeflies.R;
@@ -57,12 +58,14 @@ public class MainActivity extends AppCompatActivity{
     private SqHelper sqHelper;
     private ScheduleSqlite sqlite = new ScheduleSqlite(this);
 
+    private String test = " private TimeData timeData;";
     //时间表
     private TimeData timeData;
     private List<TimeData> timeDataList = new ArrayList<>();
     private RecyclerView rvSchedule;
 
     //切换课表
+    private LinearLayoutManager manager;
     private List<ConfigData> configDataList = new ArrayList<>();
     private RecyclerView rvTableName;
 
@@ -73,13 +76,13 @@ public class MainActivity extends AppCompatActivity{
 
     //sp存储数据
     private SharedPreferences sp;
-    private String className = "默认";//课表名称
-    private String timeId = "1";//当前时间表id
+    private String className;//课表名称
+    private String timeId;//当前时间表id
     private long termStart = new Date().getTime();//学期开始日期
-    private String curWeek = "1";//当前周
-    private int secTime = 10;//一天课程节数
-    private String termWeeks = "20";//学期周数
-    private String termId = "1";//当前学期id
+    private String curWeek;//当前周
+    private int secTime;//一天课程节数
+    private String termWeeks;//学期周数
+    private String termId;//当前学期id
 
     //获取页面左右滑动
     private int currentX;
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        Log.d(TAG, "onCreate: begin");
         //数据库配置
         SQLiteStudioService.instance().start(this);
         sp = getSharedPreferences("config", MODE_PRIVATE);
@@ -96,9 +100,7 @@ public class MainActivity extends AppCompatActivity{
         initView();
         setBar_color();
 
-        //查询作息时间表，并展示指定条数
-        timeDataList = sqHelper.queryTime(timeId);
-
+//        Log.d(TAG, "onCreate: last");
     }
 
     /**
@@ -109,25 +111,31 @@ public class MainActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
 
+        //查询作息时间表，并展示指定条数
+        timeDataList = sqHelper.queryTime(timeId);
+
         setWeekBold();
         initView();
 
+        //设置最大节次=最大周次
         timeTable.setMaxSection(secTime);
+        timeTable.setMaxTerm(Integer.parseInt(termWeeks));
+
         int visible = timeTable.loadData(acquireData(), new Date(termStart));
 
         initTime(secTime, timeId);
-
         setView(visible);
 
         //获取开学日期-现在第几周
         tv_curWeek.setText("第"+curWeek+"周");
+//        Log.d(TAG, "onStart: ");
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onResume() {
         super.onResume();
+
         timeTable.setOnTouchListener((View view, MotionEvent event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -150,6 +158,7 @@ public class MainActivity extends AppCompatActivity{
             }
             return true;
         });
+//        Log.d(TAG, "onResume: ");
     }
 
     /**
@@ -196,6 +205,7 @@ public class MainActivity extends AppCompatActivity{
         secTime = sp.getInt("secTime", 10);
         termWeeks = sp.getString("termWeeks","20");
         termId = sp.getString("termId","1");
+//        Log.d(TAG, "sp.getString(\"termId\",\"1\");: "+termId);
     }
 
     /**
@@ -206,7 +216,7 @@ public class MainActivity extends AppCompatActivity{
         String id = sp.getString("timeId","1");
 //        Log.d(TAG, "initTime: "+id);
         timeDataList.clear();
-        timeData = sqHelper.queryTimeData(id);
+        TimeData timeData = sqHelper.queryTimeData(id);
         timeDataList = timeData.toDetail();
 //        list = timeData.();
 //        Log.d(TAG, "initTime: "+timeId);
@@ -229,7 +239,7 @@ public class MainActivity extends AppCompatActivity{
         configDataList.clear();
         String id = sp.getString("termId","1");
         configDataList = sqHelper.queryConfig();
-        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
+        manager = new LinearLayoutManager(this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         rvTableName.setLayoutManager(manager);
         TableNameAdapter tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
@@ -335,6 +345,10 @@ public class MainActivity extends AppCompatActivity{
         //切换课表
         View contentView = getLayoutInflater().inflate(R.layout.pop_window, null);
 
+        //seekBar  设置不可见
+        SeekBar seekBar = contentView.findViewById(R.id.seekBar);
+        seekBar.setVisibility(View.GONE);
+
         rvTableName = contentView.findViewById(R.id.pop_rv_table_name);
         initTableName("1");
 
@@ -366,7 +380,11 @@ public class MainActivity extends AppCompatActivity{
     public void homePage(View view) {
         switch (view.getId()){
             case R.id.bt_add:
-                intentActivity(MenuAdded.class);
+            case R.id.menu_added:
+                String term_id = sp.getString("termId","1");
+                Intent intent = new Intent(MainActivity.this, MenuAdded.class);
+                intent.putExtra("termId",term_id);
+                startActivity(intent);
                 break;
             case R.id.bt_ellipsis:
                 showPopWindow();
@@ -378,16 +396,13 @@ public class MainActivity extends AppCompatActivity{
                 btnInsertTable();
                 break;
             case R.id.manage:
-                ToastCustom.showMsgTrue(this,"管理按钮");
+                intentActivity(ManyTable.class);
                 break;
             case R.id.menu_clock:
                 intentActivity(MenuClock.class);
                 break;
             case R.id.menu_setting:
                 intentActivity(MenuSetting.class);
-                break;
-            case R.id.menu_added:
-                intentActivity(MenuAdded.class);
                 break;
             case R.id.menu_help:
                 ToastCustom.showMsgTrue(this,"常见问题按钮");

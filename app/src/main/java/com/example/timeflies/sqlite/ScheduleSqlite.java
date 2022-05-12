@@ -121,6 +121,9 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         if(!TextUtils.isEmpty(courseData.getCourseRemark())) {
             values.put("courseRemark", courseData.getCourseRemark());
         }
+        if(!TextUtils.isEmpty(courseData.getTermId())) {
+            values.put("term_id", courseData.getTermId());
+        }
         long count = database.insert(tableName, null, values);
         database.close();
         return count;
@@ -178,6 +181,9 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         if(null != courseData.getCourseTime()) {
             values.put("courseTime", courseData.getCourseTime());
         }
+        if(TextUtils.isEmpty(courseData.getTermId())) {
+            values.put("courseTime", courseData.getCourseTime());
+        }
         int count = database.update(tableName, values, "_id=?", new String[]{String.valueOf(courseData.getId())});
         database.close();
         return count;
@@ -197,7 +203,8 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
     public List<CourseData> listAll(String termId){
         List<CourseData> list = new ArrayList<>();
         SQLiteDatabase database = getWritableDatabase();
-        Cursor data = database.query(tableName, null, null, null, null, null, null);
+        Cursor data = database.rawQuery("select * from courses where term_id is null or term_id=?", new String[]{termId});
+//        Cursor data = database.query(tableName, null, null, null, null, null, null);
         if(data.getCount() > 0){
             while(data.moveToNext()) {
                 CourseData course = new CourseData();
@@ -214,7 +221,7 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
                 course.setDay(data.getInt(10));
                 course.setSectionStart(data.getInt(11));
                 course.setSectionEnd(data.getInt(12));
-                course.setTermId(data.getInt(13));
+                course.setTermId(data.getString(13));
                 course.setCourseTime(data.getString(14));
                 list.add(course);
             }

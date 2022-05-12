@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +37,6 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
     private RecyclerView rvCourseName;
     private List<CourseData> list = new ArrayList<>();
     private String termId;
-    private SharedPreferences sp;
     private String TAG = "xch";
 
     @Override
@@ -82,7 +83,9 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_added);
-        sp = getSharedPreferences("config",MODE_PRIVATE);
+
+        Intent intent = getIntent();
+        termId = intent.getStringExtra("termId");
 //        Log.d(TAG, "onCreate: ");
     }
 
@@ -106,7 +109,7 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
      */
     private void initCourseNameView(){
         list.clear();
-        termId = sp.getString("termId","1");
+        Log.d(TAG, "termId: "+termId);
         list = sqlite.listAll(termId);
 
         int listSize = list.size();
@@ -143,7 +146,10 @@ public class MenuAdded extends AppCompatActivity implements View.OnClickListener
                 BtnClear();
                 break;
             case R.id.addItem:
-                intentActivity(AddCourse.class);
+                Intent intent = new Intent(MenuAdded.this, AddCourse.class);
+                intent.putExtra("termId",termId);
+                this.finish();
+                startActivity(intent);
                 break;
         }
     }

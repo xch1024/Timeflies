@@ -31,7 +31,7 @@ public class CourseData implements Cloneable, Serializable {
     private String teacherName;//教师名
     private String classroom;//教室
 
-    private int termId;//学期
+    private String termId;//学期
 
     //格式：起始周次-单双周-星期-节次-几节-授课老师-教室
     private String courseTime;//上课时间
@@ -152,11 +152,11 @@ public class CourseData implements Cloneable, Serializable {
         this.classroom = classroom;
     }
 
-    public int getTermId() {
+    public String getTermId() {
         return termId;
     }
 
-    public void setTermId(int termId) {
+    public void setTermId(String termId) {
         this.termId = termId;
     }
 

@@ -88,6 +88,7 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_clock_manage.xml" value="0.23258196721311475" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_course.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_many_table.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_menu_about.xml" value="0.25" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_menu_added.xml" value="0.23258196721311475" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/activity_menu_alarm.xml" value="0.23258196721311475" />
@@ -155,11 +156,13 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast_false.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast_true.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/layout_toast_warning.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/pop_window.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/popwindow_style.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/recycle_anim.xml" value="0.24409722222222222" />
-        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_name.xml" value="0.2189207650273224" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_name.xml" value="0.1" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_schedule.xml" value="0.24409722222222222" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_many_table.xml" value="0.18" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_table_name.xml" value="0.33" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_time_name.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_times.xml" value="0.24409722222222222" />

@@ -3,9 +3,11 @@ package com.example.timeflies.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,11 +33,18 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     private int mColor;
     private boolean mHexValueEnable = true;
     private ImageView colorMap;
+    private SharedPreferences sp;
+    private String termId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
+
+        //接收传过来的当前学期id
+        Intent intent = getIntent();
+        termId = intent.getStringExtra("termId");
+        sp = getSharedPreferences("config", MODE_PRIVATE);
         initView();
         setListener();
     }
@@ -95,6 +104,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
                 break;
         }
     }
+
     //课程名称
     private void viewName(){
         dialogCustom = new DialogCustom(AddCourse.this,R.layout.dialog_tablename, 0.8);
@@ -204,17 +214,21 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         }else{
             addCourse();
             this.finish();
-            intentActivity(MenuAdded.class);
+            Intent intent = new Intent(AddCourse.this, MenuAdded.class);
+            intent.putExtra("termId",termId);
+            startActivity(intent);
         }
     }
 
     //添加课程到数据库
     private void addCourse() {
+
         String courseName = course_name.getText().toString();
         String courseColor = course_color.getText().toString();
         String courseCredit = course_credit.getText().toString();
         String courseRemark = course_remark.getText().toString();
 
+        Log.d("xch", "courseTermId: "+ termId);
         CourseData courseData = new CourseData();
         courseData.setCourseName(courseName);
         if(courseColor.equals("点击更改颜色")){
@@ -224,6 +238,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         }
         courseData.setCourseCredit(courseCredit);
         courseData.setCourseRemark(courseRemark);
+        courseData.setTermId(termId);
         long insert = sqlite.insert(courseData);
         if (insert != -1) {
             ToastCustom.showMsgTrue(AddCourse.this, "添加课程成功");
