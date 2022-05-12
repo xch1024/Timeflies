@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,10 +17,14 @@ import com.example.timeflies.R;
 import com.example.timeflies.model.ConfigData;
 import com.example.timeflies.utils.ToastCustom;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.TableNameHolder>{
     private static final String TAG = "xch";
+    //记录当前点击位置
+    //标记当前选择的选项
+    private int index = -1;
     private List<ConfigData> list;
     private Context context;
 
@@ -38,25 +43,24 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
     @Override
     public void onBindViewHolder(@NonNull TableNameAdapter.TableNameHolder holder, int position) {
         setContView(holder, position);
+
     }
 
     private void setContView(TableNameHolder holder, int position) {
         ConfigData data = list.get(position);
         holder.table_name.setText(data.getClassName());
 
-        holder.radio_group_table.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        holder.radio_table.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int k  = 0;
-                while ( k == data.getId()) {
-                    k++;
-                    Log.d(TAG, "onCheckedChanged: "+k);
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    ToastCustom.showMsgWarning(context,"你选择的选项是"+ list.get(position).getClassName());
+                    index = position;
+                    notifyDataSetChanged();
                 }
-                if(k == position){
-                    Log.d(TAG, "onCheckedChanged: "+position);
+                if(index == position){
                     holder.radio_table.setChecked(true);
-                    ToastCustom.showMsgWarning(context, data.getClassName());
-                }else{
+                } else {
                     holder.radio_table.setChecked(false);
                 }
             }
@@ -84,5 +88,16 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
             radio_group_table = itemView.findViewById(R.id.radio_group_table);
             radio_table = itemView.findViewById(R.id.radio_table);
         }
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 }

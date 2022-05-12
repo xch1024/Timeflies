@@ -244,6 +244,19 @@ public class MainActivity extends AppCompatActivity{
         rvTableName.setLayoutManager(manager);
         TableNameAdapter tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
         rvTableName.setAdapter(tableNameAdapter);
+        tableNameAdapter.setOnItemClickListener(new TableNameAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                ToastCustom.showMsgWarning(MainActivity.this,"选择的课表名称："+configDataList.get(position).getClassName());
+
+                Log.d(TAG, "onItemClick: "+configDataList.get(position).getClassName());
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 
     private List<CourseData> acquireData(){

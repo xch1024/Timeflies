@@ -888,17 +888,21 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
         String courseColor = course_color.getText().toString();
         String courseCredit = course_credit.getText().toString();
         String courseRemark = course_remark.getText().toString();
-
+//        if(TextUtils.isEmpty(courseCredit)) ;
+//        if(TextUtils.isEmpty(courseRemark)) courseRemark = "null";
         //封装信息
         CourseData course = new CourseData();
         course.setId(this.courseData.getId());
-
+        course.setTermId(this.courseData.getTermId());
         course.setCourseName(courseName);
         course.setCourseColor(courseColor);
         course.setCourseCredit(courseCredit);
+//        Log.d(TAG, "courseCredit: "+courseCredit);
         course.setCourseRemark(courseRemark);
-
+//        Log.d(TAG, "course: "+course);
+//        Log.d(TAG, "courseData: "+courseData);
         if(ShowCourse.this.courseData.equals(course)){
+//            Log.d(TAG, "updateCourse: "+"等于");
             ToastCustom.showMsgWarning(ShowCourse.this, "您尚未修改课程信息\n无需保存！");
         }else{
             int update = sqlite.update(course);

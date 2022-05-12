@@ -1,6 +1,7 @@
 package com.example.timeflies.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CourseData implements Cloneable, Serializable {
     private String courseColor;//课程显示颜色
     private String courseCredit;//课程学分
     private String courseRemark;//课程备注
+    private String termId;//学期
 
     private String weekType;//单双周类型
     private int startWeek;//开始周次
@@ -31,7 +33,7 @@ public class CourseData implements Cloneable, Serializable {
     private String teacherName;//教师名
     private String classroom;//教室
 
-    private String termId;//学期
+
 
     //格式：起始周次-单双周-星期-节次-几节-授课老师-教室
     private String courseTime;//上课时间
@@ -202,8 +204,8 @@ public class CourseData implements Cloneable, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseData course = (CourseData) o;
-//        if(Objects.equals(courseColor, course.courseColor) ) return true;
         return
+                Objects.equals(termId, course.termId) &&
                 Objects.equals(courseColor, course.courseColor) &&
                 Objects.equals(courseName, course.courseName) &&
                 Objects.equals(courseCredit, course.courseCredit) &&
