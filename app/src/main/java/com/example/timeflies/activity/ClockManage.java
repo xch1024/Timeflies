@@ -31,10 +31,10 @@ import java.util.List;
 
 public class ClockManage extends AppCompatActivity implements View.OnClickListener {
 
+    private TimeData timeData;
     private List<TimeData> list = new ArrayList<>();
     private RecyclerView rvRecyclerView;
     private ClockManageAdapter adapter;
-    private TimeData timeData;
 
     private TextView tvTitle;
     private ImageView ivDonate, ivBack;

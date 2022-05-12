@@ -28,6 +28,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     private int cellHeight = 75;
 
     private int ItemTotal;
+
     private List<TimeData> list;//数据源
     private Context context;//上下文
 
@@ -53,11 +54,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleAdapter.ScheduleHolder holder, int position) {
-        setContent(holder, position);
-    }
-
-    private void setContent(ScheduleHolder holder, int position) {
         TimeData data = list.get(position);
+
         holder.tvNum.setText(String.valueOf(position+1));
         holder.tvStart.setText(data.getStartTime());
         holder.tvEnd.setText(data.getEndTime());

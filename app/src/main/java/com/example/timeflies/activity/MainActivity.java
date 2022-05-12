@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity{
     private Date date = new Date();
 
     //时间表
-    private List<TimeData> list = new ArrayList<>();
+    private TimeData timeData;
+    private List<TimeData> timeDataList = new ArrayList<>();
     private SqHelper sqHelper;
     private RecyclerView rvSchedule;
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity{
         setBar_color();
 
         //查询作息时间表，并展示指定条数
-        list = sqHelper.queryTime(timeId);
+        timeDataList = sqHelper.queryTime(timeId);
 
     }
 
@@ -270,7 +271,7 @@ public class MainActivity extends AppCompatActivity{
 
         //从sp获取初始数据
         className = sp.getString("className","默认");
-        timeId = sp.getString("timeId","2");
+        timeId = sp.getString("timeId","1");
         termStart = sp.getLong("termStart", new Date().getTime());
         curWeek = sp.getString("curWeek", "1");
         secTime = sp.getInt("secTime", 10);
@@ -284,8 +285,14 @@ public class MainActivity extends AppCompatActivity{
      *
      */
     private void initTime(int count, String timeId){
+        String id = sp.getString("timeId","1");
+        Log.d(TAG, "initTime: "+id);
+        timeDataList.clear();
+        timeData = sqHelper.queryTimeData(id);
+        timeDataList = timeData.toDetail();
+        Log.d(TAG, "initTime: "+timeDataList);
+//        list = timeData.();
 //        Log.d(TAG, "initTime: "+timeId);
-        List<TimeData> timeDataList = timeSplit(timeId);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         rvSchedule.setLayoutManager(layoutManager);
@@ -296,36 +303,6 @@ public class MainActivity extends AppCompatActivity{
         scheduleAdapter.setItemTotal(count);
         rvSchedule.setAdapter(scheduleAdapter);
         rvSchedule.setNestedScrollingEnabled(false);
-    }
-
-    /**
-     * 切分时间段
-     * @param timeId
-     * @return
-     */
-    private List<TimeData> timeSplit(String timeId){
-        list.clear();
-        list = sqHelper.queryTime(timeId);
-//        Log.d(TAG, "timeSplit: "+list.toString());
-        int id = list.get(0).getId();
-        String name = list.get(0).getTableName();
-        String time = list.get(0).getTableTime();
-//        Log.d(TAG, "list.get(0).getTableTime();: "+id+"=============="+time);
-        String[] timeArray = time.split(";");
-        List<TimeData> timeDataList = new ArrayList<>();
-        for (int i = 0; i < timeArray.length; i++){
-//            Log.d(TAG, "String[] timeArray: "+timeArray[i]);
-            String[] info = timeArray[i].split("-");
-            TimeData td = new TimeData();
-            td.setId(id);
-            td.setTableName(name);
-            td.setStartTime(info[0]);
-            td.setEndTime(info[1]);
-//            Log.d(TAG, "td: "+td);
-            timeDataList.add(td);
-        }
-//        Log.d(TAG, "timeDataList.add(td);: "+timeDataList);
-        return timeDataList;
     }
 
     /**
