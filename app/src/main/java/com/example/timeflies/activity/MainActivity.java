@@ -90,14 +90,13 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate: begin");
+//        Log.d(TAG, "onCreate: begin");
         //数据库配置
         SQLiteStudioService.instance().start(this);
         sp = getSharedPreferences("config", MODE_PRIVATE);
 
         initView();
         setBar_color();
-
     }
 
     /**
@@ -107,32 +106,22 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: ");
+//        Log.d(TAG, "onStart: ");
 
         //查询作息时间表，并展示指定条数
         timeDataList = sqHelper.queryTime(timeId);
 
-        setWeekBold();
         initView();
-
-        //设置最大节次=最大周次
-        timeTable.setMaxSection(secTime);
-        timeTable.setMaxTerm(Integer.parseInt(termWeeks));
-
-        int visible = timeTable.loadData(acquireData(), new Date(termStart));
-
         initTime(secTime, timeId);
-        setView(visible);
-
-        //获取开学日期-现在第几周
-        tv_curWeek.setText("第"+curWeek+"周");
+        //设置周标题栏文字样式
+        setWeekBold();
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
+//        Log.d(TAG, "onResume: ");
 
         timeTable.setOnTouchListener((View view, MotionEvent event) -> {
             switch (event.getAction()) {
@@ -207,7 +196,17 @@ public class MainActivity extends AppCompatActivity{
         secTime = sp.getInt("secTime", 10);
         termWeeks = sp.getString("termWeeks","20");
         termId = sp.getString("termId","1");
-//        Log.d(TAG, "sp.getString(\"termId\",\"1\");: "+termId);
+
+        //获取开学日期-现在第几周
+        tv_curWeek.setText("第"+curWeek+"周");
+
+        //设置最大节次=最大周次
+        timeTable.setMaxSection(secTime);
+        timeTable.setMaxTerm(Integer.parseInt(termWeeks));
+
+        //是否显示本周没有课程
+        int visible = timeTable.loadData(acquireData(), new Date(termStart));
+        setView(visible);
     }
 
     /**
@@ -243,9 +242,6 @@ public class MainActivity extends AppCompatActivity{
         configDataList.clear();
         String id = sp.getString("termId","1");
         configDataList = sqHelper.queryConfig(Integer.parseInt(id));
-        for(int i =0; i<configDataList.size();i++){
-            Log.d(TAG, "initTableName: "+configDataList.get(i).getClassName());
-        }
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         rvTableName.setLayoutManager(manager);
@@ -254,19 +250,47 @@ public class MainActivity extends AppCompatActivity{
         tableNameAdapter.setOnItemClickListener(new TableNameAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                int index = -1;
                 if(!configDataList.get(position).isChecked()){
+                    index = position;
                     for(int i=0; i<configDataList.size(); i++){
                         if(i == position){
                             configDataList.get(i).setChecked(true);
+                            int termId = configDataList.get(i).getId();
+                            String className = configDataList.get(i).getClassName();
+                            String timeId = configDataList.get(i).getTimeId();
+                            long termStart = Long.parseLong(configDataList.get(i).getTermStart());
+                            String curWeek = configDataList.get(i).getCurWeek();
+                            String secTime = configDataList.get(i).getSceTime();
+                            String termWeeks = configDataList.get(i).getTermWeeks();
+
+                            //修改sp对应的内容
+                            sp.edit().putString("termId",String.valueOf(termId)).apply();
+                            sp.edit().putString("className",String.valueOf(className)).apply();
+                            sp.edit().putString("timeId",String.valueOf(timeId)).apply();
+                            sp.edit().putLong("termStart", termStart).apply();
+                            sp.edit().putString("curWeek",String.valueOf(curWeek)).apply();
+                            sp.edit().putInt("secTime",Integer.parseInt(secTime)).apply();
+                            sp.edit().putString("termWeeks",String.valueOf(termWeeks)).apply();
                         }else{
                             configDataList.get(i).setChecked(false);
                         }
+                        Log.d(TAG, "for:循环内 ");
                     }
+                    Log.d(TAG, "for:循环内出循环 ");
+                    //换课表后，刷新recycle的显示界面
                     tableNameAdapter.notifyDataSetChanged();
-                    ToastCustom.showMsgWarning(MainActivity.this, "点击课表"+configDataList.get(position).getClassName());
+                }if(index == position){
+                    
+                }else{
+
                 }
-
-
+                //改变课表后 要刷新界面
+                initView();
+                initTime(sp.getInt("secTime",10), sp.getString("timeId","1"));
+                long start = sp.getLong("termStart",new Date().getTime());
+                timeTable.loadData(acquireData(), new Date(start));
+                ToastCustom.showMsgWarning(MainActivity.this, "点击课表"+configDataList.get(position).getClassName());
             }
 
             @Override
@@ -378,7 +402,7 @@ public class MainActivity extends AppCompatActivity{
         //seekBar  设置不可见
         SeekBar seekBar = contentView.findViewById(R.id.seekBar);
         seekBar.setVisibility(View.GONE);
-        initTableName("1");
+        initTableName(termId);
         PopupWindow popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.dismiss();
         popupWindow.isShowing();

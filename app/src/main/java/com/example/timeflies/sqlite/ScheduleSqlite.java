@@ -13,11 +13,13 @@ import androidx.annotation.Nullable;
 import com.example.timeflies.model.CourseData;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 public class ScheduleSqlite extends SQLiteOpenHelper {
 
+    private long date = new Date().getTime();
     private static String time = "08:00-08:45;08:55-09:40;10:10-10:55;11:05-11:50;14:00-14:45;14:55-15:40;16:00-16:45;16:55-17:40;18:30-19:15;19:25-20:10;20:20-21:05;21:15-22:00;22:10-22:55;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50;23:05-23:50";
     private static String tableName = "courses";
     private Context context;
@@ -63,7 +65,7 @@ public class ScheduleSqlite extends SQLiteOpenHelper {
         db.execSQL(sqlConfig);
 
         //插入默认配置信息
-        String sqlNormal = "insert into configs(className, timeId, termStart, curWeek, secTime, termWeeks) values('默认', '1', '2022-4-25', '1', '10', '20')";
+        String sqlNormal = "insert into configs(className, timeId, termStart, curWeek, secTime, termWeeks) values('默认', '1', '"+date+"', '1', '10', '20')";
         db.execSQL(sqlNormal);
 
         String sqlCourse = "create table courses(" +
