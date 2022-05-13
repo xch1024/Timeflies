@@ -8,12 +8,13 @@ public class ConfigData {
     private String curWeek;
     private String sceTime;
     private String termWeeks;
+    private boolean isChecked;
 
     public ConfigData(){
 
     }
 
-    public ConfigData(int id, String className, String timeId, String termStart, String curWeek, String sceTime, String termWeeks) {
+    public ConfigData(int id, String className, String timeId, String termStart, String curWeek, String sceTime, String termWeeks, boolean isChecked) {
         this.id = id;
         this.className = className;
         this.timeId = timeId;
@@ -21,6 +22,7 @@ public class ConfigData {
         this.curWeek = curWeek;
         this.sceTime = sceTime;
         this.termWeeks = termWeeks;
+        this.isChecked = isChecked;
     }
 
     public int getId() {
@@ -77,5 +79,13 @@ public class ConfigData {
 
     public void setTermWeeks(String termWeeks) {
         this.termWeeks = termWeeks;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

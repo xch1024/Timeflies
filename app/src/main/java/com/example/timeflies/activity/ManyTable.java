@@ -126,6 +126,7 @@ public class ManyTable extends AppCompatActivity {
             //viewName可区分item及item内部控件
             switch (v.getId()){
                 case R.id.many_delete:
+                    //需要时再设置删除按钮可见
                     btnDel(position);
                     break;
                 case R.id.many_edit:
@@ -146,8 +147,8 @@ public class ManyTable extends AppCompatActivity {
         @Override
         public void onItemLongClick(View v, TimetableAdapter.ViewName viewName, int position) {
             switch (v.getId()){
-                case R.id.many_delete:
-                    ToastCustom.showMsgWarning(ManyTable.this, "长按删除课表"+(position+1));
+                default:
+                    ToastCustom.showMsgWarning(ManyTable.this, "长按==="+(position+1));
                     break;
              }
         }

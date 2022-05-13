@@ -48,24 +48,23 @@ public class MainActivity extends AppCompatActivity{
 
     private DialogCustom dialog;
 
-    //周标题栏
-    private TextView tv_Date, tv_curWeek, tv_curTime;
+    private TextView tv_curWeek;
+    private TextView tv_curTime;
     private TextView mon,tues,wed,thur,fri,sat,sun;
-    private SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy/M/d");
-    private SimpleDateFormat sdfWeek = new SimpleDateFormat("E");
-    private Date date = new Date();
+    private final SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy/M/d");
+    private final SimpleDateFormat sdfWeek = new SimpleDateFormat("E");
+    private final Date date = new Date();
 
     private SqHelper sqHelper;
-    private ScheduleSqlite sqlite = new ScheduleSqlite(this);
+    private final ScheduleSqlite sqlite = new ScheduleSqlite(this);
 
-    private String test = " private TimeData timeData;";
     //时间表
-    private TimeData timeData;
     private List<TimeData> timeDataList = new ArrayList<>();
     private RecyclerView rvSchedule;
 
     //切换课表
-    private LinearLayoutManager manager;
+    private TableNameAdapter tableNameAdapter;
+    private View contentView;
     private List<ConfigData> configDataList = new ArrayList<>();
     private RecyclerView rvTableName;
 
@@ -91,8 +90,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        Log.d(TAG, "onCreate: begin");
+        Log.d(TAG, "onCreate: begin");
         //数据库配置
         SQLiteStudioService.instance().start(this);
         sp = getSharedPreferences("config", MODE_PRIVATE);
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity{
         initView();
         setBar_color();
 
-//        Log.d(TAG, "onCreate: last");
     }
 
     /**
@@ -110,6 +107,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart: ");
 
         //查询作息时间表，并展示指定条数
         timeDataList = sqHelper.queryTime(timeId);
@@ -128,13 +126,13 @@ public class MainActivity extends AppCompatActivity{
 
         //获取开学日期-现在第几周
         tv_curWeek.setText("第"+curWeek+"周");
-//        Log.d(TAG, "onStart: ");
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: ");
 
         timeTable.setOnTouchListener((View view, MotionEvent event) -> {
             switch (event.getAction()) {
@@ -158,7 +156,6 @@ public class MainActivity extends AppCompatActivity{
             }
             return true;
         });
-//        Log.d(TAG, "onResume: ");
     }
 
     /**
@@ -170,7 +167,8 @@ public class MainActivity extends AppCompatActivity{
         sqHelper = new SqHelper(this);
 
         //日期-当前周-今天周几
-        tv_Date = findViewById(R.id.tv_Date);
+        //周标题栏
+        TextView tv_Date = findViewById(R.id.tv_Date);
         tv_curWeek = findViewById(R.id.tv_curWeek);
         tv_curTime = findViewById(R.id.tv_curTime);
 
@@ -179,6 +177,10 @@ public class MainActivity extends AppCompatActivity{
 
         //课表数据
         timeTable = findViewById(R.id.timeTable);
+
+        //切换课表
+        contentView = getLayoutInflater().inflate(R.layout.pop_window, null);
+        rvTableName = contentView.findViewById(R.id.pop_rv_table_name);
 
         bg_none = findViewById(R.id.bg_none);
         bg_none.setVisibility(View.GONE);
@@ -232,29 +234,46 @@ public class MainActivity extends AppCompatActivity{
         rvSchedule.setNestedScrollingEnabled(false);
     }
 
+    private TableNameAdapter.OnItemClickListener onItemClickListener;
+
     /**
      * 初始化切换课程表
      */
     private void initTableName(String termId){
         configDataList.clear();
         String id = sp.getString("termId","1");
-        configDataList = sqHelper.queryConfig();
-        manager = new LinearLayoutManager(this);
+        configDataList = sqHelper.queryConfig(Integer.parseInt(id));
+        for(int i =0; i<configDataList.size();i++){
+            Log.d(TAG, "initTableName: "+configDataList.get(i).getClassName());
+        }
+        LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         rvTableName.setLayoutManager(manager);
-        TableNameAdapter tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
+        tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
         rvTableName.setAdapter(tableNameAdapter);
         tableNameAdapter.setOnItemClickListener(new TableNameAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                ToastCustom.showMsgWarning(MainActivity.this,"选择的课表名称："+configDataList.get(position).getClassName());
+                if(!configDataList.get(position).isChecked()){
+                    for(int i=0; i<configDataList.size(); i++){
+                        if(i == position){
+                            configDataList.get(i).setChecked(true);
+                        }else{
+                            configDataList.get(i).setChecked(false);
+                        }
+                    }
+                    tableNameAdapter.notifyDataSetChanged();
+                    ToastCustom.showMsgWarning(MainActivity.this, "点击课表"+configDataList.get(position).getClassName());
+                }
 
-                Log.d(TAG, "onItemClick: "+configDataList.get(position).getClassName());
+
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-
+                if(!configDataList.get(position).isChecked()){
+                    ToastCustom.showMsgWarning(MainActivity.this, "长按"+configDataList.get(position).getClassName());
+                }
             }
         });
     }
@@ -355,16 +374,11 @@ public class MainActivity extends AppCompatActivity{
      * https://www.jianshu.com/p/e331ffd2452f
      */
     private void showPopWindow(){
-        //切换课表
-        View contentView = getLayoutInflater().inflate(R.layout.pop_window, null);
 
         //seekBar  设置不可见
         SeekBar seekBar = contentView.findViewById(R.id.seekBar);
         seekBar.setVisibility(View.GONE);
-
-        rvTableName = contentView.findViewById(R.id.pop_rv_table_name);
         initTableName("1");
-
         PopupWindow popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.dismiss();
         popupWindow.isShowing();

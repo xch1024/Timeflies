@@ -59,14 +59,14 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Time
             ivDel = itemView.findViewById(R.id.many_delete);
 
             //需要编辑和删除功能再打开
-            ivEdit.setVisibility(View.GONE);
-            ivDel.setVisibility(View.GONE);
+//            ivEdit.setVisibility(View.GONE);
+//            ivDel.setVisibility(View.GONE);
 
             ivEdit.setOnClickListener(TimetableAdapter.this);
             ivDel.setOnClickListener(TimetableAdapter.this);
 
-            ivEdit.setOnClickListener(TimetableAdapter.this);
-            ivDel.setOnClickListener(TimetableAdapter.this);
+            ivEdit.setOnLongClickListener(TimetableAdapter.this);
+            ivDel.setOnLongClickListener(TimetableAdapter.this);
 
             itemView.setOnClickListener(TimetableAdapter.this);
             itemView.setOnLongClickListener(TimetableAdapter.this);
@@ -121,6 +121,9 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Time
         int position = (int) view.getTag();      //getTag()获取数据
         if(mOnItemClickListener != null){
             switch (view.getId()){
+                case R.id.rv_many_table:
+                    mOnItemClickListener.onItemLongClick(view, ViewName.PRACTISE, position);
+                    break;
                 default:
                     mOnItemClickListener.onItemLongClick(view, ViewName.ITEM, position);
                     break;

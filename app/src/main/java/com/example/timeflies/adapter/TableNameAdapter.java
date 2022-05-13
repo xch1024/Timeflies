@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import com.example.timeflies.utils.ToastCustom;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.TableNameHolder>{
+public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.TableNameHolder> implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "xch";
     //记录当前点击位置
     //标记当前选择的选项
@@ -49,28 +50,34 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
     private void setContView(TableNameHolder holder, int position) {
         ConfigData data = list.get(position);
         holder.table_name.setText(data.getClassName());
+        //初始化选择的课表
+        holder.radio_table.setChecked(data.isChecked());
 
-        holder.radio_table.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    ToastCustom.showMsgWarning(context,"你选择的选项是"+ list.get(position).getClassName());
-                    index = position;
-                    notifyDataSetChanged();
-                }
-                if(index == position){
-                    holder.radio_table.setChecked(true);
-                } else {
-                    holder.radio_table.setChecked(false);
-                }
-            }
-        });
+        holder.radio_table.setTag(position);
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+    @Override
+    public void onClick(View view) {
+        int position = (int) view.getTag();
+        if(onItemClickListener != null){
+            onItemClickListener.onItemClick(view, position);
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        int position = (int) view.getTag();
+        if(onItemClickListener != null){
+            onItemClickListener.onItemLongClick(view, position);
+        }
+        return true;
+    }
+
 
     public class TableNameHolder extends RecyclerView.ViewHolder {
 
@@ -87,6 +94,9 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
             table_name = itemView.findViewById(R.id.table_name);
             radio_group_table = itemView.findViewById(R.id.radio_group_table);
             radio_table = itemView.findViewById(R.id.radio_table);
+
+            radio_table.setOnClickListener(TableNameAdapter.this);
+            radio_table.setOnLongClickListener(TableNameAdapter.this);
         }
     }
 

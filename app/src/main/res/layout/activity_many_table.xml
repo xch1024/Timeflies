@@ -26,7 +26,7 @@
                 <TextView
                     android:layout_margin="20dp"
                     android:gravity="center"
-                    android:text="点击卡片查看该课表的课程"
+                    android:text="点击卡片查看该课表的课程\n长按可删除该课表~"
                     android:textColor="@color/content_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

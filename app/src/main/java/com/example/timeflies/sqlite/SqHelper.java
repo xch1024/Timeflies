@@ -79,6 +79,37 @@ public class SqHelper {
     }
 
     /**
+     * 查询配置信息
+     * @return
+     */
+    public List<ConfigData> queryConfig(int id) {
+        List<ConfigData> list = new ArrayList<>();
+        db = helper.getReadableDatabase();
+        if (db.isOpen()) {
+            Cursor cursor = db.rawQuery("select * from configs",null);
+            while(cursor.moveToNext()){
+                ConfigData configData = new ConfigData();
+                if(id == cursor.getInt(0)){
+                    configData.setChecked(true);
+                }else{
+                    configData.setChecked(false);
+                }
+                configData.setId(cursor.getInt(0));
+                configData.setClassName(cursor.getString(1));
+                configData.setTimeId(cursor.getString(2));
+                configData.setTermStart(cursor.getString(3));
+                configData.setCurWeek(cursor.getString(4));
+                configData.setSceTime(cursor.getString(5));
+                configData.setTermWeeks(cursor.getString(6));
+                list.add(configData);
+            }
+            cursor.close();
+        }
+        db.close();
+        return list;
+    }
+
+    /**
      * 修改表配置信息
      * @param target
      * @return
