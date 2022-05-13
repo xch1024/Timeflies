@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView rvSchedule;
 
     //切换课表
+    private PopupWindow popupWindow;
     private TableNameAdapter tableNameAdapter;
     private View contentView;
     private List<ConfigData> configDataList = new ArrayList<>();
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Log.d(TAG, "onCreate: begin");
+        Log.d(TAG, "onCreate: begin");
         //数据库配置
         SQLiteStudioService.instance().start(this);
         sp = getSharedPreferences("config", MODE_PRIVATE);
@@ -106,13 +107,19 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-//        Log.d(TAG, "onStart: ");
+        Log.d(TAG, "onStart: ");
 
         //查询作息时间表，并展示指定条数
         timeDataList = sqHelper.queryTime(timeId);
 
         initView();
         initTime(secTime, timeId);
+
+        //切换课表
+        contentView = getLayoutInflater().inflate(R.layout.pop_window, null);
+        rvTableName = contentView.findViewById(R.id.pop_rv_table_name);
+        popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
+
         //设置周标题栏文字样式
         setWeekBold();
     }
@@ -121,7 +128,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-//        Log.d(TAG, "onResume: ");
+        Log.d(TAG, "onResume: ");
 
         timeTable.setOnTouchListener((View view, MotionEvent event) -> {
             switch (event.getAction()) {
@@ -167,10 +174,6 @@ public class MainActivity extends AppCompatActivity{
         //课表数据
         timeTable = findViewById(R.id.timeTable);
 
-        //切换课表
-        contentView = getLayoutInflater().inflate(R.layout.pop_window, null);
-        rvTableName = contentView.findViewById(R.id.pop_rv_table_name);
-
         bg_none = findViewById(R.id.bg_none);
         bg_none.setVisibility(View.GONE);
 
@@ -189,13 +192,13 @@ public class MainActivity extends AppCompatActivity{
         sun = findViewById(R.id.week_sun);
 
         //从sp获取初始数据
+        termId = sp.getString("termId","1");
         className = sp.getString("className","默认");
         timeId = sp.getString("timeId","1");
         termStart = sp.getLong("termStart", new Date().getTime());
         curWeek = sp.getString("curWeek", "1");
         secTime = sp.getInt("secTime", 10);
         termWeeks = sp.getString("termWeeks","20");
-        termId = sp.getString("termId","1");
 
         //获取开学日期-现在第几周
         tv_curWeek.setText("第"+curWeek+"周");
@@ -233,86 +236,90 @@ public class MainActivity extends AppCompatActivity{
         rvSchedule.setNestedScrollingEnabled(false);
     }
 
-    private TableNameAdapter.OnItemClickListener onItemClickListener;
 
     /**
      * 初始化切换课程表
      */
-    private void initTableName(String termId){
+    private void initTableName(){
         configDataList.clear();
-        String id = sp.getString("termId","1");
-        configDataList = sqHelper.queryConfig(Integer.parseInt(id));
+        String termId = sp.getString("termId","1");
+        configDataList = sqHelper.queryConfig(Integer.parseInt(termId));
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         rvTableName.setLayoutManager(manager);
         tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
         rvTableName.setAdapter(tableNameAdapter);
-        tableNameAdapter.setOnItemClickListener(new TableNameAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                int index = -1;
-                if(!configDataList.get(position).isChecked()){
-                    index = position;
-                    for(int i=0; i<configDataList.size(); i++){
-                        if(i == position){
-                            configDataList.get(i).setChecked(true);
-                            int termId = configDataList.get(i).getId();
-                            String className = configDataList.get(i).getClassName();
-                            String timeId = configDataList.get(i).getTimeId();
-                            long termStart = Long.parseLong(configDataList.get(i).getTermStart());
-                            String curWeek = configDataList.get(i).getCurWeek();
-                            String secTime = configDataList.get(i).getSceTime();
-                            String termWeeks = configDataList.get(i).getTermWeeks();
-
-                            //修改sp对应的内容
-                            sp.edit().putString("termId",String.valueOf(termId)).apply();
-                            sp.edit().putString("className",String.valueOf(className)).apply();
-                            sp.edit().putString("timeId",String.valueOf(timeId)).apply();
-                            sp.edit().putLong("termStart", termStart).apply();
-                            sp.edit().putString("curWeek",String.valueOf(curWeek)).apply();
-                            sp.edit().putInt("secTime",Integer.parseInt(secTime)).apply();
-                            sp.edit().putString("termWeeks",String.valueOf(termWeeks)).apply();
-                        }else{
-                            configDataList.get(i).setChecked(false);
-                        }
-                        Log.d(TAG, "for:循环内 ");
-                    }
-                    Log.d(TAG, "for:循环内出循环 ");
-                    //换课表后，刷新recycle的显示界面
-                    tableNameAdapter.notifyDataSetChanged();
-                }if(index == position){
-                    
-                }else{
-
-                }
-                //改变课表后 要刷新界面
-                initView();
-                initTime(sp.getInt("secTime",10), sp.getString("timeId","1"));
-                long start = sp.getLong("termStart",new Date().getTime());
-                timeTable.loadData(acquireData(), new Date(start));
-                ToastCustom.showMsgWarning(MainActivity.this, "点击课表"+configDataList.get(position).getClassName());
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                if(!configDataList.get(position).isChecked()){
-                    ToastCustom.showMsgWarning(MainActivity.this, "长按"+configDataList.get(position).getClassName());
-                }
-            }
-        });
+        //给课表设置监听
+        tableNameAdapter.setOnItemClickListener(this.myTableListener);
     }
+    //课表选择的监听
+    private TableNameAdapter.OnItemClickListener myTableListener = new TableNameAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            if(!configDataList.get(position).isChecked()){
+                for(int i=0; i<configDataList.size(); i++){
+                    if(i != position){
+                        configDataList.get(i).setChecked(false);
+                    }else{
+                        configDataList.get(i).setChecked(true);
+                        int termId = configDataList.get(i).getId();
+                        String className = configDataList.get(i).getClassName();
+                        String timeId = sqHelper.queryTimeId(String.valueOf(termId));
+                        long termStart = Long.parseLong(configDataList.get(i).getTermStart());
+                        String curWeek = configDataList.get(i).getCurWeek();
+                        String secTime = configDataList.get(i).getSceTime();
+                        String termWeeks = configDataList.get(i).getTermWeeks();
+//                        Log.d(TAG, "onItemClick: =======================");
+//                        Log.d(TAG, "termId: "+configDataList.get(i).getId());
+//                        Log.d(TAG, "className: "+className);
+//                        Log.d(TAG, "timeId: "+timeId);
+//                        Log.d(TAG, "termStart: "+termStart);
+//                        Log.d(TAG, "curWeek: "+curWeek);
+//                        Log.d(TAG, "secTime: "+secTime);
+//                        Log.d(TAG, "termWeeks: "+termWeeks);
+//                        Log.d(TAG, "onItemClick: =======================");
+                        //修改sp对应的内容
+                        sp.edit().putString("termId",String.valueOf(termId)).apply();
+                        sp.edit().putString("className",className).apply();
+                        sp.edit().putString("timeId",timeId).apply();
+//                        Log.d(TAG, "onItemClick: sp.get====="+sp.getString("timeId", "0"));
+                        sp.edit().putLong("termStart", termStart).apply();
+                        sp.edit().putString("curWeek",curWeek).apply();
+                        sp.edit().putInt("secTime",Integer.parseInt(secTime)).apply();
+                        sp.edit().putString("termWeeks",termWeeks).apply();
+                    }
+                }
+                //换课表后，刷新recycle的显示界面
+                tableNameAdapter.notifyDataSetChanged();
+            }
+            //改变课表后 要刷新界面
+            initView();
+            initTime(sp.getInt("secTime",10), sp.getString("timeId","1"));
+            long start = sp.getLong("termStart",new Date().getTime());
+            timeTable.loadData(acquireData(), new Date(start));
+//            ToastCustom.showMsgWarning(MainActivity.this, "点击课表"+configDataList.get(position).getClassName());
+        }
+
+        @Override
+        public void onItemLongClick(View view, int position) {
+            if(!configDataList.get(position).isChecked()){
+                ToastCustom.showMsgWarning(MainActivity.this, "长按"+configDataList.get(position).getClassName());
+            }
+        }
+    };
 
     private List<CourseData> acquireData(){
         //首次使用
         if (sp.getBoolean("isFirstUse", true)) {
             sp.edit().putBoolean("isFirstUse", false).apply();
+            sp.edit().putString("termId", termId).apply();
             sp.edit().putString("className", className).apply();
             sp.edit().putString("timeId", timeId).apply();
             sp.edit().putLong("termStart", termStart).apply();
             sp.edit().putString("curWeek", curWeek).apply();
             sp.edit().putInt("secTime", secTime).apply();
             sp.edit().putString("termWeeks", termWeeks).apply();
-            sp.edit().putString("termId", termId).apply();
+
         }else{
             courses = sqlite.listAll(termId);
         }
@@ -398,14 +405,12 @@ public class MainActivity extends AppCompatActivity{
      * https://www.jianshu.com/p/e331ffd2452f
      */
     private void showPopWindow(){
-
         //seekBar  设置不可见
         SeekBar seekBar = contentView.findViewById(R.id.seekBar);
         seekBar.setVisibility(View.GONE);
-        initTableName(termId);
-        PopupWindow popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
+
         popupWindow.dismiss();
-        popupWindow.isShowing();
+//        popupWindow.isShowing();
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
         popupWindow.setAnimationStyle(R.style.pop_style);
@@ -438,15 +443,19 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
                 break;
             case R.id.bt_ellipsis:
+                //先初始化课表
+                initTableName();
                 showPopWindow();
                 break;
             case R.id.update_week:
                 intentActivity(ScheduleData.class);
                 break;
             case R.id.add_table:
+                popupWindow.dismiss();
                 btnInsertTable();
                 break;
             case R.id.manage:
+                popupWindow.dismiss();
                 intentActivity(ManyTable.class);
                 break;
             case R.id.menu_clock:
@@ -475,21 +484,17 @@ public class MainActivity extends AppCompatActivity{
 
     //新建课表
     private void btnInsertTable() {
+        popupWindow.dismiss();
         dialog = new DialogCustom(MainActivity.this, R.layout.dialog_tablename,0.8);
         dialog.setTableTitle("新建课表");
-        dialog.setTableNameCancelListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setTableNameCancelListener(view -> dialog.dismiss());
         dialog.setTableNameConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 long insert = btnInsert();
                 if(insert > 0 ){
                     ToastCustom.showMsgTrue(MainActivity.this, "新建成功~");
-                    initTableName("1");
+//                    initTableName("1");
                 }else{
                     ToastCustom.showMsgFalse(MainActivity.this, "新建失败~");
                 }

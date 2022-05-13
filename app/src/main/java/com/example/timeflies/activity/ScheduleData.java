@@ -147,11 +147,13 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                 BtnTermWeeks();
                 break;
             case R.id.view_menu_added:
-                intentActivity(MenuAdded.class);
+                String term_id = sp.getString("termId","1");
+                Intent intent = new Intent(ScheduleData.this, MenuAdded.class);
+                intent.putExtra("termId",term_id);
+                startActivity(intent);
                 break;
         }
     }
-
 
     /**
      * 页面跳转
@@ -186,7 +188,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     class_name.setText(names);
                     //同步数据库和sp
                     sp.edit().putString("className",String.valueOf(names)).apply();
-                    sqHelper.updateConfig("className", names);
+                    sqHelper.updateConfig("className", names, sp.getString("termId","1"));
                     dialogCustom.dismiss();
                 }
             }
@@ -226,13 +228,13 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "计算当前周: " +week);
 
                 //同步数据库和sp
-                cur_week.setText("第"+week+"周");
+                cur_week.setText("第 "+week+" 周");
                 term_Start.setText(ScheduleSupport.longToDate(time.getTime()));
 
                 sp.edit().putLong("termStart",time.getTime()).apply();
                 sp.edit().putString("curWeek",String.valueOf(week)).apply();
-                sqHelper.updateConfig("termStart",String.valueOf(time.getTime()));
-                sqHelper.updateConfig("curWeek", String.valueOf(week));
+                sqHelper.updateConfig("termStart",String.valueOf(time.getTime()), termId);
+                sqHelper.updateConfig("curWeek", String.valueOf(week), termId);
             }
         },year, month, dayOfMonth);
         datePickerDialog.show();
@@ -270,7 +272,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     cur_week.setText("第 "+week+" 周");
                     //同步数据库和sp
                     sp.edit().putString("curWeek",week).apply();
-                    sqHelper.updateConfig("curWeek", week);
+                    sqHelper.updateConfig("curWeek", week, termId);
                     dialogCustom.dismiss();
                 }
             }
@@ -311,7 +313,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     //同步数据库
 //                    Log.d(TAG, "Integer.parseInt(number): "+Integer.parseInt(number));
                     sp.edit().putInt("secTime", Integer.parseInt(number)).apply();
-                    sqHelper.updateConfig("secTime", number);
+                    sqHelper.updateConfig("secTime", number, termId);
                     dialogCustom.dismiss();
                 }
             }
@@ -347,7 +349,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     term_weeks.setText(term);
                     //同步到数据库
                     sp.edit().putString("termWeeks",term).apply();
-                    sqHelper.updateConfig("termWeeks", term);
+                    sqHelper.updateConfig("termWeeks", term, termId);
 
                     dialogCustom.dismiss();
                 }

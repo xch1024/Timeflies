@@ -20,10 +20,12 @@ import com.example.timeflies.adapter.ContentAdapter;
 import com.example.timeflies.adapter.MySpinnerAdapter;
 import com.example.timeflies.adapter.TableChoiceAdapter;
 import com.example.timeflies.model.TimeData;
+import com.example.timeflies.operater.ScheduleSupport;
 import com.example.timeflies.sqlite.SqHelper;
 import com.example.timeflies.utils.DialogCustom;
 import com.example.timeflies.utils.ToastCustom;
 
+import java.util.Date;
 import java.util.List;
 
 public class MenuClock extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -71,13 +73,12 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         spinner = findViewById(R.id.sp_time_id);
         vAddItem = findViewById(R.id.addItem);
 
-
         tvTitle.setText(R.string.menu_clock_view);
         ivNull.setVisibility(View.GONE);
     }
 
     private void initSpinner(){
-        timeId = sp.getString("timeId", "1");
+        timeId = sp.getString("timeId", "0");
         list = sqHelper.queryTime();
         int i = queryPosById(list, Integer.parseInt(timeId));
         adapter = new MySpinnerAdapter(list,MenuClock.this);
@@ -106,25 +107,36 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
      * 找对应id的pos
      */
     private int queryPosById(List<TimeData> list, int timeId){
-        int i = 0;
+        int i =0;
         while(timeId != list.get(i).getId()){
             i++;
         }
+//        Log.d(TAG, "sp中的timeId: "+list.get(i).getId());
+//        Log.d(TAG, "timeId对应的位置i: "+i);
         return i;
     }
 
     /**
-     * 监听spinner
+     * 监听spinner 列表选择框
      */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        //sp中当前timeId
         timeId = sp.getString("timeId", "1");
             if(i != queryPosById(timeDataList, Integer.parseInt(timeId))){
-                ToastCustom.showMsgTrue(MenuClock.this,"时间表切换成功~");
-                sp.edit().putString("timeId",String.valueOf(list.get(i).getId())).apply();
+                String id = String.valueOf(list.get(i).getId());
+                String termId = sp.getString("termId", "1");
+//                Log.d(TAG, "onItemSelected: list.get(i).getId()"+id);
+                sp.edit().putString("timeId",id).apply();
+//                Log.d(TAG, "sp.getString(\"termId\", \"1\"): "+term);
+                sqHelper.updateConfig("timeId",id, termId);
 //                Log.d("xch", "onItemSelected: "+sp.getString("timeId","1"));
+                ToastCustom.showMsgTrue(MenuClock.this,"时间表切换成功~");
+//                Log.d(TAG, "当前作息表id "+id);
                 adapter.notifyDataSetChanged();
                 spinner.setSelection(i);
+            }else{
+
             }
         }
 
@@ -182,7 +194,7 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
         public void onItemLongClick(View v, int position) {
             switch (v.getId()){
                 case R.id.ivDelete:
-                    String spId = sp.getString("timeId","0");
+                    String spId = sp.getString("timeId","1");
                     int id = timeDataList.get(position).getId();
                     if(Integer.parseInt(spId) == id){
                         ToastCustom.showMsgWarning(MenuClock.this,"不能删除已选中的时间表哦~");

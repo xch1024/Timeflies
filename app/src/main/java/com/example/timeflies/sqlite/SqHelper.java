@@ -56,11 +56,11 @@ public class SqHelper {
      * 查询配置信息
      * @return
      */
-    public List<ConfigData> queryConfig() {
+    public List<ConfigData> queryConfigByTermId(String termId) {
         List<ConfigData> list = new ArrayList<>();
         db = helper.getReadableDatabase();
         if (db.isOpen()) {
-            Cursor cursor = db.rawQuery("select * from configs",null);
+            Cursor cursor = db.rawQuery("select * from configs where _id =?",new String[]{String.valueOf(termId)});
             while(cursor.moveToNext()){
                 ConfigData configData = new ConfigData();
                 configData.setId(cursor.getInt(0));
@@ -79,7 +79,25 @@ public class SqHelper {
     }
 
     /**
-     * 查询配置信息
+     * 查找当前学期的时间表id
+     */
+    public String queryTimeId(String termId){
+        String timeId = "";
+        db = helper.getReadableDatabase();
+        if (db.isOpen()) {
+            Cursor cursor = db.rawQuery("select * from configs where _id =?",new String[]{String.valueOf(termId)});
+            while(cursor.moveToNext()){
+                timeId = cursor.getString(2);
+            }
+            cursor.close();
+        }
+        db.close();
+        return timeId;
+    }
+
+    /**
+     * 查询配置信息 并且设置一个布尔类型  当前学期=Config中的 id时设为true
+     * 转换成List
      * @return
      */
     public List<ConfigData> queryConfig(int id) {
@@ -114,13 +132,13 @@ public class SqHelper {
      * @param target
      * @return
      */
-    public void updateConfig(String target, String after){
+    public void updateConfig(String target, String after, String id){
         db = helper.getWritableDatabase();
         //规范：确保数据库打开成功，才能放心操作
         if(db.isOpen()){
             ContentValues values = new ContentValues();
             values.put(target,after);
-            db.update("configs", values, "_id = ?", new String[]{"1"});
+            db.update("configs", values, "_id = ?", new String[]{id});
         }
         db.close();
     }

@@ -47,13 +47,45 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
 
     }
 
+    /**
+     * RecyclerView实现单选的三种⽅式 https://wenku.baidu.com/view/c665832f5b1b6bd97f192279168884868762b8e7?bfetype=new
+     */
     private void setContView(TableNameHolder holder, int position) {
         ConfigData data = list.get(position);
         holder.table_name.setText(data.getClassName());
-        //初始化选择的课表
-        holder.radio_table.setChecked(data.isChecked());
 
-        holder.radio_table.setTag(position);
+        if(data.isChecked()){
+            holder.image_table.setImageResource(R.drawable.photo_radio_select);
+        }else{
+            holder.image_table.setImageResource(R.drawable.photo_radio_none_select);
+        }
+        holder.image_table.setOnClickListener(TableNameAdapter.this);
+        holder.image_table.setOnLongClickListener(TableNameAdapter.this);
+        //初始化选择的课表
+//        if(index == position){
+//            TableNameHolder vhNew = (TableNameHolder) myRecycle.findViewHolderForAdapterPosition(index);
+//            vhNew.image_table.setImageResource(R.drawable.photo_radio_none_select);
+//            index = -1;
+////            Log.d(TAG, "index == position:=== "+index);
+//        }else if(index != -1){
+//            TableNameHolder couponVh = (TableNameHolder) myRecycle.findViewHolderForAdapterPosition(index);
+//            if(couponVh !=null){
+//                couponVh.image_table.setImageResource(R.drawable.photo_radio_none_select);
+//            }else{
+//                notifyItemChanged(position);
+//            }
+//            index = position;
+//            TableNameHolder vhNew = (TableNameHolder) myRecycle.findViewHolderForAdapterPosition(index);
+//            vhNew.image_table.setImageResource(R.drawable.photo_radio_select);
+//            Log.d(TAG, "index != position && index != -1:=== "+index);
+//        }else if(index ==-1){
+//            TableNameHolder couponVh = (TableNameHolder) myRecycle.findViewHolderForAdapterPosition(index);
+//            index =position;
+//            couponVh.image_table.setImageResource(R.drawable.photo_radio_select);
+//            Log.d(TAG, "index ==-1:=== "+index);
+//        }
+
+        holder.image_table.setTag(position);
     }
 
     @Override
@@ -82,8 +114,7 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
     public class TableNameHolder extends RecyclerView.ViewHolder {
 
         private TextView  table_name;
-        private RadioGroup radio_group_table;
-        private RadioButton radio_table;
+        private ImageView image_table;
 
         public TableNameHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,11 +123,10 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
 
         private void initView() {
             table_name = itemView.findViewById(R.id.table_name);
-            radio_group_table = itemView.findViewById(R.id.radio_group_table);
-            radio_table = itemView.findViewById(R.id.radio_table);
+            image_table = itemView.findViewById(R.id.image_table);
 
-            radio_table.setOnClickListener(TableNameAdapter.this);
-            radio_table.setOnLongClickListener(TableNameAdapter.this);
+            image_table.setOnClickListener(TableNameAdapter.this);
+            image_table.setOnLongClickListener(TableNameAdapter.this);
         }
     }
 

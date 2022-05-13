@@ -1,6 +1,7 @@
 package com.example.timeflies.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +35,14 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Time
     @Override
     public void onBindViewHolder(@NonNull TimetableAdapter.TimetableHolder holder, int position) {
         ConfigData data = list.get(position);
-        if(position == 0){
-            holder.ivDel.setVisibility(View.GONE);
-        }
+
         holder.tvName.setText(data.getClassName());
+        if(data.isChecked()){
+            Log.d(TAG, "data.isChecked: "+data.getClassName());
+            holder.ivDel.setVisibility(View.GONE);
+        }else{
+            holder.ivDel.setVisibility(View.VISIBLE);
+        }
 
         holder.itemView.setTag(position);
         holder.ivDel.setTag(position);
@@ -58,8 +63,10 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Time
             ivEdit = itemView.findViewById(R.id.many_edit);
             ivDel = itemView.findViewById(R.id.many_delete);
 
+
+
             //需要编辑和删除功能再打开
-//            ivEdit.setVisibility(View.GONE);
+            ivEdit.setVisibility(View.GONE);
 //            ivDel.setVisibility(View.GONE);
 
             ivEdit.setOnClickListener(TimetableAdapter.this);

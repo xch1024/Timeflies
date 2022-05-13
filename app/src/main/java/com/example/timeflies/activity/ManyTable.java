@@ -63,7 +63,8 @@ public class ManyTable extends AppCompatActivity {
 
     private void initTable(){
         configDataList.clear();
-        configDataList = sqHelper.queryConfig();
+        String id = sp.getString("termId","1");
+        configDataList = sqHelper.queryConfig(Integer.parseInt(id));
         LinearLayoutManager manager = new LinearLayoutManager(ManyTable.this);
         rv_many_table.setLayoutManager(manager);
         TimetableAdapter timetableAdapter = new TimetableAdapter(configDataList, ManyTable.this);
