@@ -72,6 +72,8 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/seekbar_thumb.xml" value="0.19" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/selector_radio.xml" value="0.195" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/shape_rv_classname_shape.xml" value="0.3355" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/shape_rv_many_table.xml" value="0.3565" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/shape_rv_many_table_bottom.xml" value="0.3565" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast.xml" value="0.1895" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_bg.xml" value="0.2585" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/drawable/toast_edit.xml" value="0.1895" />
@@ -164,7 +166,7 @@
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_name.xml" value="0.1" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_course_schedule.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_many_table.xml" value="0.5" />
-        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_table_name.xml" value="0.33" />
+        <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_table_name.xml" value="0.75" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_time_name.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_times.xml" value="0.24409722222222222" />
         <entry key="..\:/Android/Timeflies/app/src/main/res/layout/rv_times_section.xml" value="0.24409722222222222" />

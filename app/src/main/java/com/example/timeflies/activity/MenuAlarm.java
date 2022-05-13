@@ -41,13 +41,13 @@ public class MenuAlarm extends AppCompatActivity implements View.OnClickListener
         tvDate = findViewById(R.id.date);
         tvWeek = findViewById(R.id.week);
         ivSet = findViewById(R.id.set);
-        tvSchedule = findViewById(R.id.schedule);
-        tvCourse = findViewById(R.id.courseName);
-        tvTeacher = findViewById(R.id.teacherName);
-        tvLocation = findViewById(R.id.location);
-        tvRemark = findViewById(R.id.remark);
+//        tvSchedule = findViewById(R.id.schedule);
+//        tvCourse = findViewById(R.id.courseName);
+//        tvTeacher = findViewById(R.id.teacherName);
+//        tvLocation = findViewById(R.id.location);
+//        tvRemark = findViewById(R.id.remark);
         long sysTime = System.currentTimeMillis();//获取系统时间
-        CharSequence sysTimeStr = DateFormat.format("H:mm", sysTime);//时间显示格式
+        CharSequence sysTimeStr = DateFormat.format("HH:mm:ss", sysTime);//时间显示格式
         CharSequence month = DateFormat.format("M", sysTime);//月显示格式
         CharSequence day = DateFormat.format("dd", sysTime);//日显示格式
         CharSequence week = DateFormat.format("E", sysTime);//周显示格式
@@ -95,7 +95,7 @@ public class MenuAlarm extends AppCompatActivity implements View.OnClickListener
             switch (msg.what) {
                 case 1:
                     long sysTime = System.currentTimeMillis();//获取系统时间
-                    CharSequence sysTimeStr = DateFormat.format("H:mm", sysTime);//时间显示格式
+                    CharSequence sysTimeStr = DateFormat.format("HH:mm:ss", sysTime);//时间显示格式
                     CharSequence month = DateFormat.format("M", sysTime);//月显示格式
                     CharSequence day = DateFormat.format("dd", sysTime);//日显示格式
                     CharSequence week = DateFormat.format("E", sysTime);//周显示格式

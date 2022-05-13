@@ -108,24 +108,31 @@ public class ScheduleSupport {
 
     /**
      * 根据开学时间计算当前周
-     *
-     * @param startTime 满足"yyyy-MM-dd HH:mm:ss"模式的字符串
+     * @param termStart 满足"yyyy-M-dd"模式的long类型
      * @return
      */
-    public static int timeTransform(String startTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
-        try {
-            long start = sdf.parse(startTime).getTime();
-//            Log.d(TAG, "timeTransform中当前时间: start==="+longToDate(start));
-            long end = new Date().getTime();//当前时间
-//            Log.d(TAG, "timeTransform中当前时间: end==="+longToDate(end));
-            long seconds = (end - start) / 1000;
-            long day = seconds / (24 * 3600);
-            int week = (int) (Math.floor(day / 7) + 1);
-            return week;
-        } catch (ParseException e) {
+    public static int timeTransform(Long termStart) {
+        long start = termStart;
+        long end = new Date().getTime();//当前时间
+        //如果当前日期小于开学日期 直接返回
+        if(start > end){
             return -1;
         }
+        long seconds = (end - start) / 1000;
+        long day = seconds / (24 * 3600);
+        int week = (int) (Math.floor(day / 7) +1);
+        return week;
+    }
+
+    /**
+     * 计算开学日期
+     * @param week 当前周
+     * @return
+     */
+    public static long setDate(int week){
+        long now = new Date().getTime();
+        long day = week * 7 * 3600 * 24 * 1000;
+        return now - day;
     }
 
     /**
@@ -136,5 +143,7 @@ public class ScheduleSupport {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
         return sdf.format(date);
     }
+
+
 
 }

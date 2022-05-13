@@ -196,7 +196,6 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
         dialogCustom.show();
     }
 
-    //todo 日期转换没设置
     /**
      * 学期开始日期按钮
      */
@@ -224,7 +223,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                 String timeNow = ScheduleSupport.longToDate(time.getTime());
                 Log.d(TAG, "日期选择交互器选择的时间:==== "+timeNow);
                 //计算当前周
-                int week = ScheduleSupport.timeTransform(timeNow);
+                int week = ScheduleSupport.timeTransform(time.getTime());
                 Log.d(TAG, "计算当前周: " +week);
 
                 //同步数据库和sp
@@ -265,14 +264,23 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                 //获取输入框文字
                 String week = dialogCustom.getScheduleEdit();
                 if(TextUtils.isEmpty(week)){
-                    ToastCustom.showMsgWarning(ScheduleData.this, "名称不能为空哦ʕ ᵔᴥᵔ ʔ");
+                    ToastCustom.showMsgWarning(ScheduleData.this, "内容不能为空哦ʕ ᵔᴥᵔ ʔ");
                 }else if(Integer.parseInt(week) > Integer.parseInt(termWeeks) ||Integer.parseInt(week) <= 0){
                     ToastCustom.showMsgFalse(ScheduleData.this, "请注意范围ʕ ᵔᴥᵔ ʔ");
                 }else{
+                    //计算开学日期
+                    long termStart = ScheduleSupport.setDate(Integer.parseInt(week));
+                    String term = ScheduleSupport.longToDate(termStart);
+                    Log.d(TAG, "计算开学日期: "+term);
                     cur_week.setText("第 "+week+" 周");
+                    term_Start.setText(term);
+
+
+                    sp.edit().putLong("termStart", termStart).apply();
                     //同步数据库和sp
                     sp.edit().putString("curWeek",week).apply();
                     sqHelper.updateConfig("curWeek", week, termId);
+                    sqHelper.updateConfig("termStart",term, termId);
                     dialogCustom.dismiss();
                 }
             }

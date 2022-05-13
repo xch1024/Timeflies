@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:background="@drawable/ripple_course"
-        android:layout_margin="20dp"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <FrameLayout
-            android:background="@drawable/ripple_border"
+        <View
+            android:background="@drawable/shape_rv_many_table"
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
-            android:layout_height="130dp">
+            android:layout_height="130dp"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="130dp"/>
-            <View
-                android:layout_gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"/>
+        <LinearLayout
+            android:background="@drawable/shape_rv_many_table_bottom"
+            android:layout_margin="21dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/many_name"
+                android:text="课表名称"
+                android:textColor="@color/content_text_color"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
             <LinearLayout
-                android:gravity="center_vertical"
-                android:layout_gravity="bottom"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:id="@+id/many_name"
-                    android:text="课表名称"
-                    android:textColor="@color/content_text_color"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"/>
-                <LinearLayout
-                    android:layout_marginRight="15dp"
-                    android:gravity="right"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/many_edit"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/ripple_borderless"
-                        android:src="@drawable/photo_edit" />
+                <ImageView
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/many_edit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ripple_borderless"
+                    android:src="@drawable/photo_edit" />
 
-                    <ImageView
-                        android:id="@+id/many_delete"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="right"
-                        android:background="@drawable/ripple_borderless"
-                        android:src="@drawable/photo_remove_red"/>
-                </LinearLayout>
-
+                <ImageView
+                    android:id="@+id/many_delete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/ripple_borderless"
+                    android:src="@drawable/photo_remove_red"/>
             </LinearLayout>
 
-        </FrameLayout>
-    </LinearLayout>
+        </LinearLayout>
 
-</FrameLayout>
+        <View
+            android:background="@drawable/ripple_course"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"/>
+
+        <View
+            android:background="@drawable/ripple_border"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"/>
+
+    </FrameLayout>
+
+</LinearLayout>

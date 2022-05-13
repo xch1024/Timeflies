@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView rvSchedule;
 
     //切换课表
+    private LinearLayoutManager manager;
     private PopupWindow popupWindow;
     private TableNameAdapter tableNameAdapter;
     private View contentView;
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity{
 
         initView();
         setBar_color();
+
+
     }
 
     /**
@@ -119,6 +123,7 @@ public class MainActivity extends AppCompatActivity{
         contentView = getLayoutInflater().inflate(R.layout.pop_window, null);
         rvTableName = contentView.findViewById(R.id.pop_rv_table_name);
         popupWindow = new PopupWindow(contentView,1000,ViewGroup.LayoutParams.WRAP_CONTENT);
+
 
         //设置周标题栏文字样式
         setWeekBold();
@@ -240,14 +245,15 @@ public class MainActivity extends AppCompatActivity{
     /**
      * 初始化切换课程表
      */
-    private void initTableName(){
+    public void initTableName(){
         configDataList.clear();
         String termId = sp.getString("termId","1");
         configDataList = sqHelper.queryConfig(Integer.parseInt(termId));
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+//        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager = new LinearLayoutManager(this);
+        tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         rvTableName.setLayoutManager(manager);
-        tableNameAdapter = new TableNameAdapter(configDataList,MainActivity.this);
         rvTableName.setAdapter(tableNameAdapter);
         //给课表设置监听
         tableNameAdapter.setOnItemClickListener(this.myTableListener);
@@ -465,7 +471,9 @@ public class MainActivity extends AppCompatActivity{
                 intentActivity(MenuSetting.class);
                 break;
             case R.id.menu_help:
-                ToastCustom.showMsgTrue(this,"常见问题按钮");
+                Uri uri = Uri.parse("https://github.com/xch1024/Timeflies");
+                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent1);
                 break;
             case R.id.menu_about:
                 intentActivity(MenuAbout.class);

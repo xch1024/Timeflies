@@ -1,6 +1,7 @@
 package com.example.timeflies.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +57,10 @@ public class TableNameAdapter extends RecyclerView.Adapter<TableNameAdapter.Tabl
 
         if(data.isChecked()){
             holder.image_table.setImageResource(R.drawable.photo_radio_select);
+            holder.table_name.setTextColor(Color.parseColor("#FF41964B"));
         }else{
             holder.image_table.setImageResource(R.drawable.photo_radio_none_select);
+            holder.table_name.setTextColor(Color.parseColor("#FFF8F8FF"));
         }
         holder.image_table.setOnClickListener(TableNameAdapter.this);
         holder.image_table.setOnLongClickListener(TableNameAdapter.this);

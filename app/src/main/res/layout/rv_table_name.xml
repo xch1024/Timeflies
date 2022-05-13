@@ -16,10 +16,10 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/image_table"
-                android:button="@null"
-                android:background="@drawable/selector_radio"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:src="@drawable/photo_radio_none_select"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"/>
+
         </RadioGroup>
 
         <TextView

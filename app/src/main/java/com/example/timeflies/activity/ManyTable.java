@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -81,18 +82,22 @@ public class ManyTable extends AppCompatActivity {
         dialog.setTableNameConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long insert = btnInsert();
-                if(insert > 0 ){
-                    ToastCustom.showMsgTrue(ManyTable.this, "新建成功~");
-                    initTable();
+                String tableName = dialog.getTableEdit();
+                if(TextUtils.isEmpty(tableName)){
+                    ToastCustom.showMsgWarning(ManyTable.this, "名称不能为空哦~");
                 }else{
-                    ToastCustom.showMsgFalse(ManyTable.this, "新建失败~");
+                    long insert = btnInsert(tableName);
+                    if(insert > 0 ){
+                        ToastCustom.showMsgTrue(ManyTable.this, "新建成功~");
+                        initTable();
+                    }else{
+                        ToastCustom.showMsgFalse(ManyTable.this, "新建失败~");
+                    }
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
             }
 
-            private long btnInsert() {
-                String tableName = dialog.getTableEdit();
+            private long btnInsert(String tableName) {
                 String timeId = sp.getString("timeId","1");
                 long termStart = sp.getLong("termStart",new Date().getTime());
                 String curWeek = sp.getString("curWeek","1");
@@ -106,13 +111,13 @@ public class ManyTable extends AppCompatActivity {
                 values.put("secTime", secTime);
                 values.put("termWeeks", termWeeks);
                 long insert = sqHelper.insertConfig(null, values);
+                return insert;
 //                Log.d(TAG, "tableName: "+tableName);
 //                Log.d(TAG, "timeId: "+timeId);
 //                Log.d(TAG, "termStart: "+ ScheduleSupport.longToDate(termStart));
 //                Log.d(TAG, "curWeek: "+curWeek);
 //                Log.d(TAG, "secTime: "+secTime);
 //                Log.d(TAG, "termWeeks: "+termWeeks);
-                return insert;
             }
         });
         dialog.show();
@@ -149,7 +154,7 @@ public class ManyTable extends AppCompatActivity {
         public void onItemLongClick(View v, TimetableAdapter.ViewName viewName, int position) {
             switch (v.getId()){
                 default:
-                    ToastCustom.showMsgWarning(ManyTable.this, "长按==="+(position+1));
+                    ToastCustom.showMsgWarning(ManyTable.this, "长按==="+configDataList.get(position).getClassName());
                     break;
              }
         }
