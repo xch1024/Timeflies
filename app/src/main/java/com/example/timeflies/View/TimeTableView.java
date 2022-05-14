@@ -86,7 +86,6 @@ public class TimeTableView extends LinearLayout {
      * @param courses
      */
     public int loadData(List<CourseData> courses, Date date) {
-//        Log.d(TAG, "loadData: getMaxSection"+getMaxSection());
         this.courseList = courses;
         this.startDate = date;
         weekNum = calcWeek(startDate);
@@ -105,16 +104,12 @@ public class TimeTableView extends LinearLayout {
         courseMap.clear();
         for (CourseData c : courseList) {
             String courseTime = c.getCourseTime();
-//            Log.d(TAG, "课程名称: "+c.getCourseName()+"======="+courseTime);
             if(TextUtils.isEmpty(courseTime)) continue;
             String[] courseArray = courseTime.split(";");
             for(int i = 0; i < courseArray.length; i++){
-//                Log.d(TAG, "courseArray["+ i +"]======="+courseArray[i]);
                 CourseData clone = c.clone();
                 String[] info = courseArray[i].split(":");
                 if (Integer.parseInt(info[0]) > weekNum || Integer.parseInt(info[1]) < weekNum) continue;
-//                  Log.d(TAG, c.getCourseName()+"===时间段属于当前周:"+"======="+courseArray[i]);
-                //单双周类型  是否属于当前周
                 if ("全周".equals(info[2]) || weekNum % 2 == 0 && "双周".equals(info[2]) || weekNum % 2 == 1 && "单周".equals(info[2])) {
                     clone.setStartWeek(Integer.parseInt(info[0]));
                     clone.setEndWeek(Integer.parseInt(info[1]));
@@ -124,9 +119,7 @@ public class TimeTableView extends LinearLayout {
                     clone.setSectionEnd(Integer.parseInt(info[5]));
                     clone.setTeacherName(info[6]);
                     clone.setClassroom(info[7]);
-//                    Log.d(TAG, "clone: ==="+clone);
                     List<CourseData> courses = courseMap.get(clone.getDay());
-    //                Log.d(TAG, "courses: ===="+courses);
                     if (null == courses) {
                         courses = new ArrayList<>();
                         courseMap.put(clone.getDay(), courses);
@@ -135,7 +128,6 @@ public class TimeTableView extends LinearLayout {
                 }
             }
         }
-//        Log.d(TAG, "courseMap: "+courseMap);
     }
 
     /**
@@ -153,18 +145,15 @@ public class TimeTableView extends LinearLayout {
      */
     public int flushView(Map<Integer, List<CourseData>> courseMap,long weekNum) {
         int value = 0;
-        //初始化主布局
         if (null != mMainLayout) removeView(mMainLayout);
         mMainLayout = new LinearLayout(mContext);
         mMainLayout.setOrientation(HORIZONTAL);
         mMainLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         addView(mMainLayout);
-
         setCurWeek(weekNum);
-        //课程信息
         if (null == courseMap || courseMap.isEmpty()) {
             value = -1;
-        } else {//不为空
+        } else {
             for (int i = 1; i <= weeksNum; i++) {
                 value = 1;
                 addDayCourse(mMainLayout, courseMap, i);
@@ -182,42 +171,30 @@ public class TimeTableView extends LinearLayout {
      * @param day        星期
      */
     private void addDayCourse(ViewGroup pViewGroup, Map<Integer, List<CourseData>> courseMap, int day) {
-        //这里应该使用垂直线性布局
         LinearLayout linearLayout = new LinearLayout(mContext);
         LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         linearLayout.setLayoutParams(layoutParams);
         linearLayout.setOrientation(VERTICAL);
-        //第day天的课程信息
         List<CourseData> courses = getCourses(courseMap, day);
-        //如果第day天有课
         if (null != courses) {
-            //通过for循环，显示课程信息
             for (int i = 0, size = courses.size(); i < size; i++) {
                 CourseData course = courses.get(i);
-
                 int start = course.getSectionStart();
-                //addBlankCell，其作用就是添加一个空白块，用来给没有课程的地方占位，参数num表示添加几个空白块
-                //如果第day天没有有课，添加maxSection个空白块，在此程序中
                 if (i == 0) {
                     addBlankCell(linearLayout, start - 1);
                 }else{
-                    //添加两个课程之间的空白块 高度为spacing
                     int spacing = course.getSectionStart() - courses.get(i - 1).getSectionEnd() - 1;
                     addBlankCell(linearLayout, spacing);
-//                int height = course.getSectionEnd()-course.getSectionStart()+1;
                 }
-                //添加课程块， 高度为height
                 int height = course.getSectionEnd()-course.getSectionStart()+1;
                 AddAddCourseActivityCell(linearLayout, course, height);
 
                 if (i == size - 1) {
-                    //添加最后一个课程块 以后的空白块 last表示 最大高度-最后一个课程的结束节次
                     int last = courses.get(i).getSectionEnd();
                     addBlankCell(linearLayout, maxSection - last);
-//                    Log.d(TAG, "last: "+(maxSection - last));
                 }
             }
-        } else {//如果第day天没有有课，添加maxSection个空白块
+        } else {
             addBlankCell(linearLayout, maxSection);
         }
         pViewGroup.addView(linearLayout);
@@ -249,31 +226,23 @@ public class TimeTableView extends LinearLayout {
      */
     private void AddAddCourseActivityCell(ViewGroup pViewGroup, CourseData course, int height) {
         String color = course.getCourseColor();
-        //RoundTextView是自定义的一个类，其第2个和第3个参数用来表示textview的圆角大小和颜色
         RoundTextView textView = new RoundTextView(mContext, radius, Color.parseColor(color));
-
-        //设置课程块的大小
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height*cellHeight+2*tableLineWidth*(height-1));
         layoutParams.setMargins(tableLineWidth,tableLineWidth,tableLineWidth,tableLineWidth);
         textView.setLayoutParams(layoutParams);
-        //设置字体的大小
         textView.setTextSize(courseSize);
-        //字体颜色
         textView.setTextColor(Color.WHITE);
-        //字体居中显示
         textView.setGravity(Gravity.CENTER);
         if(course.getClassroom().equals("null")){
             course.setClassroom("");
         }else{
             course.setClassroom("\n@"+course.getClassroom());
-//            Log.d(TAG, "course.getClassroom(): "+course.getClassroom());
         }
         if(course.getTeacherName().equals("null")){
             course.setTeacherName("");
         }else{
             course.setTeacherName("\n"+course.getTeacherName());
         }
-        //设置内容
         textView.setText(String.format("%s%s\n\n第%d~%d周%s\n%s",
                 course.getCourseName(), course.getClassroom(),course.getStartWeek(),
                 course.getEndWeek(), course.getTeacherName(), course.getWeekType()));
@@ -292,7 +261,6 @@ public class TimeTableView extends LinearLayout {
             TextView blank = new TextView(mContext);
             LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, cellHeight);
             layoutParams.setMargins(tableLineWidth,tableLineWidth,tableLineWidth,tableLineWidth);
-//            blank.setBackgroundColor(Color.parseColor("#FF41964B"));
             blank.setLayoutParams(layoutParams);
             pViewGroup.addView(blank);
         }
@@ -303,7 +271,6 @@ public class TimeTableView extends LinearLayout {
             weekNum = weekNum - 1 <= 0 ? weekNum : weekNum - 1;
         }else{
             weekNum = weekNum + 1 > maxTerm  ? weekNum : weekNum + 1;
-//            Log.d(TAG, "toggleWeek: "+maxTerm);
         }
         handleData(courseMap, courseList, weekNum);
        int key = flushView(courseMap, weekNum);

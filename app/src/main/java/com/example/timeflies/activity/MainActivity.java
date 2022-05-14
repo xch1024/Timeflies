@@ -42,8 +42,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
-
 public class MainActivity extends AppCompatActivity{
 
     private String TAG = "xch";
@@ -96,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: begin");
         //数据库配置
-        SQLiteStudioService.instance().start(this);
+//        SQLiteStudioService.instance().start(this);
         sp = getSharedPreferences("config", MODE_PRIVATE);
 
         initView();
@@ -274,7 +272,7 @@ public class MainActivity extends AppCompatActivity{
                         String timeId = sqHelper.queryTimeId(String.valueOf(termId));
                         long termStart = Long.parseLong(configDataList.get(i).getTermStart());
                         String curWeek = configDataList.get(i).getCurWeek();
-                        String secTime = configDataList.get(i).getSceTime();
+                        int secTime = sqHelper.querySecTime(String.valueOf(termId));
                         String termWeeks = configDataList.get(i).getTermWeeks();
 //                        Log.d(TAG, "onItemClick: =======================");
 //                        Log.d(TAG, "termId: "+configDataList.get(i).getId());
@@ -292,7 +290,7 @@ public class MainActivity extends AppCompatActivity{
 //                        Log.d(TAG, "onItemClick: sp.get====="+sp.getString("timeId", "0"));
                         sp.edit().putLong("termStart", termStart).apply();
                         sp.edit().putString("curWeek",curWeek).apply();
-                        sp.edit().putInt("secTime",Integer.parseInt(secTime)).apply();
+                        sp.edit().putInt("secTime",secTime).apply();
                         sp.edit().putString("termWeeks",termWeeks).apply();
                     }
                 }
@@ -507,7 +505,7 @@ public class MainActivity extends AppCompatActivity{
                     long insert = btnInsert(tableName);
                     if(insert > 0 ){
                         ToastCustom.showMsgTrue(MainActivity.this, "新建成功~");
-    //                    initTableName("1");
+                        //                    initTableName("1");
                     }else{
                         ToastCustom.showMsgFalse(MainActivity.this, "新建失败~");
                     }

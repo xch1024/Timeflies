@@ -123,22 +123,22 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         //sp中当前timeId
         timeId = sp.getString("timeId", "1");
-            if(i != queryPosById(timeDataList, Integer.parseInt(timeId))){
-                String id = String.valueOf(list.get(i).getId());
-                String termId = sp.getString("termId", "1");
+        if(i != queryPosById(timeDataList, Integer.parseInt(timeId))){
+            String id = String.valueOf(list.get(i).getId());
+            String termId = sp.getString("termId", "1");
 //                Log.d(TAG, "onItemSelected: list.get(i).getId()"+id);
-                sp.edit().putString("timeId",id).apply();
+            sp.edit().putString("timeId",id).apply();
 //                Log.d(TAG, "sp.getString(\"termId\", \"1\"): "+term);
-                sqHelper.updateConfig("timeId",id, termId);
+            sqHelper.updateConfig("timeId",id, termId);
 //                Log.d("xch", "onItemSelected: "+sp.getString("timeId","1"));
-                ToastCustom.showMsgTrue(MenuClock.this,"时间表切换成功~");
+            ToastCustom.showMsgTrue(MenuClock.this,"时间表切换成功~");
 //                Log.d(TAG, "当前作息表id "+id);
-                adapter.notifyDataSetChanged();
-                spinner.setSelection(i);
-            }else{
+            adapter.notifyDataSetChanged();
+            spinner.setSelection(i);
+        }else{
 
-            }
         }
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {

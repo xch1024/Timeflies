@@ -95,6 +95,20 @@ public class SqHelper {
         return timeId;
     }
 
+    public int querySecTime(String termId){
+        int secTime = 0;
+        db = helper.getReadableDatabase();
+        if (db.isOpen()) {
+            Cursor cursor = db.rawQuery("select * from configs where _id =?",new String[]{String.valueOf(termId)});
+            while(cursor.moveToNext()){
+                secTime = Integer.parseInt(cursor.getString(5));
+            }
+            cursor.close();
+        }
+        db.close();
+        return secTime;
+    }
+
     /**
      * 查询配置信息 并且设置一个布尔类型  当前学期=Config中的 id时设为true
      * 转换成List

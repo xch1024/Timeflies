@@ -156,7 +156,7 @@ public class ManyTable extends AppCompatActivity {
                 default:
                     ToastCustom.showMsgWarning(ManyTable.this, "长按==="+configDataList.get(position).getClassName());
                     break;
-             }
+            }
         }
     };
 

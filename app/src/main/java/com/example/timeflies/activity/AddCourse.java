@@ -199,7 +199,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 String courseRemark = dialogCustom.getTableEdit();
-                    course_remark.setText(courseRemark);
+                course_remark.setText(courseRemark);
                 dialogCustom.dismiss();
             }
         });

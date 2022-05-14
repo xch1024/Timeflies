@@ -612,10 +612,10 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
     // 颜色选择
     private void viewColor() {
         new ColorPickerDialog.Builder(ShowCourse.this, mColor)
-        .setHexValueEnabled(mHexValueEnable)
-        .setOnColorPickedListener(mListener)
-        .build()
-        .show();
+                .setHexValueEnabled(mHexValueEnable)
+                .setOnColorPickedListener(mListener)
+                .build()
+                .show();
     }
 
     private ColorPickerDialog.OnColorPickedListener mListener = new ColorPickerDialog.OnColorPickedListener() {
@@ -705,7 +705,7 @@ public class ShowCourse extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 String courseRemark = dialogCustom.getTableEdit();
-                    course_remark.setText(courseRemark);
+                course_remark.setText(courseRemark);
                 dialogCustom.dismiss();
             }
         });
