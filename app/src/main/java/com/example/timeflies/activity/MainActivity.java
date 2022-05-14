@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -499,18 +500,22 @@ public class MainActivity extends AppCompatActivity{
         dialog.setTableNameConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long insert = btnInsert();
-                if(insert > 0 ){
-                    ToastCustom.showMsgTrue(MainActivity.this, "新建成功~");
-//                    initTableName("1");
+                String tableName = dialog.getTableEdit();
+                if(TextUtils.isEmpty(tableName)||tableName.equals("")){
+                    ToastCustom.showMsgWarning(MainActivity.this, "输入内容不能为空哦~");
                 }else{
-                    ToastCustom.showMsgFalse(MainActivity.this, "新建失败~");
+                    long insert = btnInsert(tableName);
+                    if(insert > 0 ){
+                        ToastCustom.showMsgTrue(MainActivity.this, "新建成功~");
+    //                    initTableName("1");
+                    }else{
+                        ToastCustom.showMsgFalse(MainActivity.this, "新建失败~");
+                    }
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
             }
 
-            private long btnInsert() {
-                String tableName = dialog.getTableEdit();
+            private long btnInsert(String tableName) {
                 String timeId = sp.getString("timeId","1");
                 long termStart = sp.getLong("termStart",new Date().getTime());
                 String curWeek = sp.getString("curWeek","1");

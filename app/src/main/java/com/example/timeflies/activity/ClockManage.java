@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -126,11 +127,17 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
         dialogCustom.setUpdateTimeConfirmListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int update = btnUpdate(position);
-                if(update > 0 ){
-                    initSchedule();
-                    ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
-                    dialogCustom.dismiss();
+                String start = dialogCustom.getUptimeStart();
+                String end = dialogCustom.getUptimeEnd();
+                if(TextUtils.isEmpty(start) || TextUtils.isEmpty(end)){
+                    ToastCustom.showMsgWarning(ClockManage.this, "输入内容不可为空哦~");
+                }else{
+                    int update = btnUpdate(position, start, end);
+                    if(update > 0 ){
+                        initSchedule();
+                        ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
+                        dialogCustom.dismiss();
+                    }
                 }
             }
         });
@@ -138,9 +145,7 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
         dialogCustom.setCanceledOnTouchOutside(false);
     }
 
-    private int btnUpdate(int position) {
-        String start = dialogCustom.getUptimeStart();
-        String end = dialogCustom.getUptimeEnd();
+    private int btnUpdate(int position, String start, String end) {
 //        Log.d(TAG, "btnUpdate: getUptimeStart"+start);
 //        Log.d(TAG, "btnUpdate: getUptimeEnd"+end);
         list.get(position).setStartTime(start);
@@ -185,11 +190,15 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 String newName = dialogCustom.getTableEdit();
-                int update = sqHelper.updateTimes(timeId, newName);
-                if( update > 0 ){
-                    time_name.setText(newName);
-                    ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
-                    dialogCustom.dismiss();
+                if(TextUtils.isEmpty(newName)){
+                    ToastCustom.showMsgWarning(ClockManage.this, "输入内容不可为空哦~");
+                }else{
+                    int update = sqHelper.updateTimes(timeId, newName);
+                    if( update > 0 ){
+                        time_name.setText(newName);
+                        ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
+                        dialogCustom.dismiss();
+                    }
                 }
             }
         });
