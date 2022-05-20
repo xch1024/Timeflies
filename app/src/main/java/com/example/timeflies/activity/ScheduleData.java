@@ -200,6 +200,7 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
      * 学期开始日期按钮
      */
     private void BtnTermTime(){
+        ToastCustom.showMsgWarning(ScheduleData.this, "为了周数计算准确，请选择周一");
         long date = sp.getLong("termStart", new Date().getTime());
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
@@ -269,18 +270,22 @@ public class ScheduleData extends AppCompatActivity implements View.OnClickListe
                     ToastCustom.showMsgFalse(ScheduleData.this, "请注意范围ʕ ᵔᴥᵔ ʔ");
                 }else{
                     //计算开学日期
+                    Log.d(TAG, "week: "+week);
                     long termStart = ScheduleSupport.setDate(Integer.parseInt(week));
                     String term = ScheduleSupport.longToDate(termStart);
                     Log.d(TAG, "计算开学日期: "+term);
+
+                    Log.d(TAG, "termStart: "+termStart);
+
+
                     cur_week.setText("第 "+week+" 周");
                     term_Start.setText(term);
-
 
                     sp.edit().putLong("termStart", termStart).apply();
                     //同步数据库和sp
                     sp.edit().putString("curWeek",week).apply();
                     sqHelper.updateConfig("curWeek", week, termId);
-                    sqHelper.updateConfig("termStart",term, termId);
+                    sqHelper.updateConfig("termStart",String.valueOf(termStart), termId);
                     dialogCustom.dismiss();
                 }
             }

@@ -83,6 +83,7 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
         tvTitle = findViewById(R.id.tvTitle);
         ivBack = findViewById(R.id.ivBack);
         ivDonate = findViewById(R.id.ivSave);
+        ivDonate.setVisibility(View.GONE);
 
         view_time_Name = findViewById(R.id.view_time_Name);
         time_name =findViewById(R.id.time_name);
@@ -113,31 +114,27 @@ public class ClockManage extends AppCompatActivity implements View.OnClickListen
 
     private String TAG = "xch";
 
+    /**
+     * 修改时间
+     * @param position
+     */
     private void btnUpdateTime(int position) {
         String start = list.get(position).getStartTime();
         String end = list.get(position).getEndTime();
         dialogCustom = new DialogCustom(ClockManage.this, R.layout.dialog_update_time, 0.8);
         dialogCustom.setTimeStep("第 "+(position+1)+" 节").setUptimeStart(start).setUptimeEnd(end);
-        dialogCustom.setUpdateTimeCancelListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogCustom.dismiss();
-            }
-        });
-        dialogCustom.setUpdateTimeConfirmListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String start = dialogCustom.getUptimeStart();
-                String end = dialogCustom.getUptimeEnd();
-                if(TextUtils.isEmpty(start) || TextUtils.isEmpty(end)){
-                    ToastCustom.showMsgWarning(ClockManage.this, "输入内容不可为空哦~");
-                }else{
-                    int update = btnUpdate(position, start, end);
-                    if(update > 0 ){
-                        initSchedule();
-                        ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
-                        dialogCustom.dismiss();
-                    }
+        dialogCustom.setUpdateTimeCancelListener(view -> dialogCustom.dismiss());
+        dialogCustom.setUpdateTimeConfirmListener(view -> {
+            String start1 = dialogCustom.getUptimeStart();
+            String end1 = dialogCustom.getUptimeEnd();
+            if(TextUtils.isEmpty(start1) || TextUtils.isEmpty(end1)){
+                ToastCustom.showMsgWarning(ClockManage.this, "输入内容不可为空哦~");
+            }else{
+                int update = btnUpdate(position, start1, end1);
+                if(update > 0 ){
+                    initSchedule();
+                    ToastCustom.showMsgTrue(ClockManage.this, "修改成功~");
+                    dialogCustom.dismiss();
                 }
             }
         });

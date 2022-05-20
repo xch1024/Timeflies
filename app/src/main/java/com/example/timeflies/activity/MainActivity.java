@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
+
 public class MainActivity extends AppCompatActivity{
 
     private String TAG = "xch";
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: begin");
         //数据库配置
-//        SQLiteStudioService.instance().start(this);
+        SQLiteStudioService.instance().start(this);
         sp = getSharedPreferences("config", MODE_PRIVATE);
 
         initView();
@@ -270,7 +272,7 @@ public class MainActivity extends AppCompatActivity{
                         int termId = configDataList.get(i).getId();
                         String className = configDataList.get(i).getClassName();
                         String timeId = sqHelper.queryTimeId(String.valueOf(termId));
-                        long termStart = Long.parseLong(configDataList.get(i).getTermStart());
+                        long termStart = Long.valueOf(configDataList.get(i).getTermStart());
                         String curWeek = configDataList.get(i).getCurWeek();
                         int secTime = sqHelper.querySecTime(String.valueOf(termId));
                         String termWeeks = configDataList.get(i).getTermWeeks();

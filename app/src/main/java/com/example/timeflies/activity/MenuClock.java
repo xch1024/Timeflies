@@ -199,13 +199,17 @@ public class MenuClock extends AppCompatActivity implements View.OnClickListener
                     if(Integer.parseInt(spId) == id){
                         ToastCustom.showMsgWarning(MenuClock.this,"不能删除已选中的时间表哦~");
                     }else{
-                        int delete = sqHelper.delTimes(id);
-                        if(delete > 0 ){
-                            ToastCustom.showMsgTrue(MenuClock.this,"删除成功~");
-                            timeDataList.clear();
-                            initTable();
+                        if(sqHelper.searchTimeId(String.valueOf(id))){
+                            ToastCustom.showMsgWarning(MenuClock.this,"该时间表仍被使用中，不可删除哦~");
                         }else{
-                            ToastCustom.showMsgTrue(MenuClock.this,"删除失败~");
+                            int delete = sqHelper.delTimes(id);
+                            if(delete > 0 ){
+                                ToastCustom.showMsgTrue(MenuClock.this,"删除成功~");
+                                timeDataList.clear();
+                                initTable();
+                            }else{
+                                ToastCustom.showMsgTrue(MenuClock.this,"删除失败~");
+                            }
                         }
                     }
                     break;

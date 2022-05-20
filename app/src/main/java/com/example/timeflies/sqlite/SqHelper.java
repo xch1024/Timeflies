@@ -262,6 +262,8 @@ public class SqHelper {
         return count;
     }
 
+
+
     /**
      * 删除时间表
      */
@@ -280,6 +282,9 @@ public class SqHelper {
         db.close();
         return count;
     }
+
+
+
 
     /**
      * 删除时间表 修改时间表
@@ -316,6 +321,20 @@ public class SqHelper {
         int count = db.update("times", values, "_id=?", new String[]{String.valueOf(timeData.getId())});
         db.close();
         return count;
+    }
+
+    //查询当前时间段是否在使用
+    public boolean searchTimeId(String timeId){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from configs where timeId = ?", new String[]{timeId});
+        while(cursor.moveToNext()){
+            db.close();
+            Log.d(TAG, "searchTimeId:表中存在 ");
+            return true;
+        }
+        db.close();
+        Log.d(TAG, "searchTimeId:表中不存在 ");
+        return false;
     }
 
 }
